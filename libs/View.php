@@ -8,8 +8,8 @@
  */
 class View
 {
-    public static function factory($view){
-
+    public static function factory(){
+            return new View();
     }
     public function render($name){
 
