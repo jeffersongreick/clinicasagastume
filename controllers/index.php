@@ -2,12 +2,16 @@
 
 class Index  extends  Controller{
 
-    function __construct(){
-        parent::__construct();
-
-    }
+    
  public  function  index(){
-     $this->view->render('index/index');
+     $view_name = "index/index";
+     $view = View::factory($view_name);
+     $value = "ajsdasds";
+     $view->set('a', $value);
+     echo $view->render();
+    
+     
+     
  }
     public function otra($a = false){
         $this->view->render('index/index');
