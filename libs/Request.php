@@ -8,9 +8,9 @@
  */
 class Request
 {
-    private $_controlador;
-    private $_metodo;
-    private $_argumentos;
+    private $controlador;
+    private $metodo;
+    private $argumentos;
 
     public function __construct(){
         if(isset($_GET['url'])){
@@ -23,34 +23,34 @@ class Request
             $url = array_filter($url);
 
             //array_shift Quita el primer valor del array y lo devuelve
-            $this->_controlador = strtolower(array_shift($url));
-            $this->_metodo = strtolower(array_shift($url));
-            $this->_argumentos = $url;
+            $this->controlador = strtolower(array_shift($url));
+            $this->metodo = strtolower(array_shift($url));
+            $this->argumentos = $url;
         }
 
         //si no hay un controlador asigna el controlador por defecto
-        if(!$this->_controlador){
-            $this->_controlador = DEFAULT_CONTROLLER;
+        if(!$this->controlador){
+            $this->controlador = DEFAULT_CONTROLLER;
         }
         //si no hay metodo asigna el metodo por defecto index
-        if(!$this->_metodo){
-            $this->_metodo = 'index';
+        if(!$this->metodo){
+            $this->metodo = 'index';
         }
         //si no hay argumentos se le asigna un array vacio
         if(!isset($this->_argumentos)){
-            $this->_argumentos = array();
+            $this->argumentos = array();
         }
     }
 
     public function get_controller(){
-        return $this->_controlador;
+        return $this->controlador;
     }
 
     public function get_method(){
-        return $this->_metodo;
+        return $this->metodo;
     }
 
     public function get_aguments(){
-        return $this->_argumentos;
+        return $this->argumentos;
     }
 }
