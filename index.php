@@ -30,7 +30,7 @@ function auto_load($class) {
         die;
     }
 }
-
+//registra la funcion para cargar las clases automaticamente
 spl_autoload_register('auto_load');
 
 try {

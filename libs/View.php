@@ -14,31 +14,33 @@ class View {
         return new View($view_name);
     }
 
+    //funcion encargada de generar el html de las vistas
     public function render() {
+        //esto carga las varibales de la vista, toma los valores del array data
+        // y seta las varibales de la vista donde el nombre conside con las claves del array
+
         extract($this->data, EXTR_SKIP);
-		
-		// Capture the view output
-		ob_start();
 
-		try
-		{
-			// Load the view within the current scope
-			include $this->file;
-                    
-		}
-		catch (Exception $e)
-		{
-			// Delete the output buffer
-			ob_end_clean();
+        // Captura la salida de la vista si esto te muestra la vista enseguida.
+        // esto te permita trabajar con la vista y mostrarla cuando quieras 
+        ob_start();
 
-			// Re-throw the exception
-			throw $e;
-		}
+        try {
+            // carga el archivo de la vista dada
+            include $this->file;
+        } catch (Exception $e) {
+            //elimina lo  q fue capturado por ob_start();
+            ob_end_clean();
 
-		// Get the captured output and close the buffer
-		return ob_get_clean();
+            // Re-throw the exception
+            throw $e;
+        }
+
+        // retorna lo  q fue caputrado por ob_start y limpia el buffer
+        return ob_get_clean();
     }
 
+    //funcion para setiar las variables en la vista     
     public function set($key, $value = NULL) {
 
         if (is_array($key)) {
@@ -52,10 +54,8 @@ class View {
         return $this;
     }
 
-     public function __toString()
-    {
+    public function __toString() {
         return $this->render();
     }
-
 
 }
