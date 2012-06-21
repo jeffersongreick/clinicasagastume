@@ -1,0 +1,87 @@
+#descripcion{ 
+    display: inline-block;
+    color: black;
+    height: 20px;
+    width: 744px;
+    text-align: center;
+}
+
+#odontograma{
+    max-height: 500px;
+    height: 500px;
+    width: 1000px;
+    float: left;
+}
+#editor{
+    float: left;
+    width: 1000px;
+}
+#slide{
+    width: 2400px;
+    position: relative;
+}
+#contenedorSlide{
+    overflow: hidden;
+    position: relative;
+}
+
+/*estilo editor*/
+
+#items{
+    max-height: 430px;
+    width: 750px;
+    padding: 0px;
+    float: left;
+    color: white;
+    border: solid white;
+    border-top: none;
+    border-radius: 3px;
+}
+#items input {
+    position: absolute;
+    visibility: hidden;
+}
+#items > label {
+    font-size: 20px;
+    height: 30px;
+    float: left;
+    display: block;
+    width: 365px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+#items > input:hover + label {
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 17%,rgba(255,255,255,0) 62%,rgba(255,255,255,0) 100%);
+    color: black;
+}
+#items > input:checked + label {
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%);
+}
+
+.pestanas .prestaciones {
+    display: none;  
+}
+.estados{
+    height: 355px;
+    padding: 5px;
+    overflow-y: scroll;
+}
+
+#canvasPieza{
+    float: left;
+    display: block;
+    margin: 15px;
+    width: 200px;
+}
+.iconos{
+    width: 80px;
+    height: 80px;
+    border: solid;
+    border-radius: 3px;
+}
+.pestanas input:checked + label img {
+    background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
+}
+

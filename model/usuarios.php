@@ -10,9 +10,14 @@
  *
  * @author Diego
  */
-class Model_Usuarios {
+class Model_Usuarios extends Model{
     public $pepe = "hoasasa";
-    
+    public function pepe(){
+        $db = new Database();
+        $sql = "Select * From usuarios";
+        $db->query($sql)->execute();
+        
+    }
 }
 
 ?>

@@ -1,0 +1,97 @@
+.iconos_escritorio + .nombreFuncion{
+    display: block;
+    text-align: center;
+    alignment-adjust: central;
+    color: white;
+    font-weight:bold;
+}
+.iconoContainer{
+    margin: 10px 30px ;
+    width: 100px;
+    alignment-adjust: central;
+    cursor: pointer;
+}
+.descripcionIcono{
+    text-decoration: none;
+}
+.iconos_escritorio{
+    position: relative;
+    margin: 5px 18px;
+}
+
+.funcion{
+    width: 325px;
+    z-index: 2;
+    position: absolute;
+    left: 35%;
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 100%);
+    display: none;
+    margin: 0;
+    border-top: 0;
+}
+.funcion ul{
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.funcion ul li ul{
+    display: none;
+    margin: 0 30px;
+}
+.boton{
+    width: 310px;
+    height: 50px;
+}
+.block{
+    position: absolute;
+    right: 0px;
+    top: 0;
+    z-index: 1;
+    background-color: #000000;
+    opacity: 0.5;
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+ul li ul .boton{
+    width: 250px;
+    height: 40px;
+    background: white;
+    color: black;
+}
+
+#buscarOdontograma input{
+    margin: 3px 10px;
+    width: 140px;
+}
+#buscarOdontograma .campoTexto{
+    margin: 3px 10px;
+    width: 300px;
+}
+#buscarOdontograma p{
+    margin: 3px 10px;
+}
+.listado{
+    height: 75%;
+    border: solid;
+    margin: 5px 10px;
+    background-color: white;
+    border: none;
+}
+.tabla{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: large;
+    color: black;
+    height: 200px;
+}
+.tabla td{
+    border: solid 1px red;
+    text-align:center;
+    font-weight: normal;
+    height: 15px;
+}
+.tabla tr:hover{
+    background-color: #A5DCFF;
+}

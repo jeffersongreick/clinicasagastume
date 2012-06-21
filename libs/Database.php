@@ -1,11 +1,5 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: diegoplada
- * Date: 04/06/12
- * Time: 16:13
- * To change this template use File | Settings | File Templates.
- */
+
 class Database extends PDO
 {
        function __construct(){

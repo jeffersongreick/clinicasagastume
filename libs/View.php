@@ -15,9 +15,7 @@ class View {
     }
 
     public function render() {
-
         extract($this->data, EXTR_SKIP);
-
 		
 		// Capture the view output
 		ob_start();
@@ -38,7 +36,7 @@ class View {
 		}
 
 		// Get the captured output and close the buffer
-		var_dump( ob_get_clean());
+		return ob_get_clean();
     }
 
     public function set($key, $value = NULL) {
@@ -53,5 +51,11 @@ class View {
 
         return $this;
     }
+
+     public function __toString()
+    {
+        return $this->render();
+    }
+
 
 }
