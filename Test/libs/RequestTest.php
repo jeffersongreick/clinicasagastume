@@ -26,9 +26,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
         $this->assertEmpty($request->get_aguments());
     }
 
-    /**
-     * @backupGlobals enabled
-     */
+  
 }
 
 ?>
