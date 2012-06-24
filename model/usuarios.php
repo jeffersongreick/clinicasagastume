@@ -11,12 +11,18 @@
  * @author Diego
  */
 class Model_Usuarios extends Model{
+    
+    public function __construct() {
+        parent::__construct();
+    }
+   
     public $pepe = "hoasasa";
+    
     public function pepe(){
-        $db = new Database();
-        $sql = "Select * From usuarios";
-        $db->query($sql)->execute();
-        
+      $sql = "Select * From Productos";
+      $query= $this->db->query($sql);
+      
+      return $query->fetchAll();
     }
 }
 
