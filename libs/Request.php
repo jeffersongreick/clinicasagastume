@@ -14,11 +14,13 @@ class Request
 
     public function __construct(){
         if(isset($_GET['url'])){
+             
             //Elimina todos los caracteres excepto letras, dígitos y $-_.+!*'(),{}|\\^~[]`<>#%";/?:@&=.
-            $url = filter_input(INPUT_GET,'url',FILTER_SANITIZE_URL);
-
+            $url = filter_var($_GET['url'],FILTER_SANITIZE_URL);
+          
              // crea un array con el string dado usando como sepador "/"
             $url = explode("/",$url);
+           
             //elimina posiciones vacias en el array
             $url = array_filter($url);
 
@@ -26,6 +28,7 @@ class Request
             $this->controlador = strtolower(array_shift($url));
             $this->metodo = strtolower(array_shift($url));
             $this->argumentos = $url;
+           
         }
 
         //si no hay un controlador asigna el controlador por defecto
@@ -37,9 +40,10 @@ class Request
             $this->metodo = 'index';
         }
         //si no hay argumentos se le asigna un array vacio
-        if(!isset($this->_argumentos)){
+        if(!isset($this->argumentos)){
             $this->argumentos = array();
         }
+        
     }
 
     public function get_controller(){
