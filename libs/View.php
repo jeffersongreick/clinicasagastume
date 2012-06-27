@@ -10,21 +10,16 @@ class View {
     }
 
     public static function factory($view_name) {
-
         return new View($view_name);
     }
-
     //funcion encargada de generar el html de las vistas
     public function render() {
         //esto carga las varibales de la vista, toma los valores del array data
         // y seta las varibales de la vista donde el nombre conside con las claves del array
-
         extract($this->data, EXTR_SKIP);
-
         // Captura la salida de la vista si esto te muestra la vista enseguida.
         // esto te permita trabajar con la vista y mostrarla cuando quieras 
         ob_start();
-
         try {
             // carga el archivo de la vista dada
             include $this->file;

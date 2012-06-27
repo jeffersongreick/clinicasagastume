@@ -19,7 +19,7 @@
     margin: 5px 18px;
 }
 
-.funcion{
+.function{
     width: 325px;
     z-index: 2;
     position: absolute;
@@ -29,17 +29,17 @@
     margin: 0;
     border-top: 0;
 }
-.funcion ul{
+.function ul{
     display: block;
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.funcion ul li ul{
+.function ul li ul{
     display: none;
     margin: 0 30px;
 }
-.boton{
+.button{
     width: 310px;
     height: 50px;
 }
@@ -54,7 +54,7 @@
     width: 100%;
     height: 100%;
 }
-ul li ul .boton{
+ul li ul .button{
     width: 250px;
     height: 40px;
     background: white;
@@ -65,7 +65,7 @@ ul li ul .boton{
     margin: 3px 10px;
     width: 140px;
 }
-#buscarOdontograma .campoTexto{
+#buscarOdontograma .fieldText{
     margin: 3px 10px;
     width: 300px;
 }

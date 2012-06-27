@@ -1,15 +1,54 @@
-var URL = "http://localhost/framework/public/";
 //capas de odontogramas y editor de pieza
 var layerPieza, layerOdontograma;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;
 //ayuda a establecer la posicion del ultimo item (estado o prestacion agregado a una pieza en edicion)
 var posicion = 400;
-//al empezar se cargan los canvas del odontograma y del editor de piezas 
-window.onload = function(){
-    cargarPiezaEdicion();
+var request_http  = XMLHttpRequest;
+
+$(document).ready(function(){
+    //al empezar se cargan los canvas del odontograma y del editor de piezas 
     cargarOdontograma();
-}
+    cargarPiezaEdicion();
+    //    efecto de enfoque
+    $("img").mouseover(function(){
+        $(this).addClass("enfoque");
+        $('#description').html($(this).attr("name"));
+    });
+    $("img").mouseout(function(){
+        $(this).removeClass("enfoque");
+    });
+    //    cambia entre opciones de items estados o prestaciones
+    $("#tab-1").click(function(){
+        $(".prestaciones").fadeOut("2000",function(){
+            $("#description").html("");
+            $(".estados").fadeIn("2000");
+        });
+    })
+    $("#tab-2").click(function(){
+        $(".estados").fadeOut("2000",function(){
+            $("#description").html("");
+            $(".prestaciones").fadeIn("2000");    
+        });
+    })
+    //    cambia de odontograma a edicion de pieza
+    $('#btnEditarPieza').click(function(){       
+        $('#slideContainer').animate({
+            scrollLeft:1000
+        },500);
+    });
+    $('#btnCancelar').click(function(){       
+        $('#slideContainer').animate({
+            scrollLeft:0
+        },500);
+    });
+    $('#btnGuardar').click(function(){       
+        $('#slideContainer').animate({
+            scrollLeft:0
+        },500);
+    });
+    
+});
 //funcion de dibujo de odontogramas en canvas
 function cargarOdontograma(){
     stageOdontograma = new Kinetic.Stage({
@@ -39,7 +78,7 @@ function cargarOdontograma(){
             idPieza +=1;
             
         }
-        imag.src = URL+"img/img_pieza/pz_1.png";    
+        imag.src = "http://localhost/clinica/odontograma/public/images/img_pieza/pz_1.png";    
     }
     //    carga el maxilar inferioirdel odontograma
     var pos2 = 60;
@@ -62,9 +101,9 @@ function cargarOdontograma(){
             pos2 += 60;
             idPieza +=1;
         }
-        imag.src = URL+"img/img_pieza/pz_1.png";      
+        imag.src = "http://localhost/clinica/odontograma/public/images/img_pieza/pz_1.png";      
     }
-//agregar el evento de seleccion de pieza al cliquear con el mouse
+    //agregar el evento de seleccion de pieza al cliquear con el mouse
     layerOdontograma.on('click', function(evt) {
         var shape = evt.shape;
         if(shape.isSelected()){
@@ -104,12 +143,12 @@ function  generadorCara(l1,l2,l3,l4,l5,l6,l7,l8,l9,l0,id){
 //diseña la referencia a las caras de cada pieza del odontograma. 
 //Se rfeciben los parametros de la posicion de cada pieza y de que capa.
 function generadorCoronasOdontograma(posX,posY, layer, stage){
-//    caras alrededor de la pieza
+    //    caras alrededor de la pieza
     var cara1 = generadorCara(posX, posY, posX + 20, posY - 10, posX + 40, posY, posX +28, posY +12, posX+12, posY+12,1);
     var cara2 = generadorCara(posX+40, posY, posX+50, posY+20, posX+40, posY+40, posX+28, posY+28, posX+28, posY+12,2);
     var cara3 = generadorCara(posX+40, posY+40, posX+20, posY+50, posX, posY+40, posX+12, posY+28, posX+28, posY+28,3);
     var cara4 = generadorCara(posX, posY + 40 , posX-10, posY+20, posX, posY, posX + 12, posY+12, posX+12,posY+28,4);
-//    parte central del diente
+    //    parte central del diente
     var cara5 = new Kinetic.Rect({
         x: posX+12,
         y: posY+12,
@@ -120,7 +159,7 @@ function generadorCoronasOdontograma(posX,posY, layer, stage){
         stroke: "red",
         strokeWidth: 0.3
     });
-//    periodonto
+    //    periodonto
     var cara6 = new Kinetic.Shape({
         drawFunc: function() {
             var context = this.getContext();
@@ -146,7 +185,6 @@ function generadorCoronasOdontograma(posX,posY, layer, stage){
     layer.add(cara5);
     stage.add(layer);
 }
-
 //diseña en el canvas la pieza seleccionada a edita
 function cargarPiezaEdicion(){
     stagePieza = new Kinetic.Stage({
@@ -186,7 +224,7 @@ function cargarPiezaEdicion(){
         fill: "white",
         id:"6"
     });
-//    agrega al canvas la imagen del diente a personalizar
+    //    agrega al canvas la imagen del diente a personalizar
     var imagenObj = new Image();
     imagenObj.onload = function() {
         var image = new Kinetic.Image({
@@ -199,7 +237,7 @@ function cargarPiezaEdicion(){
         layerPieza.add(image);
         stagePieza.add(layerPieza);
     };
-    imagenObj.src = URL+"img/img_pieza/pz_1.png";      
+    imagenObj.src = "http://localhost/clinica/odontograma/public/images/img_pieza/pz_1.png";      
     cara1.on("click", marcarCara );
     cara2.on("click", marcarCara );
     cara3.on("click", marcarCara );
@@ -254,7 +292,7 @@ function marcarPieza(id,cb){
             posicion -=50;
             
         };
-        imagenObj.src = URL+"img/ico_prestaciones/img"+id+".png"; 
+        imagenObj.src = "http://localhost/clinica/odontograma/public/ico_prestaciones/img"+id+".png"; 
     }else{
         layerPieza.remove(stagePieza.get('#'+id)[0]);
         var items = layerPieza.get(".item");
@@ -272,44 +310,3 @@ function marcarPieza(id,cb){
     }
 }
 //al iniciar agrega funciones animadas a la interfaz
-$(document).ready(function(){
-//    efecto de enfoque
-    $("img").mouseover(function(event){
-        $(this).addClass("enfoque");
-        $('#descripcion').html($(this).attr("name"));
-    });
-    $("img").mouseout(function(event){
-        $(this).removeClass("enfoque");
-    });
-//    cambia entre opciones de items estados o prestaciones
-    $("#tab-1").click(function(event){
-        $(".prestaciones").fadeOut("2000",function(){
-            $("#descripcion").html("");
-            $(".estados").fadeIn("2000");
-        });
-    })
-    
-    $("#tab-2").click(function(event){
-        $(".estados").fadeOut("2000",function(){
-            $("#descripcion").html("");
-            $(".prestaciones").fadeIn("2000");    
-        });
-    })
-//    cambia de odontograma a edicion de pieza
-    $('#btnEditarPieza').click(function(){       
-        $('#contenedorSlide').animate({
-            scrollLeft:1000
-        },1000);
-    });
-    $('#btnCancelar').click(function(){       
-        $('#contenedorSlide').animate({
-            scrollLeft:0
-        },1000);
-    });
-    $('#btnGuardar').click(function(){       
-        $('#contenedorSlide').animate({
-            scrollLeft:0
-        },1000);
-    });
-    
-});

@@ -1,35 +1,48 @@
-        <div id="contenedor">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="<?php echo URL?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="<?php echo URL?>public/css/estilo.css" type="text/css" media="screen"/>
+        <script type="text/javascript" src="<?php echo URL?>public/js/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo URL?>public/js/KineticJS.js"></script>
+        <script type="text/javascript" src="<?php echo URL?>public/js/editor_script.js"></script>
+        <link rel="shortcut icon" href="<?php echo URL?>public/images/tooth.ico" type="image.ico"/>
+        <title>Odontograma</title>
+    </head>
+    <body>
+        <div id="container">
 <!--            cabecera-->
             <div id="header">
-                <h1 id="titulo">Clinica Sagastume</h1>
+                <h1 id="title">Clinica Sagastume</h1>
                 <a href="">Cerrar seccion</a>
                 <p id="user" style="margin-right: 20px;">Gerardo Sagastume</p>
                 <div class="clear"></div>
             </div>
 
-            <div id="aplicacion">
+            <div id="aplication">
 <!--datos del paciente-->
-                <div id="pnlDatos">
-                    <p id="nombrePaciente">Paciente: <span>Marciano Durán</span></p> 
-                    <a href="" id="idTratamiento">Tratamiento: 16</a>
+                <div id="pnlData">
+                    <p id="patientName">Paciente: <span>Marciano Durán</span></p> 
+                    <a href="" id="idTreatment">Tratamiento: 16</a>
                     <p style="margin: 0;">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
                 </div>
 
-                <div id="contenedorSlide">
+                <div id="slideContainer">
 <!--contenedor de las cajas de edicion (odontograma y editor de pieza)-->
                     <div id="slide">
 <!--odontograma-->
                         <div id="odontograma">
                             <div id="canvasOdontograma"></div>
-                            <input type="button" value="Editar pieza" id="btnEditarPieza" class="boton" />
-                            <input type="button" value="Imprimir" id="btnImprimir" class="boton" />
-                            <input type="button" value="Cambiar pieza" id="btnCambaiarPieza" class="boton" />
-                            <input type="button" value="Extraer" id="btnExtraer" class="boton" />
+                            <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
+                            <input type="button" value="Imprimir" id="btnImprimir" class="button" />
+                            <input type="button" value="Cambiar pieza" id="btnCambaiarPieza" class="button" />
+                            <input type="button" value="Extraer" id="btnExtraer" class="button" />
                             <a href="index.php" class="descripcionIcono" >
-                                <input type="button" value="Guardar" id="btnGuardarOdontograma" class="boton" />
+                                <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" />
                             </a>
                             <a href="index.php" class="descripcionIcono" >
-                                <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="boton" />
+                                <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="button" />
                             </a>
                             <div class="clear"></div>
                         </div>
@@ -42,18 +55,18 @@
                                 <input id="tab-2" type="radio" name="radio-set" class="tab-selector-2" />
                                 <label for="tab-2" class="tab-label-2">Prestaciones</label>
                                 <div class="clear"></div>
-                                <div class="pestanas">
+                                <div class="tabs">
                                     <div class="estados">
                                         <?php
                                         $conexion = new mysqli('localhost', 'root', '', 'clinicadb');
-                                        $consulta = "SELECT * FROM tbl_estados";
+                                        $consulta = "SELECT * FROM tbl_estado";
                                         $resultado = $conexion->query($consulta);
                                         while ($filas = $resultado->fetch_array(MYSQLI_ASSOC)) {
                                             $id = $filas['id'];
                                             ?>   
                                             <input type="checkbox" id="<?php echo $id; ?>" class="item" onclick="marcarPieza('<?php echo $id ?>',this)"/>
                                             <label for="<?php echo $id; ?>" >
-                                                <img src="<?php echo URL.'public/'.$filas['url_img']; ?>" class="iconos" id="<?php echo $id; ?>" name="<?php echo $filas['estado']; ?>"/>
+                                                <img src="<?php echo $filas['url_img']; ?>" class="iconos" id="<?php echo $id; ?>" name="<?php echo $filas['estado']; ?>"/>
                                             </label>
                                             <?php
                                         }
@@ -65,14 +78,15 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div id="descripcion"></div>
+                                <div id="description"></div>
                             </div>
-                            <input type="button" value="Guardar" id="btnGuardar" class="boton" />
-                            <input type="button" value="Cancelar" id="btnCancelar" class="boton" />
+                            <input type="button" value="Guardar" id="btnGuardar" class="button" />
+                            <input type="button" value="Cancelar" id="btnCancelar" class="button" />
                             <div class="clear"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-  
+    </body>
+</html>

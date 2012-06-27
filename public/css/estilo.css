@@ -2,11 +2,11 @@
     border-radius: 5px; 
     font-size: large;
 }
-#contenedor{
+#container{
     width: 1000px;
     margin: 0 auto;
 }
-#titulo{
+#title{
     background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 70%,rgba(255,255,255,0) 100%);
     color: black;
     margin: 5px;
@@ -29,23 +29,23 @@ body{
 .clear{
     clear: both;
 }
-#pnlDatos{
+#pnlData{
     border-bottom: solid;
     background-color: gray;
     margin-top: 0;
 }
-#pnlDatos #nombrePaciente{
+#pnlData #patientName{
     margin: 0;
     display: inline;
 }
-#idTratamiento{
+#idTreatment{
     display: inline;
     float: right;
     color: white;
     margin-right: 20px;
 
 }
-#aplicacion{
+#aplication{
     position: relative;
     background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.65) 100%);
     border: solid seashell;
@@ -54,7 +54,7 @@ body{
     height: 570px;
 
 }
-.boton{
+.button{
     font-size: 20px;
     color: white;
     font-weight: bold;

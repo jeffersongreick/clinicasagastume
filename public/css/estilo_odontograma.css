@@ -1,4 +1,4 @@
-#descripcion{ 
+#description{ 
     display: inline-block;
     color: black;
     height: 20px;
@@ -20,7 +20,7 @@
     width: 2400px;
     position: relative;
 }
-#contenedorSlide{
+#slideContainer{
     overflow: hidden;
     position: relative;
 }
@@ -60,7 +60,7 @@
     background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%);
 }
 
-.pestanas .prestaciones {
+.tabs .prestaciones {
     display: none;  
 }
 .estados{
@@ -81,7 +81,7 @@
     border: solid;
     border-radius: 3px;
 }
-.pestanas input:checked + label img {
+.tabs input:checked + label img {
     background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
 }
 
