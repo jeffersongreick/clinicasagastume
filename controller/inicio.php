@@ -4,8 +4,8 @@ class Controller_Inicio {
 
     public function index() {
         $view = View::factory('layout');
-//       $contenido = View::factory('odontograma');       
-//        $view->set('contenido', $contenido);
+        $contenido = View::factory('odontograma');
+        $view->set('contenido', $contenido);
         echo $view->render();
     }
 

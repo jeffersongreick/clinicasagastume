@@ -78,7 +78,7 @@ function cargarOdontograma(){
             idPieza +=1;
             
         }
-        imag.src = "http://localhost/clinica/odontograma/public/images/img_pieza/pz_1.png";    
+        imag.src = "http://localhost/clinica/odontograma/public/img/img_pieza/pz_1.png";    
     }
     //    carga el maxilar inferioirdel odontograma
     var pos2 = 60;
@@ -101,7 +101,7 @@ function cargarOdontograma(){
             pos2 += 60;
             idPieza +=1;
         }
-        imag.src = "http://localhost/clinica/odontograma/public/images/img_pieza/pz_1.png";      
+        imag.src = "http://localhost/clinica/odontograma/public/img/img_pieza/pz_1.png";      
     }
     //agregar el evento de seleccion de pieza al cliquear con el mouse
     layerOdontograma.on('click', function(evt) {
@@ -237,7 +237,7 @@ function cargarPiezaEdicion(){
         layerPieza.add(image);
         stagePieza.add(layerPieza);
     };
-    imagenObj.src = "http://localhost/clinica/odontograma/public/images/img_pieza/pz_1.png";      
+    imagenObj.src = "http://localhost/clinica/odontograma/public/img/img_pieza/pz_1.png";      
     cara1.on("click", marcarCara );
     cara2.on("click", marcarCara );
     cara3.on("click", marcarCara );
@@ -292,7 +292,7 @@ function marcarPieza(id,cb){
             posicion -=50;
             
         };
-        imagenObj.src = "http://localhost/clinica/odontograma/public/ico_prestaciones/img"+id+".png"; 
+        imagenObj.src = "http://localhost/clinica/odontograma/public/img/ico_prestaciones/img"+id+".png"; 
     }else{
         layerPieza.remove(stagePieza.get('#'+id)[0]);
         var items = layerPieza.get(".item");
@@ -309,4 +309,3 @@ function marcarPieza(id,cb){
         }
     }
 }
-//al iniciar agrega funciones animadas a la interfaz
