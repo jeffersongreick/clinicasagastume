@@ -7,12 +7,12 @@
         <link rel="stylesheet" href="<?php echo URL ?>public/css/dark-hive/jquery-ui-1.8.21.custom.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery-ui.js"></script>
-
-        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/KineticJS.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/editor_script.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/escritorio_script.js"></script>
-        <!--        <link rel="shortcut icon" href="public/images/tooth.ico" type="image.ico"/>-->
+        <script type="text/javascript" src="<?php echo URL ?>public/js/script.js"></script>
+        <link rel="shortcut icon" href="public/images/tooth.ico" type="image.ico"/>
+<!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
+
+
         <title>Clinica Sagastume</title>
     </head>
     <body>

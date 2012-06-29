@@ -1,34 +1,138 @@
+var URL = 'http://localhost/clinica/odontograma/';
 //capas de odontogramas y editor de pieza
 var layerPieza, layerOdontograma;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;
 //ayuda a establecer la posicion del ultimo item (estado o prestacion agregado a una pieza en edicion)
 var posicion = 400;
-var request_http  = XMLHttpRequest;
-
 $(document).ready(function(){
-    //al empezar se cargan los canvas del odontograma y del editor de piezas 
-    cargarOdontograma();
-    cargarPiezaEdicion();
-    //    efecto de enfoque
-    $("img").mouseover(function(){
+    //efectos de iconos de escritorio
+    $(".iconoContainer").mouseover(function(){
         $(this).addClass("enfoque");
-        $('#description').html($(this).attr("name"));
+    }); 
+    $(".iconoContainer").mouseout(function(){
+        $(this).removeClass("enfoque");
+    }); 
+    //abre menu de seleccion de registro de odontogramas
+    $("#btnRegistroPaciente").click(function(){
+        abrirVentana("#registrosOdontogramas");
     });
-    $("img").mouseout(function(){
+    //cierra e menu de seleccion de registro de odontogramas
+    $("#btnCancelarAccion").click(function(event){
+        sliderMenuFuncion(event);
+        cerrarVentana("#registrosOdontogramas");
+    });
+    //cierra la ventana de busqueda de odontogramas
+    $("#btnCancelarBusqueda").click(function(event){
+        cerrarVentana("#buscarOdontograma");
+       
+    });
+    //asigna la aparicion del buscador de odontogramas
+    $("#btnBuscarEstado").click(function(event){
+        sliderMenuFuncion(event);
+        $("#registrosOdontogramas").slideUp("4000",function(){
+            $("#buscarOdontograma").slideDown("4000");
+        });
+    });
+    //funcion no habilitada
+    $("#btnTratamiento").click(function(){
+        alert("En construccion..");
+    });
+    //funcion no habilitada
+    $("#btnOtros").click(function(){
+        alert("En construccion.");
+    });
+    //funcion no habilitada
+    $("#btnHistoria").click(function(){
+        alert("En construccion..");
+    });
+    //despliega el submenu del contenedor
+    $("#btnEstadoInicial").click(function(event){
+        sliderMenuFuncion(event);
+    })
+    //despliega el submenu del contenedor
+    $("#btnOtrosOdontogramas").click(function(event){
+        sliderMenuFuncion(event);
+    })
+    //abre el menu de seleccion de fecha    
+    $("#fromFecha").datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+       
+        onSelect: function( selectedDate ) {
+            $( "#toFecha" ).datepicker( "option", "minDate", selectedDate );
+        }
+    });
+    //abre el menu de seleccion de fecha    
+    $( "#toFecha" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function( selectedDate ) {
+            $( "#fromFecha" ).datepicker( "option", "maxDate", selectedDate );
+        }
+    });
+});
+//Bloquea el uso del escritorio
+function bloquearEscritorio(){
+    $(".block").fadeIn("4000"); 
+}
+//desbloquea el uso del escritorio
+function desbloquearEscritorio(){
+    $(".block").fadeOut("4000"); 
+}
+//abre una caja pasada por parametro
+function abrirVentana(window){
+    bloquearEscritorio();
+    $(window).slideDown("4000");
+}
+//cierra una caja pasada por parametro
+function cerrarVentana(window){
+    desbloquearEscritorio();
+    $(window).slideUp("4000");
+}
+//se realiza el efecto para mostrar y cerrar el menu de funciones
+function sliderMenuFuncion(event){
+    var menu= $("#registrosOdontogramas");
+    var link=$(event.currentTarget);
+    if (link.parent().find('ul.active').size()==1){
+        link.parent().find('ul.active').slideUp('medium',function(){
+            link.parent().find('ul.active').removeClass('active');
+        });
+    }else if (menu.find('ul li ul.active').size()==0){
+        link.parent().find('ul').addClass('active');
+        link.parent().find('ul').slideDown('medium');
+    }else{
+        menu.find('ul li ul.active').slideUp('medium',function(){
+            menu.find('ul li ul').removeClass('active');
+            link.parent().find('ul').addClass('active');
+            link.parent().find('ul').slideDown('medium');
+        });
+    }  
+}
+function OdontogramaEventsLoad(){
+    
+    //    efecto de enfoque en items de estado y prestacion
+    $(".item img").mouseover(function(){
+        $(this).addClass("enfoque");
+        $('#item_description').html($(this).attr("name"));
+    });
+    $(".item img").mouseout(function(){
         $(this).removeClass("enfoque");
     });
+        
     //    cambia entre opciones de items estados o prestaciones
-    $("#tab-1").click(function(){
-        $(".prestaciones").fadeOut("2000",function(){
-            $("#description").html("");
-            $(".estados").fadeIn("2000");
+    $("#tab_state").click(function(){
+        $(".treatment_items").fadeOut("2000",function(){
+            $("#item_description").html("");
+            $(".state_items").fadeIn("2000");
         });
     })
-    $("#tab-2").click(function(){
-        $(".estados").fadeOut("2000",function(){
-            $("#description").html("");
-            $(".prestaciones").fadeIn("2000");    
+    $("#tab_treatment").click(function(){
+        $(".state_items").fadeOut("2000",function(){
+            $("#item_description").html("");
+            $(".treatment_items").fadeIn("2000");    
         });
     })
     //    cambia de odontograma a edicion de pieza
@@ -37,18 +141,19 @@ $(document).ready(function(){
             scrollLeft:1000
         },500);
     });
-    $('#btnCancelar').click(function(){       
+    $('#btnCancelar_edicion_pieza').click(function(){       
         $('#slideContainer').animate({
             scrollLeft:0
         },500);
     });
-    $('#btnGuardar').click(function(){       
+    $('#btnGuardar_edicion_pieza').click(function(){       
         $('#slideContainer').animate({
             scrollLeft:0
         },500);
     });
-    
-});
+    cargarOdontograma();
+    cargarPiezaEdicion();
+}
 //funcion de dibujo de odontogramas en canvas
 function cargarOdontograma(){
     stageOdontograma = new Kinetic.Stage({
@@ -78,7 +183,7 @@ function cargarOdontograma(){
             idPieza +=1;
             
         }
-        imag.src = "http://localhost/clinica/odontograma/public/img/img_pieza/pz_1.png";    
+        imag.src = URL+"public/img/img_pieza/pz_1.png";    
     }
     //    carga el maxilar inferioirdel odontograma
     var pos2 = 60;
@@ -101,7 +206,7 @@ function cargarOdontograma(){
             pos2 += 60;
             idPieza +=1;
         }
-        imag.src = "http://localhost/clinica/odontograma/public/img/img_pieza/pz_1.png";      
+        imag.src = URL+"public/img/img_pieza/pz_1.png";      
     }
     //agregar el evento de seleccion de pieza al cliquear con el mouse
     layerOdontograma.on('click', function(evt) {
@@ -237,7 +342,7 @@ function cargarPiezaEdicion(){
         layerPieza.add(image);
         stagePieza.add(layerPieza);
     };
-    imagenObj.src = "http://localhost/clinica/odontograma/public/img/img_pieza/pz_1.png";      
+    imagenObj.src = URL+"public/img/img_pieza/pz_1.png";      
     cara1.on("click", marcarCara );
     cara2.on("click", marcarCara );
     cara3.on("click", marcarCara );
@@ -292,7 +397,7 @@ function marcarPieza(id,cb){
             posicion -=50;
             
         };
-        imagenObj.src = "http://localhost/clinica/odontograma/public/img/ico_prestaciones/img"+id+".png"; 
+        imagenObj.src = URL+"public/img/ico_prestaciones/img"+id+".png"; 
     }else{
         layerPieza.remove(stagePieza.get('#'+id)[0]);
         var items = layerPieza.get(".item");

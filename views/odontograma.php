@@ -20,13 +20,13 @@
                         <div id="editor">
                             <div id="canvasPieza"></div>
                             <div id="items">
-                                <input id="tab-1" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
-                                <label for="tab-1" class="tab-label-1">Estados</label>
-                                <input id="tab-2" type="radio" name="radio-set" class="tab-selector-2" />
-                                <label for="tab-2" class="tab-label-2">Prestaciones</label>
+                                <input id="tab_state" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
+                                <label for="tab_state" class="tab-label">Estados</label>
+                                <input id="tab_treatment" type="radio" name="radio-set" class="tab-selector-2" />
+                                <label for="tab_treatment" class="tab-label">Prestaciones</label>
                                 <div class="clear"></div>
                                 <div class="tabs">
-                                    <div class="estados">
+                                    <div class="state_items">
                                         <?php
                                         $conexion = new mysqli('localhost', 'root', '', 'clinicadb');
                                         $consulta = "SELECT * FROM tbl_estado";
@@ -42,16 +42,16 @@
                                         }
                                         ?>
                                     </div>
-                                    <div class="prestaciones">
+                                    <div class="treatment_items">
                                         <input type="checkbox" id="p" class="item" />
                                         <label for="p" >
                                         </label>
                                     </div>
                                 </div>
-                                <div id="description"></div>
+                                <div id="item_description"></div>
                             </div>
-                            <input type="button" value="Guardar" id="btnGuardar" class="button" />
-                            <input type="button" value="Cancelar" id="btnCancelar" class="button" />
+                            <input type="button" value="Guardar" id="btnGuardar_edicion_pieza" class="button" />
+                            <input type="button" value="Cancelar" id="btnCancelar_edicion_pieza" class="button" />
                             <div class="clear"></div>
                         </div>
                     </div>
