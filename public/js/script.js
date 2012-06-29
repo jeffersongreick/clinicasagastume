@@ -9,57 +9,45 @@ $(document).ready(function(){
     //efectos de iconos de escritorio
     $(".iconoContainer").mouseover(function(){
         $(this).addClass("enfoque");
-    }); 
+    });
     $(".iconoContainer").mouseout(function(){
         $(this).removeClass("enfoque");
     }); 
-    //abre menu de seleccion de registro de odontogramas
-    $("#btnRegistroPaciente").click(function(){
-        abrirVentana("#registrosOdontogramas");
-    });
-    //cierra e menu de seleccion de registro de odontogramas
-    $("#btnCancelarAccion").click(function(event){
-        sliderMenuFuncion(event);
-        cerrarVentana("#registrosOdontogramas");
-    });
-    //cierra la ventana de busqueda de odontogramas
-    $("#btnCancelarBusqueda").click(function(event){
-        cerrarVentana("#buscarOdontograma");
-       
-    });
-    //asigna la aparicion del buscador de odontogramas
-    $("#btnBuscarEstado").click(function(event){
-        sliderMenuFuncion(event);
-        $("#registrosOdontogramas").slideUp("4000",function(){
-            $("#buscarOdontograma").slideDown("4000");
-        });
-    });
-    //funcion no habilitada
     $("#btnTratamiento").click(function(){
-        alert("En construccion..");
+        abrirVentana("#treatment_manager");
+    });
+    //cierra el menu
+    $(".button_cancel_menu").click(function(event){
+        sliderMenuFuncion(event,$(this).parents().find('.function'));
+        cerrarVentana($(this).parents().find('.function'));
     });
     //funcion no habilitada
     $("#btnOtros").click(function(){
         alert("En construccion.");
     });
+    $("#btnRegistroPaciente").click(function(){
+        alert("En construccion..");
+    });
     //funcion no habilitada
     $("#btnHistoria").click(function(){
         alert("En construccion..");
     });
+
     //despliega el submenu del contenedor
-    $("#btnEstadoInicial").click(function(event){
-        sliderMenuFuncion(event);
+    $(".button_menu").click(function(event){
+        sliderMenuFuncion(event,$(this).parents().find('.function'));
     })
-    //despliega el submenu del contenedor
-    $("#btnOtrosOdontogramas").click(function(event){
-        sliderMenuFuncion(event);
-    })
+    $("#btnOdontograma_estado_actual").click(function(event){
+        sliderMenuFuncion(event,$(this).parents().find('.function'));
+        $("#treatment_manager").slideUp("4000",function(){
+            $("#buscarOdontograma").slideDown("4000");
+        });
+    });
     //abre el menu de seleccion de fecha    
     $("#fromFecha").datepicker({
         defaultDate: "+1w",
         changeMonth: true,
         changeYear: true,
-       
         onSelect: function( selectedDate ) {
             $( "#toFecha" ).datepicker( "option", "minDate", selectedDate );
         }
@@ -74,27 +62,21 @@ $(document).ready(function(){
         }
     });
 });
-//Bloquea el uso del escritorio
-function bloquearEscritorio(){
-    $(".block").fadeIn("4000"); 
-}
-//desbloquea el uso del escritorio
-function desbloquearEscritorio(){
-    $(".block").fadeOut("4000"); 
-}
 //abre una caja pasada por parametro
 function abrirVentana(window){
-    bloquearEscritorio();
+    //Bloquea el uso del escritorio
+    $(".block").fadeIn("4000"); 
     $(window).slideDown("4000");
 }
 //cierra una caja pasada por parametro
 function cerrarVentana(window){
-    desbloquearEscritorio();
+    //desbloquea el uso del escritorio
+    $(".block").fadeOut("4000");
     $(window).slideUp("4000");
 }
 //se realiza el efecto para mostrar y cerrar el menu de funciones
-function sliderMenuFuncion(event){
-    var menu= $("#registrosOdontogramas");
+function sliderMenuFuncion(event,menu){
+ 
     var link=$(event.currentTarget);
     if (link.parent().find('ul.active').size()==1){
         link.parent().find('ul.active').slideUp('medium',function(){
@@ -112,7 +94,6 @@ function sliderMenuFuncion(event){
     }  
 }
 function OdontogramaEventsLoad(){
-    
     //    efecto de enfoque en items de estado y prestacion
     $(".item img").mouseover(function(){
         $(this).addClass("enfoque");
