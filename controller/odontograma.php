@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Inicio {
+class Controller_Odontograma {
 
     public function index() {
         $view = View::factory('layout');
@@ -12,6 +12,9 @@ class Controller_Inicio {
     public function odontograma() {
         $view = View::factory('odontograma');
         echo $view->render();
+    }
+    public function nuevoOdontogramaInicial(){
+        
     }
 
 }

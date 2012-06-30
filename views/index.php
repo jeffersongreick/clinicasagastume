@@ -4,15 +4,15 @@
         <li>
             <input type="button" id="btnTratamiento_actual" class="button_menu" value="Tratamiento en curso"/>
             <ul >
-                <li><a href=""><input type="button" id="btnOdontograma_estado_inicial" class="button_menu" value="Odontograma de estado inicial"/></a></li>
-                <li><input type="button" id="btnOdontograma_estado_actual" class="button_menu" value="Odontograma de estado actual"/></li>
+                <li><a href=""><input type="button" id="btnOdontograma_estado_inicial" class="button_menu" value=" Estado inicial"/></a></li>
+                <li><input type="button" id="btnOdontograma_estado_actual" class="button_menu" value="Estado actual"/></li>
                 <li><a href=""><input type="button" id="btnPlan_tratamiento" class="button_menu" value="Plan de tratamiento"/></a></li>
             </ul>
         </li>
         <li>
-            <input type="button" id="btnNuevo_tratamiento" class="button_menu" value="Nuevo tratamieto"/>
+            <input type="button" id="btnNuevo_tratamiento" class="button_menu" value="Nuevo tratamiento"/>
             <ul >
-                <li><a href=""><input type="button" id="btn_nuevo_estado_inicial" class="button_menu" value="Nuevo Odontograma inicial"/></a></li>
+                <li><a href=""><input type="button" id="btn_nuevo_estado_inicial" class="button_menu" value="Nuevo odontograma inicial"/></a></li>
                 <li><input type="button" id="btn_nuevo_plan_tratamiento" class="button_menu" value="Nuevo plan tratamiento"/></li>
             </ul>
         </li>
@@ -23,10 +23,8 @@
 </div>
 <!--menu busqueda de odontogramas-->
 <div id="buscarOdontograma" class="function">
-    <p>Desde:</p>
-    <input type="text" id="fromFecha" class="fieldText" value="Fecha" style="color: gray"/>
-    <p>Hasta:</p>
-    <input type="text" id="toFecha" class="fieldText" value="Fecha" style="color: gray" />
+    <p>Desde:</p><input type="text" id="fromFecha" class="fieldText" value="Fecha" style="color: gray"/>
+    <p>Hasta:</p><input type="text" id="toFecha" class="fieldText" value="Fecha" style="color: gray" />
     <div class="listado">
         <table class="tabla">
             <tr>
@@ -53,8 +51,6 @@
     <input type="button" class="button_cancel_menu" value="Cancelar"/>
 </div>
 <!-- iconos escritorio-->
-
-
 <div class="iconoContainer" id="btnTratamiento">
     <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_tratamiento.png" alt="odontograma"  class="iconos_escritorio" />
     <div class="nombreFuncion">Tratamientos</div>

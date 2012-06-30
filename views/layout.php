@@ -32,7 +32,7 @@
                     <p style="margin: 0;">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
                 </div>
                 <!--menu funciones                -->
-                <?php echo $contenido ?>
+                <?php if(isset($contenido))echo $contenido ?>
             </div>
         </div>
     </body>

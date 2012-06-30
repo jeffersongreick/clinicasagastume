@@ -64,21 +64,22 @@
     height: 100%;
 }
 ul li ul .button_menu{
-    width: 250px;
+    width: 260px;
     height: 40px;
     background: white;
     color: black;
 }
 
-#buscarOdontograma input{
+#buscarOdontograma .button_menu ,#buscarOdontograma .button_cancel_menu{
     margin: 3px 10px;
     width: 140px;
 }
 #buscarOdontograma .fieldText{
-    margin: 3px 10px;
-    width: 300px;
+    display: inline-block;
+    width: auto;
 }
 #buscarOdontograma p{
+    display: inline;
     margin: 3px 10px;
 }
 .listado{
