@@ -1,14 +1,28 @@
 <?php
 
-class servicioPacientes extends Model {
-    private static $instance ;
+class Model_ServicioPacientes extends Model {
 
-    public static function getInstance(){
-          return self::$instance;
+    private static $instance;
+
+    public static function getInstance() {
+        if (!isset(self::$instance)) {
+            $a = __CLASS__;
+            self::$instance = new $a;
+        }
+        return self::$instance;
     }
 
-    private function __construct() {
+    public function __construct() {
         parent::__construct();
+    }
+
+    public function getPacienteCI($ci) {
+        $sql = "SELECT * FROM tbl_paciente WHERE ci_persona =".$ci;
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $res = $statement->fetchObject();
+        echo $res->ci_persona;
+        return $res;
     }
 
 }
