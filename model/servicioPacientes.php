@@ -21,10 +21,8 @@ class Model_ServicioPacientes extends Model {
         $statement = $this->db->prepare($sql);
         $statement->execute();
         $res = $statement->fetchObject();
-        echo $res->ci_persona;
         return $res;
     }
-
 }
 
 ?>

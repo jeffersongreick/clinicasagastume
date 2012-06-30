@@ -2,12 +2,10 @@
 class Controller_Odontograma {
 
     public function index() {
-//        $view = View::factory('layout');
-//        $contenido = View::factory('index');
-//        $view->set('contenido', $contenido);
-//        echo $view->render();
-//        $s = Model_ServicioPacientes::getInstance();
-        Model_ServicioPacientes::getInstance()->getPacienteCI(1);
+        $view = View::factory('layout');
+        $contenido = View::factory('index');
+        $view->set('contenido', $contenido);
+        echo $view->render();
     }
 
     public function odontograma() {
