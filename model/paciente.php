@@ -1,7 +1,5 @@
 <?php
-
 class Model_Paciente extends Model_Persona{
-
     private $fecha_nac;
     private $direccion;
     private $sexo;

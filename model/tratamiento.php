@@ -1,5 +1,4 @@
 <?php
-
 class Model_Tratamiento extends Model {
     private $id;
     private $odontogramas;
@@ -22,8 +21,6 @@ class Model_Tratamiento extends Model {
     public function setOdontogramas($odontogramas) {
         $this->odontogramas = $odontogramas;
     }
-
-
 }
 
 ?>

@@ -1,10 +1,8 @@
 <?php
-
 class Model_Odontograma extends Model {
     private $id;
     private $fecha;
     private $piezas;
-    
     
     public function __construct() {
         parent::__construct();
@@ -15,14 +13,6 @@ class Model_Odontograma extends Model {
 
     public function setId($id) {
         $this->id = $id;
-    }
-
-    public function getCi_paciente() {
-        return $this->ci_paciente;
-    }
-
-    public function setCi_paciente($ci_paciente) {
-        $this->ci_paciente = $ci_paciente;
     }
 
     public function getFecha() {

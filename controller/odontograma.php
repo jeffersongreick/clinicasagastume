@@ -1,4 +1,5 @@
 <?php
+
 class Controller_Odontograma {
 
     public function index() {
@@ -12,8 +13,15 @@ class Controller_Odontograma {
         $view = View::factory('odontograma');
         echo $view->render();
     }
-    public function nuevoOdontogramaInicial(){
+
+    public function nuevoOdontogramaInicial() {
         
     }
+
+    public function getOdontogramasTratamiento($id) {
+        return Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($id);
+    }
+
 }
+
 ?>

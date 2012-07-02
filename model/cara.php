@@ -28,7 +28,7 @@ class Model_Cara extends Model {
     }
 
     public function setEstados($estados) {
-        $this->estados = $estado;
+        $this->estados = $estados;
     }
 
 

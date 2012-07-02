@@ -12,7 +12,7 @@ class Model_ServicioPacientes extends Model {
         return self::$instance;
     }
 
-    public function __construct() {
+    private function __construct() {
         parent::__construct();
     }
 
@@ -21,7 +21,13 @@ class Model_ServicioPacientes extends Model {
         $statement = $this->db->prepare($sql);
         $statement->execute();
         $res = $statement->fetchObject();
-        return $res;
+        $paciente = new Model_Paciente;
+        $paciente->setCi($ci);
+        $paciente->setFecha_nac($res->fecha_nac);
+        $paciente->setDireccion($res->direccion);
+        $paciente->setSexo($res->sexo);
+        $paciente->setCiudad($res->ciudad);
+        return $paciente;
     }
 }
 
