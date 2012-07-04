@@ -9,17 +9,40 @@ class Controller_Odontograma {
         echo $view->render();
     }
 
-    public function odontograma() {
-        $view = View::factory('odontograma');
-        echo $view->render();
+    public function getEstadoInicial($idTratamiento) {
+        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($idTratamiento,"min");
+        return $odontograma;
     }
 
-    public function nuevoOdontogramaInicial() {
+    public function nuevoOdontogramaInicial($odontogramaInicial, $idTratamiento) {
+     
+    }
+
+    public function verifODontInicial($idTratamiento) {
+        $b = Model_ServicioOdontograma::getInstance()->verifODontInicial($idTratamiento);
+        return $b;
+    }
+
+    public function nuevoEstadoActual($odontograma, $idTratamiento) {
         
     }
 
-    public function getOdontogramasTratamiento($id) {
-        return Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($id);
+    public function getEstadoActual($idTratamiento) {
+        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($idTratamiento,"max");
+        return $odontograma;
+    }
+
+    public function guardarEstadoActual($odontograma, $idTratamiento) {
+        
+    }
+
+    public function getOdontogramasTratamiento($idTratamiento) {
+        $odontogramas = Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($idTratamiento);
+        return $odontogramas;
+    }
+
+    public function getOdontogramasTratamientofecha($idTratamiento, $desdeFecha, $hastaFecha) {
+        
     }
 
 }

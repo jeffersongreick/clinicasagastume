@@ -1,12 +1,15 @@
 <?php
-class Model_Odontograma extends Model {
+
+class Model_Odontograma extends Model{
+
     private $id;
     private $fecha;
     private $piezas;
-    
+
     public function __construct() {
         parent::__construct();
     }
+
     public function getId() {
         return $this->id;
     }
@@ -30,8 +33,6 @@ class Model_Odontograma extends Model {
     public function setPiezas($piezas) {
         $this->piezas = $piezas;
     }
-
-
 }
 
 ?>

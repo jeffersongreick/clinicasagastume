@@ -1,4 +1,5 @@
 var URL = 'http://localhost/clinica/odontograma/';
+var peticion_http = new XMLHttpRequest();
 //capas de odontogramas y editor de pieza
 var layerPieza, layerOdontograma;
 //escena del canvas donde se agragara los layers
@@ -15,6 +16,7 @@ $(document).ready(function(){
     }); 
     $("#btnTratamiento").click(function(){
         abrirVentana("#treatment_manager");
+        cargarPaciente();
     });
     //cierra el menu
     $(".button_cancel_menu").click(function(event){
@@ -394,4 +396,17 @@ function marcarPieza(id,cb){
             posicion -=50;   
         }
     }
+}
+
+
+
+
+
+
+
+function cargarPaciente() {
+    $.get(URL+'odontograma/getOdontogramasTratamiento/1',function(data){
+        var objeto_json = eval("("+data+")");
+        console.log("resp:"+objeto_json);
+    });
 }

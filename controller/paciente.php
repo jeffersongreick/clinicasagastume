@@ -10,6 +10,9 @@ class Controller_Paciente extends Controller {
         return servicioPacientes::getInstance()->getPacienteCI($ci);
     }
 
+    public function getTratamiento($ciPaciente) {
+        
+    }
 }
 
 ?>
