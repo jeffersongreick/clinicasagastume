@@ -10,39 +10,74 @@ class Controller_Odontograma {
     }
 
     public function getEstadoInicial($idTratamiento) {
-        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($idTratamiento,"min");
-        return $odontograma;
+        try {
+            $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($idTratamiento, "min");
+            return $odontograma;
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
     public function nuevoOdontogramaInicial($odontogramaInicial, $idTratamiento) {
-     
+        try {
+            $arr = json_decode($odontogramaInicial);
+            return Model_ServicioOdontograma::getInstance()->nuevoOdontograma($arr, $idTratamiento);
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
     public function verifODontInicial($idTratamiento) {
-        $b = Model_ServicioOdontograma::getInstance()->verifODontInicial($idTratamiento);
-        return $b;
+        try {
+            $b = Model_ServicioOdontograma::getInstance()->verifODontInicial($idTratamiento);
+            return $b;
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
     public function nuevoEstadoActual($odontograma, $idTratamiento) {
-        
+        try {
+            $arr = json_decode($odontograma);
+            return Model_ServicioOdontograma::getInstance()->nuevoOdontograma($arr, $idTratamiento);
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
     public function getEstadoActual($idTratamiento) {
-        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($idTratamiento,"max");
-        return $odontograma;
+        try {
+            $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($idTratamiento, "max");
+            return $odontograma;
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
     public function guardarEstadoActual($odontograma, $idTratamiento) {
-        
+        try {
+            
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
     public function getOdontogramasTratamiento($idTratamiento) {
-        $odontogramas = Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($idTratamiento);
-        return $odontogramas;
+        try {
+            $odontogramas = Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($idTratamiento);
+            return $odontogramas;
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
     public function getOdontogramasTratamientofecha($idTratamiento, $desdeFecha, $hastaFecha) {
-        
+        try {
+            $odontogramas = Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($idTratamiento, $desdeFecha, $hastaFecha);
+            return $odontogramas;
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
     }
 
 }
