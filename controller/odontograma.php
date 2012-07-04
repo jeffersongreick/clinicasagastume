@@ -3,10 +3,16 @@
 class Controller_Odontograma {
 
     public function index() {
-        $view = View::factory('layout');
-        $contenido = View::factory('index');
-        $view->set('contenido', $contenido);
-        echo $view->render();
+        try {
+//        $view = View::factory('layout');
+//        $contenido = View::factory('index');
+//        $view->set('contenido', $contenido);
+//        echo $view->render();
+            $odontogram = '{"id_pieza": 44, "id_cara": 4, "id_estado": 4}';
+            echo $this->nuevoEstadoActual($odontogram, 1);
+        } catch (Exception $exc) {
+            echo  $exc->getMessage();
+        }
     }
 
     public function getEstadoInicial($idTratamiento) {
@@ -30,16 +36,21 @@ class Controller_Odontograma {
     public function verifODontInicial($idTratamiento) {
         try {
             $b = Model_ServicioOdontograma::getInstance()->verifODontInicial($idTratamiento);
-            return $b;
+            return "hola";
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
-    }
+    }   
 
     public function nuevoEstadoActual($odontograma, $idTratamiento) {
         try {
-            $arr = json_decode($odontograma);
-            return Model_ServicioOdontograma::getInstance()->nuevoOdontograma($arr, $idTratamiento);
+            if ($this->verifOdontInicial($idTratamiento)) {
+                $arr = json_decode($odontograma,true);
+                
+                return Model_ServicioOdontograma::getInstance()->nuevoOdontograma($arr, $idTratamiento);
+            } else {
+                throw new Exception('El odontograma no podrá ser guardado. No existe un odontograma de estado inicial registrado.');
+            }
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }

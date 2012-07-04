@@ -84,13 +84,14 @@ class Model_ServicioOdontograma extends Model {
 
     public function nuevoOdontograma($odontogramaInicial, $idTratamiento) {
         try {
+            
             $sql = "INSERT INTO tbl_odontograma (id_tratamiento,fecha) values($idTratamiento," . date("d-m-Y") . ")";
             $statement = $this->db->prepare($sql);
             $id = mysql_insert_id();
-            while ($row = $odontogramaInicial->fetch()) {
-                $id_pieza = $row['id_pieza'];
-                $id_cara = $row['id_cara'];
-                $id_estado = $row['id_estado'];
+                   foreach ($a as $odontogramaInicial){
+                $id_pieza = $a['id_pieza'];
+                $id_cara = $a['id_cara'];
+                $id_estado = $a['id_estado'];
                 $sql = "INSERT INTO tbl_odontograma_estado(id_odontograma,id_pieza,id_cara,id_estado,fecha_ins,usr_ins,fecha_upd,usr_upd) values
                 ($id,$id_pieza,$id_cara,$id_estado,'" . date("d-m-Y H:m:s") . "',1,'" . date("d-m-Y H:m:s") . "',1)";
                 $statement = $this->db->prepare($sql);

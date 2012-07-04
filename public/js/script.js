@@ -405,8 +405,16 @@ function marcarPieza(id,cb){
 
 
 function cargarPaciente() {
-    $.get(URL+'odontograma/getOdontogramasTratamiento/1',function(data){
-        var objeto_json = eval("("+data+")");
-        console.log("resp:"+objeto_json);
-    });
+    try{
+        var odontogram = "{id_pieza: '44', id_cara: '4', id_estado: '4'}";
+        var u = URL+'odontograma/nuevoOdontogramaInicial/'+odontogram+'/1';
+        alert(u);
+        $.get(u,function(data){
+            console.log(data)
+        });
+    }catch(err){
+        alert(err);
+        console.log(err)
+    }
+    
 }
