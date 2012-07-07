@@ -1,10 +1,8 @@
-var URL = "http://localhost/framework/public/";
+var URL = "http://localhost/clinica/odontograma/public/";
 
 var Pieza = function(numero){
-    
     var imageObj = new Image();      
-    imageObj.src = URL+"img/piezas/"+numero+".png";
-   
+    imageObj.src = URL+"img/img_pieza/"+numero+".png";
     var image = new Kinetic.Image({
         image: imageObj,
         id:numero
@@ -14,19 +12,18 @@ var Pieza = function(numero){
     this.add(cara);
     //Funcion para porbar cambiar la imagen al hacer click
     this.setImagen = function(){
-        imageObj.src = URL+"img/piezas/45.png";
+        imageObj.src = URL+"img/img_pieza/26.png";
         image.setImage(imageObj);        
         this.draw();
     }
     image.on('click', function(evt){
         var shape = evt.shape;
-       shape.getLayer().setImagen();      
-        
-      
-       
+        shape.getLayer().setImagen();      
     })   
-   
 }
+
+
+
 
 var Cara = function (numero){
     var cara = new Kinetic.Polygon({
@@ -38,7 +35,6 @@ var Cara = function (numero){
         y:100,
         id:numero
     });
-   
     var pi = Math.PI;
     switch(numero)
     {
@@ -61,8 +57,7 @@ var Cara = function (numero){
             cara_centro();            
             break;
     }
-    
-     function cara_centro(){
+    function cara_centro(){
         var rec = new Kinetic.Rect({
             width: 70,
             height: 70,
@@ -79,7 +74,5 @@ var Cara = function (numero){
         return cara;
     }
 }
-
-
 //asi se hace la herencia 
 Pieza.prototype = new Kinetic.Layer();

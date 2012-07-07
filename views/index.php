@@ -12,7 +12,7 @@
         <li>
             <input type="button" id="btnNuevo_tratamiento" class="button_menu" value="Nuevo tratamiento"/>
             <ul >
-                <li><a href=""><input type="button" id="btn_nuevo_estado_inicial" class="button_menu" value="Nuevo odontograma inicial"/></a></li>
+                <li><input type="button" id="btn_nuevo_estado_inicial" class="button_menu" value="Nuevo odontograma inicial"/></li>
                 <li><input type="button" id="btn_nuevo_plan_tratamiento" class="button_menu" value="Nuevo plan tratamiento"/></li>
             </ul>
         </li>

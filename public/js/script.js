@@ -16,7 +16,9 @@ $(document).ready(function(){
     }); 
     $("#btnTratamiento").click(function(){
         abrirVentana("#treatment_manager");
-        cargarPaciente();
+    });
+    $("#btn_nuevo_estado_inicial").click(function(){
+        cargaViewOdontograma()
     });
     //cierra el menu
     $(".button_cancel_menu").click(function(event){
@@ -34,7 +36,6 @@ $(document).ready(function(){
     $("#btnHistoria").click(function(){
         alert("En construccion..");
     });
-
     //despliega el submenu del contenedor
     $(".button_menu").click(function(event){
         sliderMenuFuncion(event,$(this).parents().find('.function'));
@@ -64,6 +65,13 @@ $(document).ready(function(){
         }
     });
 });
+function cargaViewOdontograma(){
+    $.post(URL +"/odontograma/getOdontograma/1",function(data){
+        $("#contenido").empty();
+        $("#contenido").append(data);
+        OdontogramaEventsLoad();
+    }).error(function() { alert("error"); });
+}
 //abre una caja pasada por parametro
 function abrirVentana(window){
     //Bloquea el uso del escritorio
@@ -166,7 +174,7 @@ function cargarOdontograma(){
             idPieza +=1;
             
         }
-        imag.src = URL+"public/img/img_pieza/pz_1.png";    
+        imag.src = URL+"public/img/img_pieza/11.png";    
     }
     //    carga el maxilar inferioirdel odontograma
     var pos2 = 60;
@@ -189,7 +197,7 @@ function cargarOdontograma(){
             pos2 += 60;
             idPieza +=1;
         }
-        imag.src = URL+"public/img/img_pieza/pz_1.png";      
+        imag.src = URL+"public/img/img_pieza/11.png";      
     }
     //agregar el evento de seleccion de pieza al cliquear con el mouse
     layerOdontograma.on('click', function(evt) {
@@ -325,7 +333,7 @@ function cargarPiezaEdicion(){
         layerPieza.add(image);
         stagePieza.add(layerPieza);
     };
-    imagenObj.src = URL+"public/img/img_pieza/pz_1.png";      
+    imagenObj.src = URL+"public/img/img_pieza/11.png";      
     cara1.on("click", marcarCara );
     cara2.on("click", marcarCara );
     cara3.on("click", marcarCara );
@@ -396,25 +404,4 @@ function marcarPieza(id,cb){
             posicion -=50;   
         }
     }
-}
-
-
-
-
-
-
-
-function cargarPaciente() {
-    try{
-        var odontogram = "{id_pieza: '44', id_cara: '4', id_estado: '4'}";
-        var u = URL+'odontograma/nuevoOdontogramaInicial/'+odontogram+'/1';
-        alert(u);
-        $.get(u,function(data){
-            console.log(data)
-        });
-    }catch(err){
-        alert(err);
-        console.log(err)
-    }
-    
 }

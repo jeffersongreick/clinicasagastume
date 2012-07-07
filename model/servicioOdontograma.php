@@ -84,22 +84,21 @@ class Model_ServicioOdontograma extends Model {
 
     public function nuevoOdontograma($odontogramaInicial, $idTratamiento) {
         try {
-            
-            $sql = "INSERT INTO tbl_odontograma (id_tratamiento,fecha) values($idTratamiento," . date("d-m-Y") . ")";
+            $sql = "INSERT INTO tbl_odontograma (id_tratamiento,fecha) values($idTratamiento," . date("Y/m/d") . ")";
             $statement = $this->db->prepare($sql);
-            $id = mysql_insert_id();
-                   foreach ($a as $odontogramaInicial){
+            $statement->execute();
+            foreach ($odontogramaInicial as $a) {
                 $id_pieza = $a['id_pieza'];
                 $id_cara = $a['id_cara'];
                 $id_estado = $a['id_estado'];
                 $sql = "INSERT INTO tbl_odontograma_estado(id_odontograma,id_pieza,id_cara,id_estado,fecha_ins,usr_ins,fecha_upd,usr_upd) values
-                ($id,$id_pieza,$id_cara,$id_estado,'" . date("d-m-Y H:m:s") . "',1,'" . date("d-m-Y H:m:s") . "',1)";
+                ((select max(id) from tbl_odontograma),$id_pieza,$id_cara,$id_estado,'" . date("Y/m/d H:i:s") . "',1,'" . date("Y/m/d H:i:s") . "',1)";
                 $statement = $this->db->prepare($sql);
+                $statement->execute();
             }
-            $statement->execute();
             return true;
-        } catch (Exception $exc) {
-            throw $exc->getMessage();
+        } catch (PDOException $exc) {
+            throw new Exception($exc->getMessage());
         }
     }
 
@@ -117,7 +116,6 @@ class Model_ServicioOdontograma extends Model {
             throw $exc->getMessage();
         }
     }
-
     public function getOdontograma($idTratamiento, $tipo) {
         try {
             $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza, p.url_img as url_pieza,
@@ -164,6 +162,23 @@ class Model_ServicioOdontograma extends Model {
         }
     }
 
+    public function getEstados() {
+        $sql = "SELECT * FROM tbl_estado";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPiezas() {
+        try {
+            $sql = "SELECT * FROM tbl_piezas";
+            $statement = $this->db->prepare($sql);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
+    }
 }
 
 ?>
