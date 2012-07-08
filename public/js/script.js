@@ -70,7 +70,9 @@ function cargaViewOdontograma(){
         $("#contenido").empty();
         $("#contenido").append(data);
         OdontogramaEventsLoad();
-    }).error(function() { alert("error"); });
+    }).error(function() {
+        alert("error");
+    });
 }
 //abre una caja pasada por parametro
 function abrirVentana(window){
@@ -154,51 +156,27 @@ function cargarOdontograma(){
     });
     layerOdontograma = new Kinetic.Layer();
     //    carga el maxilar superior del odontograma
-    var pos = 10;
-    var idPieza = 1;
-    for(var i=1;i<17;i++){
-        var imag = new Image();
-        imag.onload = function() {
-            var image = new Kinetic.Image({
-                x: pos,
-                y: 0,
-                image: imag,
-                width: 50,
-                height: 100,
-                id : idPieza
-            });
-            generadorCoronasOdontograma(pos,110,layerOdontograma,stageOdontograma);
-            layerOdontograma.add(image);
-            stageOdontograma.add(layerOdontograma);
-            pos += 60;
-            idPieza +=1;
-            
-        }
-        imag.src = URL+"public/img/img_pieza/11.png";    
+    var pos = 15;
+    for(var i=8;i>=1;i--){
+        var p1 = new Pieza("1"+i,pos,0);
+        stageOdontograma.add(p1);
+        generadorCoronasOdontograma(pos,110,layerOdontograma,stageOdontograma);
+        var p2 = new Pieza("4"+i,pos,300);
+        stageOdontograma.add(p2);
+        generadorCoronasOdontograma(pos,200,layerOdontograma,stageOdontograma);
+        pos += 60;
     }
+    for(var i=1;i<=8;i++){
+        var p1 = new Pieza("2"+i,pos,0);
+        stageOdontograma.add(p1);
+        generadorCoronasOdontograma(pos,110,layerOdontograma,stageOdontograma);
+        var p2 = new Pieza("3"+i,pos,300);
+        stageOdontograma.add(p2);
+        generadorCoronasOdontograma(pos,200,layerOdontograma,stageOdontograma);
+        pos += 60;
+    }
+    
     //    carga el maxilar inferioirdel odontograma
-    var pos2 = 60;
-    for(var i=1;i<17;i++){
-        var imag = new Image();
-        imag.onload = function() {
-            var image = new Kinetic.Image({
-                x: pos2,
-                y: 360,
-                image: imag,
-                width: 50,
-                height: 100,
-                radius: 70,
-                id : idPieza
-            });
-            image.rotate(3.14);
-            generadorCoronasOdontograma(pos2-50,190,layerOdontograma,stageOdontograma);
-            layerOdontograma.add(image);
-            stageOdontograma.add(layerOdontograma);
-            pos2 += 60;
-            idPieza +=1;
-        }
-        imag.src = URL+"public/img/img_pieza/11.png";      
-    }
     //agregar el evento de seleccion de pieza al cliquear con el mouse
     layerOdontograma.on('click', function(evt) {
         var shape = evt.shape;
@@ -215,6 +193,46 @@ function cargarOdontograma(){
     });
     layerOdontograma.draw();
 }
+var Pieza = function(numero,posX,posY){
+    var imageObj = new Image();      
+    
+    var image = new Kinetic.Image({
+        x: posX,
+        y: posY,
+        width: 50,
+        height: 100,
+        radius: 70,
+        image: imageObj,
+        id:numero
+    });
+    imageObj.src = URL+"public/img/img_pieza/"+numero+".png";
+    //    var cara = new Cara(5).getImagen();
+    this.add(image);
+    //    this.add(cara);
+    //Funcion para porbar cambiar la imagen al hacer click
+    this.on('click', function(evt){
+       var shape = evt.shape;
+        if(shape.isSelected()){
+            shape.setSelected(false);
+            shape.setAlpha(1);
+            shape.setStroke("none");
+        }else{
+            shape.setAlpha(0.5);
+            shape.setStroke("white");
+            shape.setSelected(true);
+        }    
+        this.draw();
+        
+    })   
+}
+Pieza.prototype = new Kinetic.Layer();
+
+
+
+
+
+
+
 //funcion que dibuja una cara de la corona mediante las coordinadas pasadas por parametros(solamente caras de 1 a 4)
 function  generadorCara(l1,l2,l3,l4,l5,l6,l7,l8,l9,l0,id){
     var cara = new Kinetic.Shape({

@@ -1,5 +1,17 @@
 var URL = "http://localhost/clinica/odontograma/public/";
 
+window.onload = function() {
+    var stage = new Kinetic.Stage({
+        container: "container",
+        width: 578,
+        height: 200
+    });
+    var s = new Pieza(35);
+    stage.add(s);
+    stage.draw();
+}
+
+
 var Pieza = function(numero){
     var imageObj = new Image();      
     imageObj.src = URL+"img/img_pieza/"+numero+".png";
