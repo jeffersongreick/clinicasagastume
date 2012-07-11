@@ -166,7 +166,7 @@ class Model_ServicioOdontograma extends Model {
         $sql = "SELECT * FROM tbl_estado";
         $statement = $this->db->prepare($sql);
         $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $statement;
     }
 
     public function getPiezas() {

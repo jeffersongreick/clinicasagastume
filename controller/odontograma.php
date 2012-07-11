@@ -4,9 +4,8 @@ class Controller_Odontograma {
 
     public function index() {
         try {
-            $view = View::factory('layout');
-            $contenido = View::factory('index');
-            $view->set('contenido', $contenido);
+            $view = View::factory('escritorio');
+
             echo $view->render();
         } catch (Exception $exc) {
             throw $exc->getMessage();
@@ -15,8 +14,14 @@ class Controller_Odontograma {
 
     public function getEstados() {
         try {
-            $estados = Model_ServicioOdontograma::getInstance()->getEstados();
-            return $estados;
+           $estados = Model_ServicioOdontograma::getInstance()->getEstados();
+           $list = "";
+            while ($filas = $estados->fetch()) {
+                $id = $filas['id'];
+                $list .= "<input type='checkbox' id=$id; class='item' onclick='marcarPieza($id,this)'/><label for=$id;>
+                <img src='".URL . $filas['url_img'] . "' class='iconos' id=$id name='" . $filas['estado'] . "'/></label>";
+            }
+            return $list;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
@@ -26,6 +31,7 @@ class Controller_Odontograma {
         try {
             if ($this->verifOdontInicial($idTratamiento)) {
                 $view = View::factory('odontograma');
+                $view->set('listaEstados',$this->getEstados());
                 echo $view->render();
             } else {
                 throw new Exception('El odontograma no podrá ser guardado. No existe un odontograma de estado inicial registrado.');
