@@ -1,4 +1,4 @@
-var URL = "http://localhost/framework/";
+var URL = "http://localhost/clinica/";
 var layerPieza;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;
@@ -95,7 +95,6 @@ function cargarOdontograma(){
 
 var Pieza = function(numero,posX,posY){
     this.GenerarCaras = function (scala,posX,posY){
-    
         this.grupo = new Kinetic.Group();
         this.cara1 = new Cara(1);
         this.cara2 = new Cara(2);
@@ -111,7 +110,6 @@ var Pieza = function(numero,posX,posY){
         this.grupo.setX(posX);
         this.grupo.setY(posY);
         return this.grupo;   
-   
     }
     var imageObj = new Image();      
     var image = new Kinetic.Image({
@@ -128,11 +126,12 @@ var Pieza = function(numero,posX,posY){
     this.image = image;
     this.estados=[];
     this.add(image);
+    this.selected = false;
     //segun el numero de pieza posiciona las caras arriba o abajo de la imagen
     if(numero > 30 && numero < 49){
         this.add(this.GenerarCaras(0.4,posX,posY-70)); 
     }else{
-         this.add(this.GenerarCaras(0.4,posX,posY+120));
+        this.add(this.GenerarCaras(0.4,posX,posY+120));
     }
    
     this.id = numero;
@@ -140,7 +139,7 @@ var Pieza = function(numero,posX,posY){
 Pieza.prototype = new Kinetic.Layer();
 Pieza.prototype.on('click', function(evt){
     var shape = evt.shape;
-    if(shape.isSelected()){
+    if(this.selected == true){
         this.desmarcar(shape);
             
     }else{
@@ -155,14 +154,14 @@ Pieza.prototype.marcar =  function marcar(){
     piezaEditada = this;
     this.image.setAlpha(0.5);
     this.image.setStroke("red");
-    this.image.setSelected(true);
+    this.selected = true;
     this.draw();
 }
 Pieza.prototype.desmarcar  = function(){
     piezaEditada = null;
     this.image.setAlpha(1);
     this.image.setStroke("none");
-    this.image.setSelected(false);
+    this.selected=false;
     this.draw();              
 }
 //    window.onbeforeunload = function(){
@@ -211,8 +210,8 @@ function marcarPieza(id,cb){
             };
             imagenObj.src = URL+"public/img/ico_prestaciones/img"+id+".png"; 
         }else{
-         alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
-           $(cb).removeAttr('checked');
+            alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
+            $(cb).removeAttr('checked');
         }   
     }else{
         group.remove(stagePieza.get('#'+id)[0]);
@@ -250,51 +249,6 @@ function  generadorCara(l1,l2,l3,l4,l5,l6,l7,l8,l9,l0,id){
         id:id
     });
     return cara;
-}
-//diseña la referencia a las caras de cada pieza del odontograma. 
-//Se rfeciben los parametros de la posicion de cada pieza y de que capa.
-function generadorCoronasOdontograma(posX,posY, layer, stage){
-    //    caras alrededor de la pieza
-    var cara1 = generadorCara(posX, posY, posX + 20, posY - 10, posX + 40, posY, posX +28, posY +12, posX+12, posY+12,1);
-    var cara2 = generadorCara(posX+40, posY, posX+50, posY+20, posX+40, posY+40, posX+28, posY+28, posX+28, posY+12,2);
-    var cara3 = generadorCara(posX+40, posY+40, posX+20, posY+50, posX, posY+40, posX+12, posY+28, posX+28, posY+28,3);
-    var cara4 = generadorCara(posX, posY + 40 , posX-10, posY+20, posX, posY, posX + 12, posY+12, posX+12,posY+28,4);
-    //    parte central del diente
-    var cara5 = new Kinetic.Rect({
-        x: posX+12,
-        y: posY+12,
-        width: 16,
-        height: 16,
-        id:"5",
-        fill: "white", 
-        stroke: "red",
-        strokeWidth: 0.3
-    });
-    //    periodonto
-    var cara6 = new Kinetic.Shape({
-        drawFunc: function() {
-            var context = this.getContext();
-            context.beginPath();
-            context.moveTo(posX-5, posY+30);
-            context.lineTo(posX-5,posY+55);
-            context.lineTo(posX + 45, posY+55);
-            context.lineTo(posX+45, posY+30);
-            context.closePath();
-            this.fill();
-            this.stroke();
-        },
-        stroke: "red",
-        strokeWidth: 0.7,
-        fill: "white",
-        id:"6"
-    });
-    layer.add(cara6);
-    layer.add(cara1);
-    layer.add(cara2);
-    layer.add(cara3);
-    layer.add(cara4);
-    layer.add(cara5);
-    stage.add(layer);
 }
 //diseña en el canvas la pieza seleccionada a edita
 function cargarPiezaEdicion(){
@@ -342,28 +296,33 @@ function marcarCara(){
 //si el item esta seleccionado marca, sino el contrario
 function marcarPieza(id,cb){
     if(cb.checked){
-        var imagenObj = new Image();
-        imagenObj.onload = function() {
-            var image = new Kinetic.Image({
-                x: 80,
-                y: 210,
-                image: imagenObj,
-                width: 60,
-                height: 60,
-                id : id,
-                name: "item"
-            });
-            group.add(image);
-            image.transitionTo({
-                x: 80,
-                y: posicion,
-                duration: 2,
-                easing: "strong-ease-out"
-            });
-            posicion -=50;
+        if(layerPieza.get(".item").length <=2){
+            var imagenObj = new Image();
+            imagenObj.onload = function() {
+                var image = new Kinetic.Image({
+                    x: 80,
+                    y: 210,
+                    image: imagenObj,
+                    width: 60,
+                    height: 60,
+                    id : id,
+                    name: "item"
+                });
+                group.add(image);
+                image.transitionTo({
+                    x: 80,
+                    y: posicion,
+                    duration: 2,
+                    easing: "strong-ease-out"
+                });
+                posicion -=50;
             
-        };
-        imagenObj.src = URL+"public/img/ico_prestaciones/img"+id+".png"; 
+            };
+            imagenObj.src = URL+"public/img/ico_prestaciones/img"+id+".png"; 
+        }else{
+            alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
+            $(cb).removeAttr('checked');
+        }   
     }else{
         group.remove(stagePieza.get('#'+id)[0]);
         var items = layerPieza.get(".item");
@@ -430,7 +389,7 @@ var Cara = function (numero){
         cara = rec;
     }
    
-        return cara;
+    return cara;
    
 }
   

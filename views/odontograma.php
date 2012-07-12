@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/KineticJS.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/kinetic.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/clases.js"></script>
         <link rel="shortcut icon" href="public/images/tooth.ico" type="image.ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
@@ -57,9 +57,9 @@
                                 <div class="tabs">
                                     <div class="state_items">
                                         <?php
-//                                        if (isset($listaEstados)) {
-//                                            echo $listaEstados;
-//                                        }
+                                        if (isset($listaEstados)) {
+                                            echo $listaEstados;
+                                        }
                                         ?>
                                     </div>
                                     <div class="treatment_items">

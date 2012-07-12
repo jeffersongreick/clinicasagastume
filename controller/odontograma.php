@@ -31,7 +31,7 @@ class Controller_Odontograma {
         try {
             if ($this->verifOdontInicial($idTratamiento)) {
                 $view = View::factory('odontograma');
-               // $view->set('listaEstados',$this->getEstados());
+               $view->set('listaEstados',$this->getEstados());
                 echo $view->render();
             } else {
                 throw new Exception('El odontograma no podrá ser guardado. No existe un odontograma de estado inicial registrado.');
