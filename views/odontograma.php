@@ -57,9 +57,9 @@
                                 <div class="tabs">
                                     <div class="state_items">
                                         <?php
-                                        if (isset($listaEstados)) {
-                                            echo $listaEstados;
-                                        }
+//                                        if (isset($listaEstados)) {
+//                                            echo $listaEstados;
+//                                        }
                                         ?>
                                     </div>
                                     <div class="treatment_items">
