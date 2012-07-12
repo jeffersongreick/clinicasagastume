@@ -41,7 +41,7 @@
     position: absolute;
     visibility: hidden;
 }
-#items > tab-label {
+#items > label {
     font-size: 20px;
     height: 30px;
     float: left;
@@ -52,11 +52,11 @@
     text-align: center;
     cursor: pointer;
 }
-#items > input:hover + tab-label {
+#items > input:hover + label {
     background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 17%,rgba(255,255,255,0) 62%,rgba(255,255,255,0) 100%);
     color: black;
 }
-#items > input:checked + tab-label {
+#items > input:checked + label {
     background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%);
 }
 

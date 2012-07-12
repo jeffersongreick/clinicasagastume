@@ -51,6 +51,7 @@ window.onload = function(){
     $('#btnCancelar_edicion_pieza').click(function(){ 
         $('.item').removeAttr('checked');
         posicion = 400;
+        alert(piezaEditada.estados.toString());
         $('#slideContainer').animate({
             scrollLeft:0
         },500);
@@ -318,6 +319,8 @@ function marcarPieza(id,cb){
                 posicion -=50;
             
             };
+            piezaEditada.estados.push(cb.value);
+            alert("agrega");
             imagenObj.src = URL+"public/img/ico_prestaciones/img"+id+".png"; 
         }else{
             alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
@@ -325,6 +328,8 @@ function marcarPieza(id,cb){
         }   
     }else{
         group.remove(stagePieza.get('#'+id)[0]);
+         piezaEditada.estados.splice(piezaEditada.estados.indexOf(cb.value,1));
+        alert("remueve");
         var items = layerPieza.get(".item");
         posicion = 400;
         for(var i = 0;i < items.length ;i++){
