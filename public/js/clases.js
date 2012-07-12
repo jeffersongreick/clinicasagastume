@@ -1,4 +1,4 @@
-var URL = "http://localhost/clinica/odontograma/";
+var URL = "http://localhost/framework/";
 var layerPieza;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;
@@ -40,8 +40,8 @@ window.onload = function(){
         }
     });
     $('#btnCancelar_edicion_pieza').click(function(){ 
-         $('.item').removeAttr('checked');
-         posicion = 400;
+        $('.item').removeAttr('checked');
+        posicion = 400;
         $('#slideContainer').animate({
             scrollLeft:0
         },500);
@@ -85,6 +85,25 @@ function cargarOdontograma(){
 }
 
 var Pieza = function(numero,posX,posY){
+    this.GenerarCaras = function (scala,posX,posY){
+    
+        this.grupo = new Kinetic.Group();
+        this.cara1 = new Cara(1);
+        this.cara2 = new Cara(2);
+        this.cara3 = new Cara(3);
+        this.cara4 = new Cara(4);
+        this.cara5 = new Cara(5);
+        this.grupo.add(this.cara1);
+        this.grupo.add(this.cara2);
+        this.grupo.add(this.cara3);
+        this.grupo.add(this.cara4);
+        this.grupo.add(this.cara5);
+        this.grupo.setScale(scala);
+        this.grupo.setX(posX);
+        this.grupo.setY(posY);
+        return this.grupo;   
+   
+    }
     var imageObj = new Image();      
     var image = new Kinetic.Image({
         x: posX,
@@ -100,6 +119,13 @@ var Pieza = function(numero,posX,posY){
     this.image = image;
     this.estados=[];
     this.add(image);
+    //segun el numero de pieza posiciona las caras arriba o abajo de la imagen
+    if(numero > 30 && numero < 49){
+        this.add(this.GenerarCaras(0.4,posX,posY-70)); 
+    }else{
+         this.add(this.GenerarCaras(0.4,posX,posY+120));
+    }
+   
     this.id = numero;
 }
 Pieza.prototype = new Kinetic.Layer();
@@ -325,9 +351,10 @@ function marcarPieza(id,cb){
         }
     }
 }
-
-
-
+var Cara2 = function(){
+    
+}
+Cara2.prototype = new Kinetic.Shape();
 var Cara = function (numero){
     var cara = new Kinetic.Polygon({
         points: [0,30,30,0,100,0,130,30],
@@ -373,8 +400,8 @@ var Cara = function (numero){
         })
         cara = rec;
     }
-    this.getImagen = function (){
+   
         return cara;
-    }
+   
 }
   
