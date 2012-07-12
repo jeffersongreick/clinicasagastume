@@ -7,6 +7,15 @@ var posicion = 400;
 var piezaEditada;
 var group;
 window.onload = function(){
+    stagePieza = new Kinetic.Stage({
+        container: "canvasPieza",
+        width: 200,
+        height: 480
+    });
+    layerPieza = new Kinetic.Layer();
+    group = new Kinetic.Group({
+        draggable: false
+    });
     //    efecto de enfoque en items de estado y prestacion
     $(" label img").mouseover(function(){
         $(this).addClass("enfoque");
@@ -31,7 +40,7 @@ window.onload = function(){
     //    cambia de odontograma a edicion de pieza
     $('#btnEditarPieza').click(function(){ 
         if(piezaEditada){
-            cargarPiezaEdicion2.call();
+            cargarCaras.call();
             $('#slideContainer').animate({
                 scrollLeft:1000
             },500);
@@ -40,8 +49,8 @@ window.onload = function(){
         }
     });
     $('#btnCancelar_edicion_pieza').click(function(){ 
-         $('.item').removeAttr('checked');
-         posicion = 400;
+        $('.item').removeAttr('checked');
+        posicion = 400;
         $('#slideContainer').animate({
             scrollLeft:0
         },500);
@@ -133,7 +142,7 @@ Pieza.prototype.desmarcar  = function(){
 //    window.onbeforeunload = function(){
 //        return "Esta a punto de descartar este odontograma";
 //    }
-function cargarPiezaEdicion2(){
+function cargarCaras(){
     group.removeChildren();
     var imagenObj = new Image();
     imagenObj.onload = function() {
@@ -149,6 +158,51 @@ function cargarPiezaEdicion2(){
         stagePieza.add(layerPieza);
     };
     imagenObj.src = URL+"public/img/img_pieza/"+piezaEditada.id+".png";      
+}
+function marcarPieza(id,cb){
+    if(cb.checked){
+        if(layerPieza.get(".item").length <=2){
+            var imagenObj = new Image();
+            imagenObj.onload = function() {
+                var image = new Kinetic.Image({
+                    x: 80,
+                    y: 210,
+                    image: imagenObj,
+                    width: 60,
+                    height: 60,
+                    id : id,
+                    name: "item"
+                });
+                group.add(image);
+                image.transitionTo({
+                    x: 80,
+                    y: posicion,
+                    duration: 2,
+                    easing: "strong-ease-out"
+                });
+                posicion -=50;
+            
+            };
+            imagenObj.src = URL+"public/img/ico_prestaciones/img"+id+".png"; 
+        }else{
+         alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
+           $(cb).removeAttr('checked');
+        }   
+    }else{
+        group.remove(stagePieza.get('#'+id)[0]);
+        var items = layerPieza.get(".item");
+        posicion = 400;
+        for(var i = 0;i < items.length ;i++){
+            var img = items[i];
+            img.transitionTo({
+                x: 80,
+                y: posicion,
+                duration: 2,
+                easing: "strong-ease-out"
+            }); 
+            posicion -=50;   
+        }
+    }
 }
 //funcion que dibuja una cara de la corona mediante las coordinadas pasadas por parametros(solamente caras de 1 a 4)
 function  generadorCara(l1,l2,l3,l4,l5,l6,l7,l8,l9,l0,id){
@@ -218,12 +272,6 @@ function generadorCoronasOdontograma(posX,posY, layer, stage){
 }
 //diseña en el canvas la pieza seleccionada a edita
 function cargarPiezaEdicion(){
-    stagePieza = new Kinetic.Stage({
-        container: "canvasPieza",
-        width: 200,
-        height: 480
-    });
-    layerPieza = new Kinetic.Layer();
     var cara1 = generadorCara(20, 20, 100, -15, 180, 20, 140, 60, 60, 60,1);
     var cara2 = generadorCara(180, 20, 215, 100, 180, 180, 140, 140, 140, 60,2);
     var cara3 = generadorCara(180, 180, 100, 215, 20, 180, 60, 140, 140, 140,3);
@@ -237,26 +285,7 @@ function cargarPiezaEdicion(){
         fill: "white",
         stroke: "red",
         strokeWidth: 0.5        
-    });
-    group = new Kinetic.Group({
-        draggable: false
-    });
-    //    agrega al canvas la imagen del diente a personalizar
-    var imagenObj = new Image();
-    imagenObj.onload = function() {
-        var image = new Kinetic.Image({
-            x: 60,
-            y: 260,
-            image: imagenObj,
-            width: 80,
-            height: 200,
-            id:"piezaEditable"
-        });
-        group.add(image);
-        layerPieza.add(group);
-        stagePieza.add(layerPieza);
-    };
-    imagenObj.src = URL+"public/img/img_pieza/11.png";      
+    });   
     cara1.on("click", marcarCara );
     cara2.on("click", marcarCara );
     cara3.on("click", marcarCara );
@@ -285,47 +314,6 @@ function marcarCara(){
 }
 //diseña en la imagen de la pieza editada la figura asignada el estado o prestacion
 //si el item esta seleccionado marca, sino el contrario
-function marcarPieza(id,cb){
-    if(cb.checked){
-        var imagenObj = new Image();
-        imagenObj.onload = function() {
-            var image = new Kinetic.Image({
-                x: 80,
-                y: 210,
-                image: imagenObj,
-                width: 60,
-                height: 60,
-                id : id,
-                name: "item"
-            });
-            group.add(image);
-            image.transitionTo({
-                x: 80,
-                y: posicion,
-                duration: 2,
-                easing: "strong-ease-out"
-            });
-            posicion -=50;
-            
-        };
-        imagenObj.src = URL+"public/img/ico_prestaciones/img"+id+".png"; 
-    }else{
-        group.remove(stagePieza.get('#'+id)[0]);
-        var items = layerPieza.get(".item");
-        posicion = 400;
-        for(var i = 0;i < items.length ;i++){
-            var img = items[i];
-            img.transitionTo({
-                x: 80,
-                y: posicion,
-                duration: 2,
-                easing: "strong-ease-out"
-            }); 
-            posicion -=50;   
-        }
-    }
-}
-
 
 
 var Cara = function (numero){
