@@ -7,6 +7,9 @@
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/kinetic.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/clases.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/load.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/pieza.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/cara.js"></script>
         <link rel="shortcut icon" href="public/images/tooth.ico" type="image.ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
         <title>Clinica Sagastume</title>
