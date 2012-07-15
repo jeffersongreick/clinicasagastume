@@ -1,24 +1,12 @@
-var Cara = function (numero,posX,posY){
-    this.cara1 = new creador (1,numero);
-    this.cara2 = new creador (2,numero);
-    this.cara3 = new creador (3,numero);
-    this.cara4 = new creador (4,numero);
-    this.cara5 = new creador (5,numero);
-  
-    this.add(this.cara1);
-    this.add(this.cara2);
-    this.add(this.cara3);
-    this.add(this.cara4);
-    this.add(this.cara5);
-    this.setScale(0.4);
-    this.setX(posX);
-    if(numero > 30 && numero < 49){
-        this.setY(posY-70); 
-    }else{
-        this.setY(posY+120);
-    }
+var cara = function(numero,pieza,grp){
+    this.numPieza = pieza;
+    this.estados = [];
+    this.img= this.crearCara(numero);
+    this.img_pieza = URL+"public/img/img_piezas/cara"+numero+"/"+pieza+".png";
+    grp.add(this.img);
 }
-var creador = function (numero,pieza){
+cara.prototype = new Kinetic.Layer();
+cara.prototype.crearCara = function (numero){
     var cara = new Kinetic.Polygon({
         points: [0,30,30,0,100,0,130,30],
         fill: "#00D2FF",
@@ -26,12 +14,10 @@ var creador = function (numero,pieza){
         strokeWidth: 1,
         x:0,
         y:100,
-        id:numero
+        id:numero,
+        draggable: true
     });
-    this.estados=[];
-    this.url_image = URL+"public/img/img_piezas/cara"+numero+"/"+pieza+".png";
     var pi = Math.PI;
-    this.id = numero;
     switch(numero){
         case 2:
             cara.rotate(pi/2);
@@ -65,9 +51,5 @@ var creador = function (numero,pieza){
         })
         cara = rec;
     }
-    function resaltar(){
-        cara.setFill("red");
-    }
     return cara;
 }
-Cara.prototype = new Kinetic.Group();

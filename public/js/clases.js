@@ -22,8 +22,7 @@ function cargarCaras(){
             width: 80,
             height: 200
         });
-        caraEditada = piezaEditada.cara1;
-        alert(caraEditada.id);
+        caraEditada = piezaEditada.Cara1;
         group.add(image);
         layerPieza.add(group);
         stagePieza.add(layerPieza);

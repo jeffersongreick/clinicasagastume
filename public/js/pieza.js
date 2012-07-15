@@ -1,6 +1,18 @@
 var Pieza = function(numero,posX,posY){
-    this.add(new Cara(numero,posX,posY));
-    
+    this.grupo = new Kinetic.Group();
+    this.Cara1 = new cara(1,numero, this.grupo);
+    this.Cara2 = new cara(2,numero, this.grupo);
+    this.Cara3 = new cara(3,numero, this.grupo);
+    this.Cara4 = new cara(4,numero, this.grupo);
+    this.Cara5 = new cara(5,numero, this.grupo);
+    this.grupo.setScale(0.4);
+    this.grupo.setX(posX);
+    if(numero > 30 && numero < 49){
+        this.grupo.setY(posY-70);
+    }else{
+        this.grupo.setY(posY+120);
+    }
+    this.add(this.grupo);
     var imageObj = new Image();      
     var image = new Kinetic.Image({
         x: posX,
@@ -12,18 +24,16 @@ var Pieza = function(numero,posX,posY){
         id:numero
     });
     imageObj.src = URL+"public/img/img_piezas/cara1/"+numero+".png";
-    //    var cara = new Cara(5).getImagen();
     this.image = image;
     this.add(image);
     this.selected = false;
     this.id = numero;
-    //segun el numero de pieza posiciona las caras arriba o abajo de la imagen
-   
     this.marcar = function(){
         if(piezaEditada){
             piezaEditada.desmarcar(piezaEditada);
         }
         piezaEditada = this;
+        caraEditada = piezaEditada.Cara1;
         this.image.setAlpha(0.5);
         this.image.setStroke("red");
         this.selected = true;
@@ -36,12 +46,12 @@ var Pieza = function(numero,posX,posY){
         this.selected=false;
         this.draw();              
     }
-   
 }
 Pieza.prototype = new Kinetic.Layer();
 Pieza.prototype.on('click', function(evt){
     var shape = evt.shape;
     if(this.selected == true){
+       
         this.desmarcar(shape);
             
     }else{
