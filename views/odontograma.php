@@ -35,10 +35,14 @@
                     <div id="slide">
                         <!--odontograma-->
                         <div id="odontograma">
+                            <div id="cambioPiezaContainer">
+                                <input type="button" value="Cambiar" id="btnGuardarNuevaPieza" class="button" />
+                            </div>
                             <div id="canvasOdontograma"></div>
+                            
                             <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
                             <input type="button" value="Imprimir" id="btnImprimir" class="button" />
-                            <input type="button" value="Cambiar pieza" id="btnCambaiarPieza" class="button" />
+                            <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
                             <input type="button" value="Extraer" id="btnExtraer" class="button" />
                             <a href="index.php" class="descripcionIcono" >
                                 <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" />

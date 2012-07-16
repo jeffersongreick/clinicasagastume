@@ -51,19 +51,27 @@ function agregarImagenEstado(id_estado){
             width: 60,
             height: 60,
             name : "item",
-            id : id_estado
+            id : id_estado,
+            draggable:true
         });
         group.add(image);
         image.transitionTo({
             x: 80,
             y: posicion,
-            duration: 2,
+            duration: 1,
             easing: "strong-ease-out"
+        });
+        image.on("mouseover", function() {
+          document.body.style.cursor = "pointer";
+        });
+        image.on("mouseout", function() {
+          document.body.style.cursor = "default";
         });
         posicion -=50;
     };
     imagenObj.src = URL+"public/img/ico_prestaciones/img"+id_estado+".png"; 
 }
+    
 function quitarImagenEstado(id_estado){
     group.remove(stagePieza.get('#'+ id_estado)[0]);
     var items = layerPieza.get(".item");
@@ -84,18 +92,25 @@ function agregarEstado(cb){
         if(caraEditada.estados.length <=2){
             agregarImagenEstado(cb.value);
             caraEditada.estados.push(cb.value);
-            caraEditada.img.setFill("red");
+            caraEditada.img.setFill("bf6e4e");
         }else{
             alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
             $(cb).removeAttr('checked');
+            
         }   
     }else{
         quitarImagenEstado(cb.value);
-        caraEditada.estados.splice(caraEditada.estados.indexOf(cb.value,1));
+        caraEditada.estados.splice(caraEditada.estados.indexOf(cb.value),1);
         if(caraEditada.estados.length ==0){
-            caraEditada.img.setFill("#00D2FF");  
+            if(caraEditada.numero == 5){
+                caraEditada.img.setFill("#d5ebfb");  
+            }else{
+                caraEditada.img.setFill("#89c3eb");  
+            }
+            
             piezaEditada.draw();
         }
+         
         
     }
 }
@@ -106,4 +121,5 @@ function actualizarEstados(){
         agregarImagenEstado(id_estado);
     }
 }
+
  

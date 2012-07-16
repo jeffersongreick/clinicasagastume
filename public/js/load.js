@@ -56,6 +56,9 @@ window.onload = function(){
     $('.cara').click(function(){
         cargarCara($(this).attr("value"));
     });
+    $('#btnCambiarPieza').click(function(){
+          $('cambioPiezaContainer').slideDown("4000");
+    });
     $('#btnCancelar_edicion_pieza').click(function(){ 
         $('.item').removeAttr('checked');
         posicion = 200;
@@ -67,6 +70,7 @@ window.onload = function(){
     $('#btnGuardar_edicion_pieza').click(function(){    
         $('.item').removeAttr('checked');
         posicion = 200;
+        piezaEditada.draw();
         $('#slideContainer').animate({
             scrollLeft:0
         },500);
@@ -85,16 +89,14 @@ function cargarOdontograma(){
     for(var i=8;i>=1;i--){
         var p1 = new Pieza("1"+i,pos,0);
         stageOdontograma.add(p1);
-        p1.draw();
-        var p2 = new Pieza("4"+i,pos,300);
+        var p2 = new Pieza("4"+i,pos,270);
         stageOdontograma.add(p2);
-        p2.draw();
         pos += 60;
     }
     for(var i=1;i<=8;i++){
         var p1 = new Pieza("2"+i,pos,0);
         stageOdontograma.add(p1);
-        var p2 = new Pieza("3"+i,pos,300);
+        var p2 = new Pieza("3"+i,pos,270);
         stageOdontograma.add(p2);
         pos += 60;
     }

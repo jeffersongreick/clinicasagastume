@@ -46,9 +46,10 @@ var Pieza = function(numero,posX,posY){
         this.selected=false;
         this.draw();              
     }
+     
 }
 Pieza.prototype = new Kinetic.Layer();
-Pieza.prototype.on('click', function(evt){
+Pieza.prototype.on('click dragstart', function(evt){
     var shape = evt.shape;
     if(this.selected == true){
         this.desmarcar(shape);

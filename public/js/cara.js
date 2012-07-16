@@ -1,5 +1,5 @@
 var cara = function(numero,pieza,grp){
-    this.numPieza = pieza;
+    this.numero = numero;
     this.estados = [];
     this.img= this.crearCara(numero);
     this.img_pieza = URL+"public/img/img_piezas/cara"+numero+"/"+pieza+".png";
@@ -9,7 +9,7 @@ cara.prototype = new Kinetic.Layer();
 cara.prototype.crearCara = function (numero){
     var cara = new Kinetic.Polygon({
         points: [0,30,30,0,100,0,130,30],
-        fill: "#00D2FF",
+        fill: "#89c3eb",
         stroke: "black",
         strokeWidth: 1,
         x:0,
@@ -42,7 +42,7 @@ cara.prototype.crearCara = function (numero){
         var rec = new Kinetic.Rect({
             width: 70,
             height: 70,
-            fill: "#00D2FF",
+            fill: "#d5ebfb",
             stroke: "black",
             strokeWidth: 1,
             x:30,
