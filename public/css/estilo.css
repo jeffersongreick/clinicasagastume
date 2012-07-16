@@ -2,6 +2,15 @@
     border-radius: 5px; 
     font-size: large;
 }
+#editorPieza{
+    display:inline;
+    float: left;
+}
+.cara{
+    margin: 5px 0;
+    font-size: 40px;
+}                               
+
 #container{
     width: 1000px;
     margin: 0 auto;
@@ -12,7 +21,7 @@
     margin: 5px;
     display: inline;
     font-style: italic;
-    }
+}
 #header a,#user{
     font-size: 0.7em;
     color: black;
@@ -63,7 +72,7 @@ body{
     padding: 5px;
     background: -webkit-linear-gradient(top, rgba(181,189,200,1) 0%,rgba(130,140,149,1) 36%,rgba(40,52,59,1) 100%); 
     margin: 10px;
-    
+
 
 }
 canvas{
@@ -71,10 +80,8 @@ canvas{
     margin: 5px;
 }
 .enfoque{
-
     box-shadow: 5px white;
     border-color: #D41820;
     background-color: rgba(192,192,192,0.4);
     border-radius: 5px;
-
 }

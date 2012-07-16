@@ -18,7 +18,7 @@ class Controller_Odontograma {
            $list = "";
             while ($filas = $estados->fetch()) {
                 $id = $filas['id'];
-                $list .= "<input type='checkbox' id='estado_$id'; class='item' value=$id onclick='agregarEstado($id,this)'/><label for='estado_$id';>
+                $list .= "<input type='checkbox' id='estado_$id'; class='item' value=$id onchange='agregarEstado(this)'/><label for='estado_$id';>
                 <img src='".URL . $filas['url_img'] . "' class='iconos' id=$id name='" . $filas['estado'] . "'/></label>";
             }
             return $list;

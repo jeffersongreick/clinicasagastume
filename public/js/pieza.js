@@ -51,9 +51,7 @@ Pieza.prototype = new Kinetic.Layer();
 Pieza.prototype.on('click', function(evt){
     var shape = evt.shape;
     if(this.selected == true){
-       
         this.desmarcar(shape);
-            
     }else{
         this.marcar(shape);
     }

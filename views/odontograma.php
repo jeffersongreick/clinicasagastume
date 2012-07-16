@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/kinetic.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/clases.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/functions.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/load.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/pieza.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/cara.js"></script>
@@ -50,7 +50,18 @@
                         </div>
                         <!--editor pieza-->
                         <div id="editor">
-                            <div id="canvasPieza"></div>
+                            <div id="editorPieza">
+                                <input type="button" class="cara" style="margin-left: 100px" value="1"/>
+                                <br>
+                                <input type="button" class="cara" style="margin-left: 35px" value="2"/>
+                                <input type="button" class="cara" style="margin-left: 23px" value="5"/>
+                                <input type="button" class="cara" style="margin-left: 20px" value="4"/>
+                                 <br>
+                                <input type="button" class="cara" style="margin-left: 100px" value="3"/>
+                                <div class="clear"></div>
+                                <div id="canvasPieza"></div>
+                            </div>
+
                             <div id="items">
                                 <input id="tab_state" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
                                 <label for="tab_state" class="tab-label">Estados</label>
