@@ -24,7 +24,7 @@ cara.prototype.crearCara = function (numero){
             cara.setX(30);
             cara.setY(0);
             break;
-        case 3:
+        case 1:
             cara.rotate(pi);
             cara.setX(130);
             cara.setY(30);

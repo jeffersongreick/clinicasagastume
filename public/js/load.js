@@ -79,7 +79,6 @@ function cargarOdontograma(){
         container: "canvasOdontograma",
         width: 980,
         height: 400
-        
     });
     //    carga el maxilar superior del odontograma
     var pos = 15;

@@ -84,6 +84,7 @@ function agregarEstado(cb){
         if(caraEditada.estados.length <=2){
             agregarImagenEstado(cb.value);
             caraEditada.estados.push(cb.value);
+            caraEditada.img.setFill("red");
         }else{
             alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
             $(cb).removeAttr('checked');
@@ -91,6 +92,11 @@ function agregarEstado(cb){
     }else{
         quitarImagenEstado(cb.value);
         caraEditada.estados.splice(caraEditada.estados.indexOf(cb.value,1));
+        if(caraEditada.estados.length ==0){
+            caraEditada.img.setFill("#00D2FF");  
+            piezaEditada.draw();
+        }
+        
     }
 }
 function actualizarEstados(){
