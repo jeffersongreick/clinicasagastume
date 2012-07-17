@@ -177,7 +177,7 @@ function guardar(){
   }
   
   alert(JSON.stringify(data));
-  $('#')
+ 
   $.post(URL+"/odontograma/guardar", data);
 
 }

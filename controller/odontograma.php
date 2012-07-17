@@ -125,9 +125,7 @@ class Controller_Odontograma {
         if(isset($_POST['piezas'])){
             $piezas = $_POST['piezas'];
             foreach ($piezas as $p){
-                 foreach ($p['caras'] as $c){
-                    echo $c[0];
-                 }
+                
                 }
             }
         
