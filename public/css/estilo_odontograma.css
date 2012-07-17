@@ -34,10 +34,12 @@
     border-top: none;
     border-radius: 3px;
 }
+#listadoPiezas input,
 #items input {
     position: absolute;
     visibility: hidden;
 }
+
 #items > label {
     font-size: 20px;
     height: 30px;
@@ -77,17 +79,53 @@
     border: solid;
     border-radius: 3px;
 }
+.piezaSeleccionableContainer input:checked + label img,
 .tabs input:checked + label img {
     background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
 }
-#cambioPiezaContainer{
-    width: 800px;
-    height: 320px;
+#ventanaCambioPieza{
+    width: 500px;
+    height: 450px;
     z-index: 2;
     position: absolute;
-    top: 100px;
-    margin-left: 100px;
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 100%);
+    top: 10px;
+    margin-left: 270px;
+    background: black url(../img/fondo1.png) 50% 50% repeat;
     display: none;
-    border: solid black 1px;
+    border: solid white 2px;
 }
+.imgPieza{
+    height: 200px;
+    width: 60px;
+    margin: 0 30px;
+}
+.descripcionPiezaCambiar label{
+    display: block;
+    text-align: center;
+}
+.descripcionPiezaCambiar{
+    width: 120px;
+    height: 300px;
+    display: inline-block;
+    float: left;
+    left: 10px;
+    border: solid white;
+    margin: 10px 10px;
+}
+
+#containerPiezas{
+    float: left;
+    margin-left: 100px;
+    
+}
+#cambioPiezaTitulo{
+    margin: 2px 0;
+    text-align: center;
+}
+.botonesCentrados{
+    margin-left: 40px;
+}
+
+/** #cambioPiezaContainer{
+    border: solid white;
+}*/

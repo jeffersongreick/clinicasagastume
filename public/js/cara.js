@@ -15,7 +15,6 @@ cara.prototype.crearCara = function (numero){
         x:0,
         y:100,
         id:numero,
-        draggable: true
     });
     var pi = Math.PI;
     switch(numero){
