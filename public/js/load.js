@@ -102,17 +102,18 @@ function cargarOdontograma(){
     var pos = 15;
     for(var i=8;i>=1;i--){
         var p1 = new Pieza("1"+i,pos,0);
-        stageOdontograma.add(p1);
+        stageOdontograma.add(p1.layer);
         var p2 = new Pieza("4"+i,pos,270);
-        stageOdontograma.add(p2);
+        stageOdontograma.add(p2.layer);
         pos += 60;
     }
     for(var i=1;i<=8;i++){
         var p1 = new Pieza("2"+i,pos,0);
-        stageOdontograma.add(p1);
+        stageOdontograma.add(p1.layer);
         var p2 = new Pieza("3"+i,pos,270);
-        stageOdontograma.add(p2);
+        stageOdontograma.add(p2.layer);
         pos += 60;
+       
     }
 }
 function abrirVentana(window){

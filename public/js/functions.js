@@ -107,7 +107,6 @@ function agregarEstado(cb){
             }else{
                 caraEditada.img.setFill("#89c3eb");  
             }
-            
             piezaEditada.draw();
         }
          
@@ -122,12 +121,12 @@ function actualizarEstados(){
     }
 }
 function cambiarPieza(numero){
-    var posX = piezaEditada.image.getX();
-    var posY = piezaEditada.image.getY();
+    var posX = piezaEditada.layer.image.getX();
+    var posY = piezaEditada.layer.image.getY();
     var p1 = new Pieza(numero,posX,posY);
-    alert(stageOdontograma.get("#"+piezaEditada.id).id);
-    stageOdontograma.remove(stageOdontograma.get("#"+piezaEditada.id));
-    stageOdontograma.add(p1);
+//    alert(stageOdontograma.get("#11"));
+    stageOdontograma.remove(piezaEditada.layer);
+    stageOdontograma.add(p1.layer);
     stageOdontograma.draw();
 }
 
