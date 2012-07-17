@@ -1,4 +1,4 @@
-var URL = "http://localhost/clinica/";
+var URL = "http://localhost/framework/";
 var layerPieza;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;
@@ -11,8 +11,10 @@ var group;
 //window.onbeforeunload = function(){
 //    return "Esta a punto de descartar este odontograma";
 //}
-window.onload = function(){
-    stagePieza = new Kinetic.Stage({
+$(document).ready(cargar);
+
+ function cargar(){
+       stagePieza = new Kinetic.Stage({
         container: "canvasPieza",
         width: 200,
         height: 300
@@ -100,4 +102,5 @@ function cargarOdontograma(){
         stageOdontograma.add(p2);
         pos += 60;
     }
+   
 }

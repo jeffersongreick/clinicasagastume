@@ -13,7 +13,8 @@ var Pieza = function(numero,posX,posY){
         this.grupo.setY(posY+120);
     }
     this.add(this.grupo);
-    var imageObj = new Image();      
+    var imageObj = new Image(); 
+    imageObj.src = URL+"public/img/img_piezas/cara1/"+numero+".png";
     var image = new Kinetic.Image({
         x: posX,
         y: posY,
@@ -23,7 +24,6 @@ var Pieza = function(numero,posX,posY){
         image: imageObj,
         id:numero
     });
-    imageObj.src = URL+"public/img/img_piezas/cara1/"+numero+".png";
     this.image = image;
     this.add(image);
     this.selected = false;
@@ -46,10 +46,10 @@ var Pieza = function(numero,posX,posY){
         this.selected=false;
         this.draw();              
     }
-     
+       
 }
 Pieza.prototype = new Kinetic.Layer();
-Pieza.prototype.on('click dragstart', function(evt){
+Pieza.prototype.on('click touchstart', function(evt){
     var shape = evt.shape;
     if(this.selected == true){
         this.desmarcar(shape);

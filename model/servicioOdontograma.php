@@ -164,9 +164,9 @@ class Model_ServicioOdontograma extends Model {
 
     public function getEstados() {
         $sql = "SELECT * FROM tbl_estado";
-        $statement = $this->db->prepare($sql);
-        $statement->execute();
-        return $statement;
+        $query = $this->db->query($sql);
+        $list = $query->fetchAll(PDO::FETCH_OBJ);
+        return $list;
     }
 
     public function getPiezas() {
