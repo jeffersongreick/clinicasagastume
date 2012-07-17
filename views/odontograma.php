@@ -6,9 +6,9 @@
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/kinetic.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/functions.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/load.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/pieza.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/functions.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/cara.js"></script>
         <link rel="shortcut icon" href="public/images/tooth.ico" type="image.ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
@@ -35,8 +35,31 @@
                     <div id="slide">
                         <!--odontograma-->
                         <div id="odontograma">
-                            <div id="cambioPiezaContainer">
-                                <input type="button" value="Cambiar" id="btnGuardarNuevaPieza" class="button" />
+                            <div id="ventanaCambioPieza">
+
+                                <p id="cambioPiezaTitulo">La informacion registrada en este odontograma sobre la pieza anterior sera borrada.
+                                    Esta seguro del cambio?</p>
+                                <div id="containerPiezas">
+                                    <div class="descripcionPiezaCambiar">
+                                        <img id="imgCambiar" class="imgPieza" alt="Imagen de prueba" src="<?php echo URL ?>public/img/img_piezas/cara1/11.png">
+                                        <label for="imgCambiar">Pieza a cambiar</label>
+                                    </div>
+                                    <p style="display: inline;float: left;margin-top: 50%">>></p>
+                                    <div class="descripcionPiezaCambiar">
+                                        <img id="imgNueva" class="imgPieza" alt="Imagen de prueba" src="<?php echo URL ?>public/img/img_piezas/cara1/11.png">
+                                        <label for="imgNueva">nueva pieza  </label>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="botonesCentrados">
+                                        <input type="button" value="Cambiar" id="btnGuardarNuevaPieza" class="button" />
+                                        <input type="button" value="Cancelar" id="btnCancelarNuevaPieza" class="button" />
+                                    </div>
+                                </div>
+
+
+
+
+
                             </div>
                             <div id="canvasOdontograma"></div>
 
@@ -94,7 +117,7 @@
                         </div>
                     </div>
                 </div>         
-
+                <div class="block"></div>
             </div>
         </div>
     </body>

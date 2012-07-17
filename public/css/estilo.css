@@ -61,7 +61,6 @@ body{
     border-radius: 10px;
     width: 1000px;
     height: 570px;
-
 }
 .button{
     font-size: 20px;
@@ -74,6 +73,17 @@ body{
     margin: 10px;
 
 
+}
+.block{
+    position: absolute;
+    right: 0px;
+    top: 0;
+    z-index: 1;
+    background-color: #000000;
+    opacity: 0.5;
+    display: none;
+    width: 100%;
+    height: 100%;
 }
 canvas{
     display: block;

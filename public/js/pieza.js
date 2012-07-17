@@ -7,7 +7,7 @@ var Pieza = function(numero,posX,posY){
     this.Cara5 = new cara(5,numero, this.grupo);
     this.grupo.setScale(0.4);
     this.grupo.setX(posX);
-    if(numero > 30 && numero < 49){
+    if(numero > 30 && numero < 49 | numero > 70 && numero < 85){
         this.grupo.setY(posY-70);
     }else{
         this.grupo.setY(posY+120);

@@ -62,10 +62,10 @@ function agregarImagenEstado(id_estado){
             easing: "strong-ease-out"
         });
         image.on("mouseover", function() {
-          document.body.style.cursor = "pointer";
+            document.body.style.cursor = "pointer";
         });
         image.on("mouseout", function() {
-          document.body.style.cursor = "default";
+            document.body.style.cursor = "default";
         });
         posicion -=50;
     };
@@ -121,13 +121,15 @@ function actualizarEstados(){
         agregarImagenEstado(id_estado);
     }
 }
-function var_dump(obj) {
-   if(typeof obj == "object") {
-      return "Type: "+typeof(obj)+((obj.constructor) ? "\nConstructor: "+obj.constructor : "")+"\nValue: " + obj;
-   } else {
-      return "Type: "+typeof(obj)+"\nValue: "+obj;
-   }
-}//end function var_dump
+function cambiarPieza(numero){
+    var posX = piezaEditada.image.getX();
+    var posY = piezaEditada.image.getY();
+    var p1 = new Pieza(numero,posX,posY);
+    alert(stageOdontograma.get("#"+piezaEditada.id).id);
+    stageOdontograma.remove(stageOdontograma.get("#"+piezaEditada.id));
+    stageOdontograma.add(p1);
+    stageOdontograma.draw();
+}
 
 function guardar(){
   var piezas = stageOdontograma.getChildren();

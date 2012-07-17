@@ -86,8 +86,11 @@
                     <div class="nombreFuncion">Tratamientos</div>
                 </div>
                 <div class="iconoContainer" id="btnRegistroPaciente">
-                    <a href="<?php echo URL ?>odontograma/getOdontograma/1"><input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_registros.png" alt="odontograma"  class="iconos_escritorio" /></a> 
-                    <div class="nombreFuncion">Registro pacientes</div>
+                    <a href="<?php echo URL ?>odontograma/getOdontograma/1">
+                        <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_registros.png" alt="odontograma"  class="iconos_escritorio" />
+                        <div class="nombreFuncion">Registro pacientes</div>
+                    </a> 
+
                 </div>
                 <div class="iconoContainer" id="btnHistoria" >
                     <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_historia.png" alt="odontograma" class="iconos_escritorio" />

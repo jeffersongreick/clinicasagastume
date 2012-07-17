@@ -58,9 +58,7 @@ $(document).ready(cargar);
     $('.cara').click(function(){
         cargarCara($(this).attr("value"));
     });
-    $('#btnCambiarPieza').click(function(){
-          $('cambioPiezaContainer').slideDown("4000");
-    });
+    
     $('#btnCancelar_edicion_pieza').click(function(){ 
         $('.item').removeAttr('checked');
         posicion = 200;
@@ -77,7 +75,23 @@ $(document).ready(cargar);
             scrollLeft:0
         },500);
     });
+    $('#btnCambiarPieza').click(function(){
+        if(piezaEditada){
+            abrirVentana('#ventanaCambioPieza');
+        }else{
+            alert("No ha seleccionado ninguna pieza");
+        }
+       
+    });
+    $('#btnCancelarNuevaPieza').click(function(){
+        cerrarVentana('#ventanaCambioPieza');
+    });
+    $('#btnGuardarNuevaPieza').click(function(){
+        cambiarPieza(51);
+        cerrarVentana('#ventanaCambioPieza');
+    });
     cargarOdontograma();
+//    cambiarPieza(51);
 };
 //funcion de dibujo de odontogramas en canvas
 function cargarOdontograma(){
@@ -102,5 +116,15 @@ function cargarOdontograma(){
         stageOdontograma.add(p2);
         pos += 60;
     }
-   
+}
+function abrirVentana(window){
+    //Bloquea el uso del escritorio
+    $(".block").fadeIn("4000"); 
+    $(window).slideDown("4000");
+}
+//cierra una caja pasada por parametro
+function cerrarVentana(window){
+    //desbloquea el uso del escritorio
+    $(".block").fadeOut("4000");
+    $(window).slideUp("4000");
 }
