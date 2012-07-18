@@ -121,13 +121,14 @@ function actualizarEstados(){
     }
 }
 function cambiarPieza(numero){
-    var posX = piezaEditada.layer.image.getX();
-    var posY = piezaEditada.layer.image.getY();
+    var posX = piezaEditada.image.getX();
+    var posY = piezaEditada.image.getY();
     var p1 = new Pieza(numero,posX,posY);
-//    alert(stageOdontograma.get("#11"));
-    stageOdontograma.remove(piezaEditada.layer);
-    stageOdontograma.add(p1.layer);
-    stageOdontograma.draw();
+    layerOdontograma.remove(piezaEditada.image);
+    layerOdontograma.add(p1.image);
+    layerOdontograma.add(p1.grupo);
+    stageOdontograma.add(layerOdontograma);
+    layerOdontograma.draw();
 }
 
  

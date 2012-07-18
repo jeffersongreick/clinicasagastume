@@ -1,6 +1,4 @@
 var Pieza = function(numero,posX,posY){
-    this.layer = new Kinetic.Layer();
-    this.layer.contenedor = this;
     this.grupo = new Kinetic.Group();
     this.Cara1 = new cara(1,numero, this.grupo);
     this.Cara2 = new cara(2,numero, this.grupo);
@@ -14,7 +12,6 @@ var Pieza = function(numero,posX,posY){
     }else{
         this.grupo.setY(posY+120);
     }
-    this.layer.add(this.grupo);
     var imageObj = new Image();      
     var image = new Kinetic.Image({
         x: posX,
@@ -22,53 +19,38 @@ var Pieza = function(numero,posX,posY){
         width: 50,
         height: 100,
         radius: 70,
-        image: imageObj,
-        id:numero
+        id:numero,
+        image: imageObj
+        
     });
     imageObj.src = URL+"public/img/img_piezas/cara1/"+numero+".png";
-    this.layer.image = image;
-    this.layer.add(image);
+    this.image = image;
+    this.image.contenedor = this;
     this.selected = false;
     this.id = numero;
-
-    this.layer.on('click dragstart',function(){
+    this.image.on('click dragstart',function(){
         if(this.contenedor.selected == true){
             this.desmarcar();
         }else{
             this.marcar();
         }
     });
-    
 }
-Pieza.prototype.draw = function(){
-    this.layer.draw();
-}
-
-Kinetic.Layer.prototype.marcar = function(){
+Kinetic.Image.prototype.marcar = function(){
     if(piezaEditada){
-        piezaEditada.layer.desmarcar(piezaEditada);
+        piezaEditada.image.desmarcar(piezaEditada);
     }
     piezaEditada = this.contenedor;
     caraEditada = piezaEditada.Cara1;
-    this.image.setAlpha(0.5);
-    this.image.setStroke("red");
+    this.setAlpha(0.5);
+    this.setStroke("red");
     this.contenedor.selected = true;
-    this.draw();
+    layerOdontograma.draw();
 }
-Kinetic.Layer.prototype.desmarcar = function(){
-   
+Kinetic.Image.prototype.desmarcar = function(){
     piezaEditada = null;
-    this.image.setAlpha(1);
-    this.image.setStroke("none");
+    this.setAlpha(1);
+    this.setStroke("none");
     this.contenedor.selected=false;
-    this.draw();
+    layerOdontograma.draw();
 }
-//Pieza.prototype = new Kinetic.Layer();
-//Pieza.prototype.on('click dragstart',function(evt){
-//    var shape = evt.shape;
-//    if(this.selected == true){
-//        this.desmarcar(shape);
-//    }else{
-//        this.marcar(shape);
-//    }
-//});
