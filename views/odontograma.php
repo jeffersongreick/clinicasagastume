@@ -101,7 +101,7 @@
                                                 <input type='checkbox' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregarEstado(this)'/><label for='estado_<?php echo $estado->id ?>'>
                                                     <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->estado ?>'/></label>
                                             <?php endforeach; ?>
-                                        <?php endif;g ?>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="treatment_items">
                                         <input type="checkbox" id="p" class="item" />
