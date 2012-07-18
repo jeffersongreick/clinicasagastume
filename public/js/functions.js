@@ -125,6 +125,8 @@ function cambiarPieza(numero){
     var posY = piezaEditada.image.getY();
     var p1 = new Pieza(numero,posX,posY);
     layerOdontograma.remove(piezaEditada.image);
+    layerOdontograma.remove(piezaEditada.grupo);
+    piezaEditada = null;
     layerOdontograma.add(p1.image);
     layerOdontograma.add(p1.grupo);
     stageOdontograma.add(layerOdontograma);
