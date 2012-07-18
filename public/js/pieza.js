@@ -28,6 +28,8 @@ var Pieza = function(numero,posX,posY){
     this.image.contenedor = this;
     this.selected = false;
     this.id = numero;
+    layerOdontograma.add(this.image);
+    layerOdontograma.add(this.grupo);
     this.image.on('click dragstart',function(){
         if(this.contenedor.selected == true){
             this.desmarcar();

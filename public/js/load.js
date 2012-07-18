@@ -103,20 +103,12 @@ function cargarOdontograma(){
     var pos = 15;
     for(var i=8;i>=1;i--){
         var p1 = new Pieza("1"+i,pos,0);
-        layerOdontograma .add(p1.image);
-        layerOdontograma .add(p1.grupo);
         var p2 = new Pieza("4"+i,pos,270);
-        layerOdontograma .add(p2.image);
-        layerOdontograma .add(p2.grupo);
         pos += 60;
     }
     for(var i=1;i<=8;i++){
         var p1 = new Pieza("2"+i,pos,0);
-        layerOdontograma .add(p1.image);
-        layerOdontograma .add(p1.grupo);
         var p2 = new Pieza("3"+i,pos,270);
-        layerOdontograma.add(p2.image);
-        layerOdontograma.add(p2.grupo);
         pos += 60;
     }
     

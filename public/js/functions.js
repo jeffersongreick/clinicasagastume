@@ -127,9 +127,6 @@ function cambiarPieza(numero){
     layerOdontograma.remove(piezaEditada.image);
     layerOdontograma.remove(piezaEditada.grupo);
     piezaEditada = null;
-    layerOdontograma.add(p1.image);
-    layerOdontograma.add(p1.grupo);
-    stageOdontograma.add(layerOdontograma);
     layerOdontograma.draw();
 }
 
