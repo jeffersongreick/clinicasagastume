@@ -67,9 +67,8 @@
                             <input type="button" value="Imprimir" id="btnImprimir" class="button" />
                             <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
                             <input type="button" value="Extraer" id="btnExtraer" class="button" />
-                            <a href="index.php" class="descripcionIcono" >
-                                <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" />
-                            </a>
+                            <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardar()" />
+                            
                             <a href="index.php" class="descripcionIcono" >
                                 <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="button" />
                             </a>
@@ -97,11 +96,12 @@
                                 <div class="clear"></div>
                                 <div class="tabs">
                                     <div class="state_items">
-                                        <?php
-                                        if (isset($listaEstados)) {
-                                            echo $listaEstados;
-                                        }
-                                        ?>
+                                        <?php if (isset($listaEstados)): ?>
+                                            <?php foreach ($listaEstados as $estado): ?> 
+                                                <input type='checkbox' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregarEstado(this)'/><label for='estado_<?php echo $estado->id ?>'>
+                                                    <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->estado ?>'/></label>
+                                            <?php endforeach; ?>
+                                        <?php endif;g ?>
                                     </div>
                                     <div class="treatment_items">
                                         <input type="checkbox" id="p" class="item" />

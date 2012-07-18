@@ -130,4 +130,54 @@ function cambiarPieza(numero){
     layerOdontograma.draw();
 }
 
+function guardar(){
+  var piezas = stageOdontograma.getChildren();
+  var data = {
+      piezas : []
+  }  
+  
+  for(var i = 0; i<piezas.length;i++){
+      var pieza = piezas[i]
+      var p = {
+          id:pieza.id,
+          caras:[]
+      }
+      for(var j = 1;j<=5;j++){          
+          //buena chanchada :D despues lo arreglo 
+          if(j==1){
+              var estados = pieza.Cara1.estados;
+          }
+          if(j==2){
+              var estados = pieza.Cara2.estados;
+          }
+          if(j==3){
+              var estados = pieza.Cara3.estados;
+          }
+          if(j==4){
+              var estados = pieza.Cara4.estados;
+          }
+          if(j==5){
+              var estados = pieza.Cara5.estados;
+          }
+          
+          if(estados.length>0){
+        
+            var cara ={
+                id:j,
+                estados:[estados]
+            };
+            p.caras.push(cara);
+          }    
+      }
+      if(p.caras.length>0){
+          data.piezas.push(p);
+      }     
+      
+  }
+  
+  alert(JSON.stringify(data));
+ 
+  $.post(URL+"/odontograma/guardar", data);
+
+}
  

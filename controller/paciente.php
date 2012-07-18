@@ -13,6 +13,7 @@ class Controller_Paciente extends Controller {
     public function getTratamiento($ciPaciente) {
         
     }
+
 }
 
 ?>

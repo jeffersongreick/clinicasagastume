@@ -11,7 +11,9 @@ var group;
 //window.onbeforeunload = function(){
 //    return "Esta a punto de descartar este odontograma";
 //}
-window.onload = function(){
+$(document).ready(cargar);
+
+function cargar(){
     stagePieza = new Kinetic.Stage({
         container: "canvasPieza",
         width: 200,
