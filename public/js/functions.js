@@ -107,10 +107,7 @@ function agregarEstado(cb){
             }else{
                 caraEditada.img.setFill("#89c3eb");  
             }
-            piezaEditada.draw();
         }
-         
-        
     }
 }
 function actualizarEstados(){
@@ -120,64 +117,100 @@ function actualizarEstados(){
         agregarImagenEstado(id_estado);
     }
 }
+function abrirVentanaCambiarPieza(){
+    var nuevaPieza =calcularPieza(); 
+    $("#imgCambiar").attr("src",URL+"public/img/img_piezas/cara1/"+piezaEditada.id+".png");
+    $("#imgNueva").attr("src",URL+"public/img/img_piezas/cara1/"+nuevaPieza+".png");
+    $("#lblPiezaCambiar").html("Pieza a cambiar: "+piezaEditada.id);
+    $("#lblNuevaPieza").html("Nueva pieza: "+nuevaPieza);
+    
+    abrirVentana('#ventanaCambioPieza');
+    
+}
 function cambiarPieza(numero){
     var posX = piezaEditada.image.getX();
     var posY = piezaEditada.image.getY();
     var p1 = new Pieza(numero,posX,posY);
+    odontograma.push(p1);
     layerOdontograma.remove(piezaEditada.image);
     layerOdontograma.remove(piezaEditada.grupo);
+    layerOdontograma.remove(piezaEditada.num);
     piezaEditada = null;
+    stageOdontograma.add(layerOdontograma);
     layerOdontograma.draw();
 }
-
+function calcularPieza(){
+    var num = Math.floor(piezaEditada.id /10);
+    switch(num){
+        case 1:
+            num = 50;
+            break;
+        case 2:
+            num = 60;
+            break;
+        case 3:
+            num = 70;
+            break;
+        case 4:
+            num = 80;
+            break;
+        case 5:
+            num = 10;
+            break;
+        case 6:
+            num = 20;
+            break;
+        case 7:
+            num = 30;
+            break;
+        case 8:
+            num = 40;
+            break;
+    }
+    num +=(piezaEditada.id % 10);
+    return num;
+}
 function guardar(){
-  var piezas = stageOdontograma.getChildren();
-  var data = {
-      piezas : []
-  }  
-  
-  for(var i = 0; i<piezas.length;i++){
-      var pieza = piezas[i]
-      var p = {
-          id:pieza.id,
-          caras:[]
-      }
-      for(var j = 1;j<=5;j++){          
-          //buena chanchada :D despues lo arreglo 
-          if(j==1){
-              var estados = pieza.Cara1.estados;
-          }
-          if(j==2){
-              var estados = pieza.Cara2.estados;
-          }
-          if(j==3){
-              var estados = pieza.Cara3.estados;
-          }
-          if(j==4){
-              var estados = pieza.Cara4.estados;
-          }
-          if(j==5){
-              var estados = pieza.Cara5.estados;
-          }
-          
-          if(estados.length>0){
+    var data = {
+        piezas : []
+    }  
+    for(var i = 0; i<odontograma.length;i++){
+        var pieza = odontograma[i]
+        var p = {
+            id:pieza.id,
+            caras:[]
+        }   
+        for(var j = 1;j<=5;j++){          
+            //buena chanchada :D despues lo arreglo 
+            if(j==1){
+                var estados = pieza.Cara1.estados;
+            }
+            if(j==2){
+                var estados = pieza.Cara2.estados;
+            }
+            if(j==3){
+                var estados = pieza.Cara3.estados;
+            }
+            if(j==4){
+                var estados = pieza.Cara4.estados;
+            }
+            if(j==5){
+                var estados = pieza.Cara5.estados;
+            }
+            if(estados.length>0){
         
-            var cara ={
-                id:j,
-                estados:[estados]
-            };
-            p.caras.push(cara);
-          }    
-      }
-      if(p.caras.length>0){
-          data.piezas.push(p);
-      }     
-      
-  }
-  
-  alert(JSON.stringify(data));
- 
-  $.post(URL+"/odontograma/guardar", data);
-
+                var cara ={
+                    id:j,
+                    estados:[estados]
+                };
+                p.caras.push(cara);
+            }    
+        }
+        if(p.caras.length>0){
+            data.piezas.push(p);
+        }     
+    }
+    alert(JSON.stringify(data));
+//  $.post(URL+"/odontograma/guardar", data);
 }
  

@@ -2,6 +2,7 @@ var URL = "http://localhost/clinica/";
 var layerOdontograma , layerPieza;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;
+var odontograma = [];
 //ayuda a establecer la posicion del ultimo item (estado o prestacion agregado a una pieza en edicion)
 var posicion = 200;
 var piezaEditada;
@@ -11,9 +12,7 @@ var group;
 //window.onbeforeunload = function(){
 //    return "Esta a punto de descartar este odontograma";
 //}
-$(document).ready(cargar);
-
-function cargar(){
+window.onload = function(){
     stagePieza = new Kinetic.Stage({
         container: "canvasPieza",
         width: 200,
@@ -46,7 +45,7 @@ function cargar(){
     })
     //    cambia de odontograma a edicion de pieza
     $('#btnEditarPieza').click(function(){ 
-        if(piezaEditada){
+        if(piezaEditada && piezaEditada.id != 0){
             cargarCara("1");
             $('#slideContainer').animate({
                 scrollLeft:1000
@@ -58,7 +57,6 @@ function cargar(){
     $('.cara').click(function(){
         cargarCara($(this).attr("value"));
     });
-    
     $('#btnCancelar_edicion_pieza').click(function(){ 
         $('.item').removeAttr('checked');
         posicion = 200;
@@ -76,12 +74,11 @@ function cargar(){
         },500);
     });
     $('#btnCambiarPieza').click(function(){
-        if(piezaEditada){
-            abrirVentana('#ventanaCambioPieza');
+        if(piezaEditada && piezaEditada.id != 0){
+            abrirVentanaCambiarPieza();
         }else{
             alert("No ha seleccionado ninguna pieza");
         }
-       
     });
     $('#btnCancelarNuevaPieza').click(function(){
         cerrarVentana('#ventanaCambioPieza');
@@ -101,19 +98,28 @@ function cargarOdontograma(){
         height: 400
     });
     layerOdontograma = new Kinetic.Layer();
-    //    carga el maxilar superior del odontograma
-    var pos = 15;
-    for(var i=8;i>=1;i--){
-        var p1 = new Pieza("1"+i,pos,0);
-        var p2 = new Pieza("4"+i,pos,270);
-        pos += 60;
+    var superior = piezas.superior;
+    for(i in superior){
+        var id = superior[i].id;
+        var ps;
+        if(id == 0){
+            ps = new vacio(id,superior[i].posX,0);
+        }else{
+            ps = new Pieza(id,superior[i].posX,0);
+        }
+        odontograma.push(ps);
     }
-    for(var i=1;i<=8;i++){
-        var p1 = new Pieza("2"+i,pos,0);
-        var p2 = new Pieza("3"+i,pos,270);
-        pos += 60;
+    var inferior = piezas.inferior;
+    for(i in inferior){
+        var id = inferior[i].id;
+        var pi;
+        if(id == 0){
+            pi = new vacio(id,inferior[i].posX,270);
+        }else{
+            pi = new Pieza(id,inferior[i].posX,270);
+        }
+        odontograma.push(pi);
     }
-    
     stageOdontograma.add(layerOdontograma);
     layerOdontograma.draw();
 }

@@ -42,7 +42,7 @@
                         <li>
                             <input type="button" id="btnNuevo_tratamiento" class="button_menu" value="Nuevo tratamiento"/>
                             <ul >
-                                <li><a href="<?php echo URL ?>odontograma/getOdontograma/1"><input type="button" id="btn_nuevo_estado_inicial" class="button_menu" value="Nuevo odontograma inicial"/></a></li>
+                                <li><a href="<?php echo URL ?>odontograma/getViewOdontogramaFactory/1"><input type="button" id="btn_nuevo_estado_inicial" class="button_menu" value="Nuevo odontograma inicial"/></a></li>
                                 <li><input type="button" id="btn_nuevo_plan_tratamiento" class="button_menu" value="Nuevo plan tratamiento"/></li>
                             </ul>
                         </li>
@@ -86,7 +86,7 @@
                     <div class="nombreFuncion">Tratamientos</div>
                 </div>
                 <div class="iconoContainer" id="btnRegistroPaciente">
-                    <a href="<?php echo URL ?>odontograma/getOdontograma/1">
+                    <a href="<?php echo URL ?>odontograma/getViewOdontogramaFactory/1">
                         <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_registros.png" alt="odontograma"  class="iconos_escritorio" />
                         <div class="nombreFuncion">Registro pacientes</div>
                     </a> 

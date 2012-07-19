@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,6 +11,10 @@
         <script type="text/javascript" src="<?php echo URL ?>public/js/pieza.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/functions.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/cara.js"></script>
+        <script type="text/javascript" >
+         <?php if (isset($JsonOdontograma)): echo $JsonOdontograma; endif;?>
+    </script>
+       
         <link rel="shortcut icon" href="public/images/tooth.ico" type="image.ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
         <title>Clinica Sagastume</title>
@@ -36,18 +41,17 @@
                         <!--odontograma-->
                         <div id="odontograma">
                             <div id="ventanaCambioPieza">
-
                                 <p id="cambioPiezaTitulo">La informacion registrada en este odontograma sobre la pieza anterior sera borrada.
                                     Esta seguro del cambio?</p>
                                 <div id="containerPiezas">
                                     <div class="descripcionPiezaCambiar">
-                                        <img id="imgCambiar" class="imgPieza" alt="Imagen de prueba" src="<?php echo URL ?>public/img/img_piezas/cara1/11.png">
-                                        <label for="imgCambiar">Pieza a cambiar</label>
+                                        <img id="imgCambiar" class="imgPieza" alt="Imagen de prueba" src="">
+                                        <label id="lblPiezaCambiar" for="imgCambiar"></label>
                                     </div>
                                     <p style="display: inline;float: left;margin-top: 50%">>></p>
                                     <div class="descripcionPiezaCambiar">
-                                        <img id="imgNueva" class="imgPieza" alt="Imagen de prueba" src="<?php echo URL ?>public/img/img_piezas/cara1/11.png">
-                                        <label for="imgNueva">nueva pieza  </label>
+                                        <img id="imgNueva" class="imgPieza" alt="Imagen de prueba" src="">
+                                        <label id="lblNuevaPieza" for="imgNueva">nueva pieza  </label>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="botonesCentrados">
@@ -55,20 +59,13 @@
                                         <input type="button" value="Cancelar" id="btnCancelarNuevaPieza" class="button" />
                                     </div>
                                 </div>
-
-
-
-
-
                             </div>
                             <div id="canvasOdontograma"></div>
-
                             <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
                             <input type="button" value="Imprimir" id="btnImprimir" class="button" />
                             <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
                             <input type="button" value="Extraer" id="btnExtraer" class="button" />
                             <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardar()" />
-                            
                             <a href="index.php" class="descripcionIcono" >
                                 <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="button" />
                             </a>
