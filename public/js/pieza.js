@@ -7,7 +7,6 @@ var Pieza = function(numero,posX,posY){
     this.Cara5 = new cara(5,numero, this.grupo);
     this.grupo.setScale(0.4);
     this.grupo.setX(posX);
-
     this.num = new Kinetic.Text({
         x: posX+15,
         text: numero.toString(),
@@ -28,7 +27,6 @@ var Pieza = function(numero,posX,posY){
         y: posY,
         width: 50,
         height: 100,
-        radius: 70,
         id:numero,
         image: imageObj
         
@@ -68,7 +66,7 @@ Kinetic.Image.prototype.desmarcar = function(){
     this.contenedor.selected=false;
     layerOdontograma.draw();
 }
-var vacio = function(numero,posX,posY){
+var vacio = function(numero,faltante,posX,posY){
     var imageObj = new Image();      
     var image = new Kinetic.Image({
         x: posX,
@@ -80,6 +78,7 @@ var vacio = function(numero,posX,posY){
         image: imageObj
     });
     imageObj.src = URL+"public/img/img_piezas/0.png";
+    this.faltante = faltante;
     this.image = image;
     this.image.contenedor = this;
     this.selected = false;

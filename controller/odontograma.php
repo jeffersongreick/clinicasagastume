@@ -35,20 +35,17 @@ class Controller_Odontograma {
                         $datetime2 = new DateTime("2008/12/12");
                         $intervalo = date_diff($datetime1, $datetime2);
                         if ($intervalo->format('d') > 2922) {
-                            $JsonOdontograma = "var piezas = {superior:[{id:18,posX:15},{id:17,posX:75},{id:16,posX:135},{id:15,posX:195},
-                                {id:14,posX:255},{id:13,posX:315},{id:12,posX:375},{id:11,posX:435},{id:21,posX:495},{id:22,posX:555},
-                                {id:23,posX:615},{id:24,posX:675},{id:25,posX:735},{id:26,posX:795},{id:27,posX:855},{id:0,posX:915}],
-        inferior:[{id:48,posX:15},{id:47,posX:75},{id:46,posX:135},{id:45,posX:195},{id:44,posX:255},{id:43,posX:315},{id:42,posX:375},
-        {id:41,posX:435},{id:31,posX:495},{id:32,posX:555},{id:0,posX:615},{id:34,posX:675},{id:35,posX:735},{id:36,posX:795},{id:37,
-        posX:855},{id:38,posX:915}]}";
+                            $JsonOdontograma = "var piezas = {superior:[{id:18,estados:[],posX:15},{id:17,estados:[],posX:75},{id:16,estados:[],posX:135},{id:15,estados:[],posX:195},
+                                {id:14,estados:[],posX:255},{id:13,estados:[],posX:315},{id:12,estados:[],posX:375},{id:11,estados:[],posX:435},{id:21,estados:[],posX:495},{id:22,estados:[],posX:555},
+                                {id:23,estados:[],posX:615},{id:24,estados:[],posX:675},{id:25,estados:[],posX:735},{id:26,estados:[],posX:795},{id:27,estados:[],posX:855},{id:0,estados:[],faltante:'28',posX:915}],
+        inferior:[{id:48,estados:[],posX:15},{id:47,estados:[],posX:75},{id:46,estados:[],posX:135},{id:45,estados:[],posX:195},{id:44,estados:[],posX:255},{id:43,estados:[],posX:315},{id:42,estados:[],posX:375},
+        {id:41,estados:[],posX:435},{id:31,estados:[],posX:495},{id:32,estados:[],posX:555},{id:0,estados:[],faltante:'33',posX:615},{id:34,estados:[],posX:675},{id:35,estados:[],posX:735},{id:36,estados:[],posX:795},{id:37,estados:[], posX:855},{id:38,estados:[],posX:915}]}";
                         } else {
-                            $JsonOdontograma = "var piezas = {superior:[{id:0,posX:15},{id:0,posX:75},{id:0,posX:135},{id:55,posX:195},
-                                {id:54,posX:255},{id:53,posX:315},{id:52,posX:375},{id:51,posX:435},{id:61,posX:495},{id:62,posX:555},
-                                {id:63,posX:615},{id:64,posX:675},{id:65,posX:735},{id:0,posX:795},{id:0,posX:855},{id:0,posX:915}],
-        inferior:[{id:0,posX:15},{id:0,posX:75},{id:0,posX:135},{id:85,posX:195},{id:84,posX:255},{id:83,posX:315},{id:82,posX:375},
-        {id:81,posX:435},{id:71,posX:495},{id:72,posX:555},{id:73,posX:615},{id:74,posX:675},{id:75,posX:735},{id:0,posX:795},{id:0,
-        posX:855},{id:0,posX:915}]}
-";
+                            $JsonOdontograma = "var piezas = {superior:[{id:0,estados:[], faltante:'18',posX:15},{id:0,estados:[], faltante:'17',posX:75},{id:0,estados:[], faltante:'16',posX:135},{id:55,estados:[],posX:195},
+                                {id:54,estados:[],posX:255},{id:53,estados:[],posX:315},{id:52,estados:[],posX:375},{id:51,estados:[],posX:435},{id:61,estados:[],posX:495},{id:62,estados:[],posX:555},
+                                {id:63,estados:[],posX:615},{id:64,estados:[],posX:675},{id:65,estados:[],posX:735},{id:0,estados:[] ,faltante:'26',posX:795},{id:0,estados:[], faltante:'27',posX:855},{id:0,estados:[],faltante:'28',posX:915}],
+        inferior:[{id:0,estados:[], faltante:'48',posX:15},{id:0,estados:[], faltante:'47',posX:75},{id:0,estados:[], faltante:'46',posX:135},{id:85,estados:[],posX:195},{id:84,estados:[],posX:255},{id:83,estados:[],posX:315},{id:82,estados:[],posX:375},
+        {id:81,estados:[],posX:435},{id:71,estados:[],posX:495},{id:72,estados:[],posX:555},{id:73,estados:[],posX:615},{id:74,estados:[],posX:675},{id:75,estados:[],posX:735},{id:0,estados:[], faltante:'36',posX:795},{id:0,estados:[], faltante:'37',posX:855},{id:0,estados:[], faltante:'38',posX:915}]}";
                         }
                         $view = View::factory('odontograma');
                         $view->set('listaEstados', $this->getEstados());
