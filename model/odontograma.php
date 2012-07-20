@@ -4,7 +4,7 @@ class Model_Odontograma extends Model{
 
     private $id;
     private $fecha;
-    private $piezas;
+    private $piezas = array();
 
     public function __construct() {
         parent::__construct();

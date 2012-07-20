@@ -88,30 +88,18 @@ function quitarImagenEstado(id_estado){
     }
 }
 function agregarEstado(cb){
+    cambios = true;
     if(cb.checked){
         if(caraEditada.estados.length <=2){
             agregarImagenEstado(cb.value);
             caraEditada.estados.push(cb.value);
-            caraEditada.img.setFill("bf6e4e");
         }else{
             alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
             $(cb).removeAttr('checked');
-            
         }   
     }else{
         quitarImagenEstado(cb.value);
         caraEditada.estados.splice(caraEditada.estados.indexOf(cb.value),1);
-        if(caraEditada.estados.length ==0){
-            if(caraEditada.numero == 5){
-                caraEditada.img.setFill("#d5ebfb");  
-            }else{
-                caraEditada.img.setFill("#89c3eb");  
-            }
-            
-            piezaEditada.draw();
-        }
-         
-        
     }
 }
 function actualizarEstados(){
@@ -121,64 +109,149 @@ function actualizarEstados(){
         agregarImagenEstado(id_estado);
     }
 }
-function cambiarPieza(numero){
+function abrirVentanaCambiarPieza(){
+    if((piezaEditada.id % 10)<=5){
+        var nuevaPieza =calcularPieza(); 
+        $("#imgCambiar").attr("src",URL+"public/img/img_piezas/cara1/"+piezaEditada.id+".png");
+        $("#imgNueva").attr("src",URL+"public/img/img_piezas/cara1/"+nuevaPieza+".png");
+        $("#imgNueva").data("numPieza",nuevaPieza); 
+        $("#lblPiezaCambiar").html("Pieza a cambiar: "+piezaEditada.id);
+        $("#lblNuevaPieza").html("Nueva pieza: "+nuevaPieza);
+        abrirVentana('#ventanaCambioPieza');
+    }else{
+        alert("La pieza seleccionada no puede ser cambiada a temporal");
+    }
+    
+    
+}
+function cambiarPieza(){
     var posX = piezaEditada.image.getX();
     var posY = piezaEditada.image.getY();
-    var p1 = new Pieza(numero,posX,posY);
-    alert(stageOdontograma.get("#"+piezaEditada.id).id);
-    stageOdontograma.remove(stageOdontograma.get("#"+piezaEditada.id));
-    stageOdontograma.add(p1);
-    stageOdontograma.draw();
+    var p1 = new Pieza($("#imgNueva").data("numPieza"),posX,posY);
+    odontograma.push(p1);
+    layerOdontograma.remove(piezaEditada.image);
+    layerOdontograma.remove(piezaEditada.grupo);
+    layerOdontograma.remove(piezaEditada.num);
+    piezaEditada = null;
+    stageOdontograma.add(layerOdontograma);
+    layerOdontograma.draw();
 }
-
+function calcularPieza(){
+    var num = Math.floor(piezaEditada.id /10);
+    switch(num){
+        case 1:
+            num = 50;
+            break;
+        case 2:
+            num = 60;
+            break;
+        case 3:
+            num = 70;
+            break;
+        case 4:
+            num = 80;
+            break;
+        case 5:
+            num = 10;
+            break;
+        case 6:
+            num = 20;
+            break;
+        case 7:
+            num = 30;
+            break;
+        case 8:
+            num = 40;
+            break;
+    }
+    num +=(piezaEditada.id % 10);
+    return num;
+}
 function guardar(){
-  var piezas = stageOdontograma.getChildren();
-  var data = {
-      piezas : []
-  }  
-  
-  for(var i = 0; i<piezas.length;i++){
-      var pieza = piezas[i]
-      var p = {
-          id:pieza.id,
-          caras:[]
-      }
-      for(var j = 1;j<=5;j++){          
-          //buena chanchada :D despues lo arreglo 
-          if(j==1){
-              var estados = pieza.Cara1.estados;
-          }
-          if(j==2){
-              var estados = pieza.Cara2.estados;
-          }
-          if(j==3){
-              var estados = pieza.Cara3.estados;
-          }
-          if(j==4){
-              var estados = pieza.Cara4.estados;
-          }
-          if(j==5){
-              var estados = pieza.Cara5.estados;
-          }
-          
-          if(estados.length>0){
-        
-            var cara ={
-                id:j,
-                estados:[estados]
-            };
-            p.caras.push(cara);
-          }    
-      }
-      if(p.caras.length>0){
-          data.piezas.push(p);
-      }     
-      
-  }
-  
-  alert(JSON.stringify(data));
- 
+    var data = {
+        piezas : []
+    }  
+    for(var i = 0; i<odontograma.length;i++){
+        var pieza = odontograma[i]
+        //        alert(pieza.id);
+        var p = {
+            id:pieza.id,
+            caras:[]
+        }   
+        if(pieza.id != 0){
+            for(var j = 1;j<=5;j++){          
+                //buena chanchada :D despues lo arreglo 
+                if(j==1){
+                    var estados = pieza.Cara1.estados;
+                }
+                if(j==2){
+                    var estados = pieza.Cara2.estados;
+                }
+                if(j==3){
+                    var estados = pieza.Cara3.estados;
+                }
+                if(j==4){
+                    var estados = pieza.Cara4.estados;
+                }
+                if(j==5){
+                    var estados = pieza.Cara5.estados;
+                }
+                if(estados.length>0){
+                    var cara ={
+                        id:j,
+                        estados:[estados]
+                    };
+                    p.caras.push(cara);
+                }    
+            }
+        }
+        if(p.caras.length>0){
+            data.piezas.push(p);
+        }     
+    }
   $.post(URL+"/odontograma/guardar", data);
-
 }
- 
+
+function extraerPieza(){
+    if (confirm("AVISO: ¿Esta cierto de que deseas eliminar esta pieza junto a su informacion?")){
+        var posX = piezaEditada.image.getX();
+        var posY = piezaEditada.image.getY();
+        var p1 = new vacio(0,piezaEditada.id,posX,posY);
+        //    odontograma.splice(caraEditada.estados.indexOf(cb.value),1);
+        odontograma.push(p1);
+        layerOdontograma.remove(piezaEditada.image);
+        layerOdontograma.remove(piezaEditada.grupo);
+        layerOdontograma.remove(piezaEditada.num);
+        piezaEditada = null;
+        stageOdontograma.add(layerOdontograma);
+        layerOdontograma.draw();
+    }
+         
+    
+}
+function agregarPieza(){
+    if (confirm("AVISO: ¿Esta cierto de que deseas agregar la pieza "+piezaEditada.faltante+" al odontograma?")){
+        var posX = piezaEditada.image.getX();
+        var posY = piezaEditada.image.getY();
+        var p1 = new Pieza(piezaEditada.faltante,posX,posY);
+        //    odontograma.splice(caraEditada.estados.indexOf(cb.value),1);
+        odontograma.push(p1);
+        layerOdontograma.remove(piezaEditada.image);
+        layerOdontograma.remove(piezaEditada.grupo);
+        layerOdontograma.remove(piezaEditada.num);
+        piezaEditada = null;
+        stageOdontograma.add(layerOdontograma);
+        layerOdontograma.draw();
+    }
+}
+
+function cloneObject(source_) {
+    for (var item in source_) {
+        if (typeof source_[item] == 'object') {
+            this[item] = new cloneObject(source_[item]);
+        } else{
+            this[item] = source_[item];
+        }
+    }
+}
+//var my_clon = new cloneObject (my_object);

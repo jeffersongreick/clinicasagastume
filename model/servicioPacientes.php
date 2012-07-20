@@ -12,7 +12,7 @@ class Model_ServicioPacientes extends Model {
         return self::$instance;
     }
 
-    private function __construct() {
+    public function __construct() {
         parent::__construct();
     }
 
@@ -30,5 +30,4 @@ class Model_ServicioPacientes extends Model {
         return $paciente;
     }
 }
-
 ?>

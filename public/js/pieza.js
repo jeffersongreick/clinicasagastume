@@ -7,53 +7,88 @@ var Pieza = function(numero,posX,posY){
     this.Cara5 = new cara(5,numero, this.grupo);
     this.grupo.setScale(0.4);
     this.grupo.setX(posX);
-    if(numero > 30 && numero < 49 | numero > 70 && numero < 85){
+    this.num = new Kinetic.Text({
+        x: posX+15,
+        text: numero.toString(),
+        fontSize: 15,
+        fontFamily: "Calibri",
+        textFill: "black"
+    });
+    if(numero > 30 && numero < 49 | numero > 70 && numero < 86){
+        this.num.setY(posY-15);
         this.grupo.setY(posY-70);
     }else{
+        this.num.setY(posY+100);
         this.grupo.setY(posY+120);
     }
-    this.add(this.grupo);
-    var imageObj = new Image(); 
+    var imageObj = new Image();      
+    var image = new Kinetic.Image({
+        x: posX,
+        y: posY,
+        width: 50,
+        height: 100,
+        id:numero,
+        image: imageObj
+        
+    });
+    
     imageObj.src = URL+"public/img/img_piezas/cara1/"+numero+".png";
+    this.image = image;
+    this.image.contenedor = this;
+    this.selected = false;
+    this.id = numero;
+    layerOdontograma.add(this.image);
+    layerOdontograma.add(this.num);
+    layerOdontograma.add(this.grupo);
+    this.image.on('click dragstart',function(){
+        if(this.contenedor.selected == true){
+            this.desmarcar();
+        }else{
+            this.marcar();
+        }
+    });
+}
+Kinetic.Image.prototype.marcar = function(){
+    if(piezaEditada){
+        piezaEditada.image.desmarcar(piezaEditada);
+    }
+    piezaEditada = this.contenedor;
+    caraEditada = piezaEditada.Cara1;
+    this.setAlpha(0.5);
+    this.setStroke("red");
+    this.contenedor.selected = true;
+    layerOdontograma.draw();
+}
+Kinetic.Image.prototype.desmarcar = function(){
+    piezaEditada = null;
+    this.setAlpha(1);
+    this.setStroke("none");
+    this.contenedor.selected=false;
+    layerOdontograma.draw();
+}
+var vacio = function(numero,faltante,posX,posY){
+    var imageObj = new Image();      
     var image = new Kinetic.Image({
         x: posX,
         y: posY,
         width: 50,
         height: 100,
         radius: 70,
-        image: imageObj,
-        id:numero
+        id:numero,
+        image: imageObj
     });
+    imageObj.src = URL+"public/img/img_piezas/0.png";
+    this.faltante = faltante;
     this.image = image;
-    this.add(image);
+    this.image.contenedor = this;
     this.selected = false;
     this.id = numero;
-    this.marcar = function(){
-        if(piezaEditada){
-            piezaEditada.desmarcar(piezaEditada);
+    layerOdontograma.add(this.image);
+    this.image.on('click dragstart',function(){
+        if(this.contenedor.selected == true){
+            this.desmarcar();
+        }else{
+            this.marcar();
         }
-        piezaEditada = this;
-        caraEditada = piezaEditada.Cara1;
-        this.image.setAlpha(0.5);
-        this.image.setStroke("red");
-        this.selected = true;
-        this.draw();
-    }
-    this.desmarcar = function(){
-        piezaEditada = null;
-        this.image.setAlpha(1);
-        this.image.setStroke("none");
-        this.selected=false;
-        this.draw();              
-    }
-       
+    });
 }
-Pieza.prototype = new Kinetic.Layer();
-Pieza.prototype.on('click touchstart', function(evt){
-    var shape = evt.shape;
-    if(this.selected == true){
-        this.desmarcar(shape);
-    }else{
-        this.marcar(shape);
-    }
-});
