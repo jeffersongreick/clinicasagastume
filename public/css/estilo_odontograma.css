@@ -115,17 +115,19 @@
 
 #containerPiezas{
     float: left;
-    margin-left: 100px;
-    
+    margin-left: 90px;
+
 }
 #cambioPiezaTitulo{
     margin: 2px 0;
     text-align: center;
 }
-.botonesCentrados{
-    margin-left: 40px;
+#containerPiezas .botonesCentrados{
+    width: 230px;
+    position: absolute;
+    left: 50%;
+    margin-left: -115px;
 }
-
 /** #cambioPiezaContainer{
     border: solid white;
 }*/

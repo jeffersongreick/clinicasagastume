@@ -12,8 +12,9 @@
         <script type="text/javascript" src="<?php echo URL ?>public/js/functions.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/cara.js"></script>
         <script type="text/javascript" >
-         <?php if (isset($JsonOdontograma)): echo $JsonOdontograma; endif;?>
-    </script>
+<?php if (isset($JsonOdontograma)): echo $JsonOdontograma;
+endif; ?>
+        </script>
         <link rel="shortcut icon" href="<?php echo URL ?>public/img/tooth.ico" type="image/ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
         <title>Clinica Sagastume</title>
@@ -60,14 +61,17 @@
                                 </div>
                             </div>
                             <div id="canvasOdontograma"></div>
-                            <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
-                            <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
-                            <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
-                            <input type="button" value="Imprimir" id="btnImprimir" class="button" />
-                            <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardar()" />
-                            <a href="index.php" class="descripcionIcono" >
-                                <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="button" />
-                            </a>
+                            <div style="margin-left: 70px">
+                                <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
+                                <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
+                                <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
+                                <input type="button" value="Imprimir" id="btnImprimir" class="button" />
+                                <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardar()" />
+                                <a href="index.php" class="descripcionIcono" >
+                                    <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="button" />
+                                </a>
+                            </div>
+
                             <div class="clear"></div>
                         </div>
                         <!--editor pieza-->
@@ -93,11 +97,11 @@
                                 <div class="tabs">
                                     <div class="state_items">
                                         <?php if (isset($listaEstados)): ?>
-                                            <?php foreach ($listaEstados as $estado): ?> 
+    <?php foreach ($listaEstados as $estado): ?> 
                                                 <input type='checkbox' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregarEstado(this)'/><label for='estado_<?php echo $estado->id ?>'>
                                                     <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->estado ?>'/></label>
                                             <?php endforeach; ?>
-                                        <?php endif; ?>
+<?php endif; ?>
                                     </div>
                                     <div class="treatment_items">
                                         <input type="checkbox" id="p" class="item" />

@@ -104,14 +104,11 @@ class Model_ServicioOdontograma extends Model {
 
     public function verifODontInicial($idTratamiento) {
         try {
-            $sql = "select min(id) from tbl_odontograma where id_tratamiento =" . $idTratamiento;
+            $sql = "select id from tbl_odontograma where id_tratamiento =" . $idTratamiento;
             $statement = $this->db->prepare($sql);
             $statement->execute();
-            $b = false;
-            if (!empty($statement)) {
-                $b = true;
-            }
-            return $b;
+            $r = $statement->fetchAll();
+            return !empty($r);
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
