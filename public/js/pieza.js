@@ -21,7 +21,8 @@ var Pieza = function(numero,posX,posY){
         this.num.setY(posY+100);
         this.grupo.setY(posY+120);
     }
-    var imageObj = new Image();      
+    var imageObj = new Image();  
+    
     var image = new Kinetic.Image({
         x: posX,
         y: posY,
@@ -31,7 +32,9 @@ var Pieza = function(numero,posX,posY){
         image: imageObj
         
     });
-    
+    imageObj.onload = function () {
+        layerOdontograma.draw();
+    }
     imageObj.src = URL+"public/img/img_piezas/cara1/"+numero+".png";
     this.image = image;
     this.image.contenedor = this;
