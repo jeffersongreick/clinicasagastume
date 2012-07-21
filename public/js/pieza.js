@@ -31,8 +31,8 @@ var Pieza = function(numero,posX,posY){
         image: imageObj
         
     });
-    
     imageObj.src = URL+"public/img/img_piezas/cara1/"+numero+".png";
+    imageObj.cargar();
     this.image = image;
     this.image.contenedor = this;
     this.selected = false;
@@ -47,6 +47,11 @@ var Pieza = function(numero,posX,posY){
             this.marcar();
         }
     });
+}
+Image.prototype.cargar = function(){
+    this.onload = function () {
+        layerOdontograma.draw();
+    }
 }
 Kinetic.Image.prototype.marcar = function(){
     if(piezaEditada){

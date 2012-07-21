@@ -30,7 +30,6 @@ class Model_ServicioOdontograma extends Model {
             $odontograma->setFecha("hola");
             $pieza->setId($r['id_pieza']);
             $pieza->setNombre($r['nombre_pieza']);
-            $pieza->setUrl_imagen($r['url_pieza']);
             $cara->setId($r['id_cara']);
             $cara->setDescripcion($r['desc_cara']);
             $estado = new Model_Estado();
@@ -118,7 +117,7 @@ class Model_ServicioOdontograma extends Model {
     }
     public function getOdontograma($idTratamiento, $tipo) {
         try {
-            $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza, p.url_img as url_pieza,
+            $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza,
         c.descripcion as desc_cara,e.estado as desc_estado,e.url_img as url_estado FROM 
         tbl_odontograma_estado as o inner join tbl_piezas as p inner join
         tbl_cara as c inner join tbl_estado as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_estado = e.id
@@ -134,10 +133,11 @@ class Model_ServicioOdontograma extends Model {
             $odontograma = $colOdontogramas[0];
             return $odontograma;
         } catch (Exception $exc) {
-            throw $exc->getMessage();
+            echo $exc->getMessage();
         }
     }
-
+//{superior:[{id:0,estados:[], faltante:'18',posX:15},{id:0,estados:[], faltante:'17',posX:75}],
+// inferior:[{id:0,estados:[], faltante:'48',posX:15}]}
     public function getOdontogramasTratamiento($idTratamiento, $desdeFecha, $hastaFecha) {
         try {
             $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza, p.url_img as url_pieza,
