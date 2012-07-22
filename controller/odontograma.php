@@ -168,10 +168,8 @@ class Controller_Odontograma {
     public function guardar() {
         if (isset($_POST['piezas'])) {
             $piezas = $_POST['piezas'];
-            foreach ($piezas as $p) {
-                
-            }
-            print_r($piezas);
+            $odontograma_model = Model_ServicioOdontograma::getInstance();
+            $odontograma_model->guardar_odontograma($piezas);
         }
         
     }

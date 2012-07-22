@@ -115,6 +115,7 @@ class Model_ServicioOdontograma extends Model {
             throw $exc->getMessage();
         }
     }
+
     public function getOdontograma($idTratamiento, $tipo) {
         try {
             $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza,
@@ -136,6 +137,7 @@ class Model_ServicioOdontograma extends Model {
             echo $exc->getMessage();
         }
     }
+
 //{superior:[{id:0,estados:[], faltante:'18',posX:15},{id:0,estados:[], faltante:'17',posX:75}],
 // inferior:[{id:0,estados:[], faltante:'48',posX:15}]}
     public function getOdontogramasTratamiento($idTratamiento, $desdeFecha, $hastaFecha) {
@@ -179,6 +181,31 @@ class Model_ServicioOdontograma extends Model {
             throw $exc->getMessage();
         }
     }
+
+    public function guardar_odontograma($piezas) {
+        $sql = "INSERT INTO tbl_odontograma values()";
+        $this->db->query($sql);
+        $id_odontograma = $this->db->lastInsertId("tbl_odontograma");
+        $pieza_sql = "INSERT INTO tbl_odontograma_estado (id_odontograma,id_pieza,id_cara,id_estado,fecha_ins) 
+            values(:id,:pieza,:cara,:estado,:fecha)";
+        $statement = $this->db->prepare($pieza_sql);
+        $statement->bindValue(':id', $id_odontograma);
+        foreach ($piezas as $pieza) {
+            $statement->bindValue(':pieza', $pieza['id']);
+            echo "Pieza id: " . $pieza['id'] . "**";
+            foreach ($pieza['caras'] as $cara) {
+                echo " Cara : " . $cara['id'] . " **";
+                $statement->bindValue(':cara', $cara['id']);
+                foreach ($cara['estados'][0] as $estado) {
+                    echo "Estado : " . $estado . " **";
+                    $statement->bindValue(':estado', $estado);
+                    $statement->bindValue(':fecha',  date('Y/m/d H:i:s'));
+                    $statement->execute();
+                }
+            }
+        }
+    }
+
 }
 
 ?>
