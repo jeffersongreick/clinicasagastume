@@ -173,6 +173,16 @@ class Controller_Odontograma {
         }
         
     }
+    
+    public function cargar($id){
+        $model_odotograma = Model_ServicioOdontograma::getInstance();
+        $datos =  $model_odotograma->obtener_odontograma($id);            
+        $view = View::factory('carga');
+        $view->set('json',  json_encode($datos));
+        echo $view->render();
+      //  var_dump(json_encode($datos));
+        
+    }
    
 }
 

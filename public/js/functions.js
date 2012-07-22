@@ -167,6 +167,7 @@ function calcularPieza(){
     num +=(piezaEditada.id % 10);
     return num;
 }
+//
 function guardar(){
     var data = {
         piezas : []
@@ -255,3 +256,7 @@ function cloneObject(source_) {
     }
 }
 //var my_clon = new cloneObject (my_object);
+
+function cargar_odontograma(data){
+    
+}

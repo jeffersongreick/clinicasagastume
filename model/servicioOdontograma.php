@@ -205,6 +205,12 @@ class Model_ServicioOdontograma extends Model {
             }
         }
     }
+    
+    public function obtener_odontograma($id){
+        $sql = "SELECT * FROM tbl_odontograma_estado where id_odontograma = ".$id;
+        $result = $this->db->query($sql);
+        return $result->fetchAll();
+    }
 
 }
 
