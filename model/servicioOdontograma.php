@@ -16,66 +16,63 @@ class Model_ServicioOdontograma extends Model {
         parent::__construct();
     }
 
-    public function crearOdontograma($rows) {
+    public function crearOdontograma($rows, $id_paciente) {
         try {
-            $r = $rows->fetch();
+            $odontograma = array();
             $colPiezas = array();
-            $colCaras = array();
-            $colEstados = array();
-            $colOdontogramas = array();
-            $odontograma = new Model_Odontograma();
-            $pieza = new Model_Pieza();
-            $cara = new Model_Cara();
-            $odontograma->setId($r['id_odontograma']);
-            $odontograma->setFecha("hola");
-            $pieza->setId($r['id_pieza']);
-            $pieza->setNombre($r['nombre_pieza']);
-            $cara->setId($r['id_cara']);
-            $cara->setDescripcion($r['desc_cara']);
-            $estado = new Model_Estado();
-            $estado->setId($r['id_estado']);
-            $estado->setEstado($r['desc_estado']);
-            $estado->setUrl_img($r['url_estado']);
-            array_push($colEstados, $estado);
-            while ($row = $rows->fetch()) {
-                if (isset($row) & $row['id_odontograma'] != $odontograma->getId()) {
-                    $odontograma->setPiezas($colPiezas);
-                    array_push($colOdontogramas, $odontograma);
-                    $colPiezas = array();
-                    $odontograma = new Model_Odontograma();
-                    $odontograma->setId($row['id_odontograma']);
-                    $odontograma->setFecha("hola");
+            $posS = 15;
+            $posI = 15;
+            $p = $this->getPiezasPaciente($id_paciente);
+            $row = $rows->fetch();
+            $cara;
+            while ($pieza = $p->fetch()) {
+                $pieza['caras'] = array();
+                if ($pieza['id_pieza'] <= 28) {
+                    $pieza['posX'] = $posS;
+                    $pieza['posY'] = 0;
+                    $posS += 60;
+                } else {
+                    $pieza['posX'] = $posI;
+                    $pieza['posY'] = 270;
+                    $posI += 60;
                 }
-                if (isset($row) & $row['id_pieza'] != $pieza->getId()) {
-                    $pieza->setCaras($colCaras);
-                    array_push($colPiezas, $pieza);
-                    $pieza = new Model_Pieza();
-                    $colCaras = array();
-                    $pieza->setId($row['id_pieza']);
-                    $pieza->setNombre($row['nombre_pieza']);
-                    $pieza->setUrl_imagen($row['url_pieza']);
+
+                if ($pieza['id_pieza'] == 0) {
+                    $pieza['faltante'] = $pieza['num'];
                 }
-                if (isset($row) & $row['id_cara'] != $cara->getId()) {
-                    $cara->setEstados($colEstados);
-                    array_push($colCaras, $cara);
-                    $cara = new Model_Cara();
-                    $colEstados = array();
-                    $cara->setId($row['id_cara']);
-                    $cara->setDescripcion($row['desc_cara']);
+                if (isset($row)) {
+                    if (!isset($odontograma['id'])) {
+                        $odontograma['id'] = $row['id_odontograma'];
+                    }
+                    while ($row['id_pieza'] == $pieza['id_pieza']) {
+                        if (!isset($cara)) {
+                            $cara = array();
+                            $cara['id'] = $row['id_cara'];
+                            $cara['desc'] = $row['desc_cara'];
+                            $cara['estados'] = array();
+                        } else if ($row['id_cara'] != $cara['id']) {
+                            array_push($pieza['caras'], $cara);
+                            $cara = array();
+                            $cara['id'] = $row['id_cara'];
+                            $cara['desc'] = $row['desc_cara'];
+                            $cara['estados'] = array();
+                        }
+                        $estado = Array();
+                        $estado['id'] = $row['id_estado'];
+                        $estado['desc_estado'] = $row['desc_estado'];
+                        $estado['url_img'] = $row['url_estado'];
+                        array_push($cara['estados'], $estado);
+                        $row = $rows->fetch();
+                        if ($row['id_pieza'] != $pieza['id_pieza']) {
+                            array_push($pieza['caras'], $cara);
+                        }
+                    }
                 }
-                $estado = new Model_Estado();
-                $estado->setId($row['id_estado']);
-                $estado->setEstado($row['desc_estado']);
-                $estado->setUrl_img($row['url_estado']);
-                array_push($colEstados, $estado);
+                array_push($colPiezas, $pieza);
             }
-            $cara->setEstados($colEstados);
-            array_push($colCaras, $cara);
-            $pieza->setCaras($colCaras);
-            array_push($colPiezas, $pieza);
-            $odontograma->setPiezas($colPiezas);
-            array_push($colOdontogramas, $odontograma);
-            return $colOdontogramas;
+            $odontograma['piezas'] = $colPiezas;
+
+            return $odontograma;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
@@ -112,9 +109,10 @@ class Model_ServicioOdontograma extends Model {
             throw $exc->getMessage();
         }
     }
-    public function getOdontograma($idTratamiento, $tipo) {
+
+    public function getOdontograma($idTratamiento, $tipo, $idPaciente) {
         try {
-            $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza,
+            $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,
         c.descripcion as desc_cara,e.estado as desc_estado,e.url_img as url_estado FROM 
         tbl_odontograma_estado as o inner join tbl_piezas as p inner join
         tbl_cara as c inner join tbl_estado as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_estado = e.id
@@ -122,19 +120,13 @@ class Model_ServicioOdontograma extends Model {
         order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado";
             $statement = $this->db->prepare($sql);
             $statement->execute();
-            $odontograma = new Model_Odontograma();
-            $colOdontogramas = array();
-            if (isset($statement)) {
-                $colOdontogramas = $this->crearOdontograma($statement);
-            }
-            $odontograma = $colOdontogramas[0];
+            $odontograma = $this->crearOdontograma($statement, $idPaciente);
             return $odontograma;
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }
     }
-//{superior:[{id:0,estados:[], faltante:'18',posX:15},{id:0,estados:[], faltante:'17',posX:75}],
-// inferior:[{id:0,estados:[], faltante:'48',posX:15}]}
+
     public function getOdontogramasTratamiento($idTratamiento, $desdeFecha, $hastaFecha) {
         try {
             $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza, p.url_img as url_pieza,
@@ -166,16 +158,17 @@ class Model_ServicioOdontograma extends Model {
         return $list;
     }
 
-    public function getPiezas() {
+    public function getPiezasPaciente($id_paciente) {
         try {
-            $sql = "SELECT * FROM tbl_piezas";
+            $sql = "SELECT num,id_pieza,nombre FROM tbl_paciente_piezas inner join tbl_piezas on tbl_paciente_piezas.id_pieza = tbl_piezas.id where id_paciente = " . $id_paciente;
             $statement = $this->db->prepare($sql);
             $statement->execute();
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
     }
+
 }
 
 ?>

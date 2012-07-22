@@ -111,7 +111,7 @@ function actualizarEstados(){
 }
 function abrirVentanaCambiarPieza(){
     if((piezaEditada.id % 10)<=5){
-        var nuevaPieza =calcularPieza(); 
+        var nuevaPieza =calcularPieza().toString(); 
         $("#imgCambiar").attr("src",URL+"public/img/img_piezas/cara1/"+piezaEditada.id+".png");
         $("#imgNueva").attr("src",URL+"public/img/img_piezas/cara1/"+nuevaPieza+".png");
         $("#imgNueva").data("numPieza",nuevaPieza); 
@@ -171,7 +171,6 @@ function guardar(){
     }  
     for(var i = 0; i<odontograma.length;i++){
         var pieza = odontograma[i]
-        //        alert(pieza.id);
         var p = {
             id:pieza.id,
             caras:[]
@@ -179,20 +178,21 @@ function guardar(){
         if(pieza.id != 0){
             for(var j = 1;j<=5;j++){          
                 //buena chanchada :D despues lo arreglo 
+                var estados
                 if(j==1){
-                    var estados = pieza.Cara1.estados;
+                    estados = pieza.Cara1.estados;
                 }
                 if(j==2){
-                    var estados = pieza.Cara2.estados;
+                     estados = pieza.Cara2.estados;
                 }
                 if(j==3){
-                    var estados = pieza.Cara3.estados;
+                     estados = pieza.Cara3.estados;
                 }
                 if(j==4){
-                    var estados = pieza.Cara4.estados;
+                     estados = pieza.Cara4.estados;
                 }
                 if(j==5){
-                    var estados = pieza.Cara5.estados;
+                     estados = pieza.Cara5.estados;
                 }
                 if(estados.length>0){
                     var cara ={
@@ -203,9 +203,7 @@ function guardar(){
                 }    
             }
         }
-        if(p.caras.length>0){
-            data.piezas.push(p);
-        }     
+        data.piezas.push(p);  
     }
     alert(JSON.stringify(data));
 //  $.post(URL+"/odontograma/guardar", data);

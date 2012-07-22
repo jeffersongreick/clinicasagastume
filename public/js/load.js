@@ -49,7 +49,7 @@ window.onload = function(){
     $('#btnEditarPieza').click(function(){ 
         if(piezaEditada && piezaEditada.id != 0){
             cargarCara("1");
-            historialPieza = new Pieza(11,2000,2000);
+            historialPieza = new Pieza('11',2000,2000);
             historialPieza.Cara1.estados = piezaEditada.Cara1.estados.slice(0);
             historialPieza.Cara2.estados = piezaEditada.Cara2.estados.slice(0);
             historialPieza.Cara3.estados = piezaEditada.Cara3.estados.slice(0);
@@ -145,31 +145,50 @@ function cargarOdontograma(){
         height: 400
     });
     layerOdontograma = new Kinetic.Layer();
-    var superior = piezas.superior;
     var id;
-    for(i in superior){
-        id = superior[i].id;
+    for(i in piezas){
+        id = piezas[i].id_pieza;
         var ps;
         if(id == 0){
-            ps = new vacio(id,superior[i].faltante,superior[i].posX,0);
+            ps = new vacio(id,piezas[i].faltante,piezas[i].posX,piezas[i].posY);
         }else{
-            ps = new Pieza(id,superior[i].posX,0);
+            ps = new Pieza(id,piezas[i].posX,piezas[i].posY);
+            var caras = piezas[i].caras;
+            for(x in caras){
+                var estados = caras[x].estados;
+                for(y in estados){
+                    cargarEstadosPieza(ps,caras[x].id,estados[y].id);
+                }
+            }
         }
         odontograma.push(ps);
     }
-    var inferior = piezas.inferior;
-    for(i in inferior){
-        id = inferior[i].id;
-        var pi;
-        if(id == 0){
-            pi = new vacio(id,inferior[i].faltante,inferior[i].posX,270);
-        }else{
-            pi = new Pieza(id,inferior[i].posX,270);
-        }
-        odontograma.push(pi);
-    }
     stageOdontograma.add(layerOdontograma);
     layerOdontograma.draw();
+}
+function cargarEstadosPieza(pieza,idCara,estados){
+    switch(idCara){
+        case '1':
+            pieza.Cara1.estados.push(estados);
+            pieza.Cara1.marcarCara();
+            break;
+        case '2':
+            pieza.Cara2.estados.push(estados);
+            pieza.Cara2.marcarCara();
+            break;
+        case '3':
+            pieza.Cara3.estados.push(estados);
+            pieza.Cara3.marcarCara();
+            break;
+        case '4':
+            pieza.Cara4.estados.push(estados);
+            pieza.Cara4.marcarCara();
+            break;
+        case '5':
+            pieza.Cara5.estados.push(estados);
+            pieza.Cara5.marcarCara();
+            break;
+    }
 }
 function abrirVentana(window){
     //Bloquea el uso del escritorio

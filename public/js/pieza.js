@@ -9,7 +9,7 @@ var Pieza = function(numero,posX,posY){
     this.grupo.setX(posX);
     this.num = new Kinetic.Text({
         x: posX+15,
-        text: numero.toString(),
+        text: numero,
         fontSize: 15,
         fontFamily: "Calibri",
         textFill: "black"
