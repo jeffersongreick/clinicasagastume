@@ -120,7 +120,9 @@ function abrirVentanaCambiarPieza(){
         abrirVentana('#ventanaCambioPieza');
     }else{
         alert("La pieza seleccionada no puede ser cambiada a temporal");
-    }   
+    }
+    
+    
 }
 function cambiarPieza(){
     var posX = piezaEditada.image.getX();
@@ -165,6 +167,7 @@ function calcularPieza(){
     num +=(piezaEditada.id % 10);
     return num;
 }
+//
 function guardar(){
     var data = {
         piezas : []
@@ -205,9 +208,9 @@ function guardar(){
         }
         data.piezas.push(p);  
     }
-    alert(JSON.stringify(data));
-//  $.post(URL+"/odontograma/guardar", data);
+  $.post(URL+"/odontograma/guardar", data);
 }
+
 function extraerPieza(){
     if (confirm("AVISO: ¿Esta cierto de que deseas eliminar esta pieza junto a su informacion?")){
         var posX = piezaEditada.image.getX();
@@ -239,4 +242,19 @@ function agregarPieza(){
         stageOdontograma.add(layerOdontograma);
         layerOdontograma.draw();
     }
+}
+
+function cloneObject(source_) {
+    for (var item in source_) {
+        if (typeof source_[item] == 'object') {
+            this[item] = new cloneObject(source_[item]);
+        } else{
+            this[item] = source_[item];
+        }
+    }
+}
+//var my_clon = new cloneObject (my_object);
+
+function cargar_odontograma(data){
+    
 }

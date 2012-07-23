@@ -1,4 +1,4 @@
-var URL = 'http://localhost/clinica/';
+var URL = 'http://localhost/framework/';
 //capas de odontogramas y editor de pieza
 
 $(document).ready(function(){
@@ -20,9 +20,6 @@ $(document).ready(function(){
     });
     //funcion no habilitada
     $("#btnOtros").click(function(){
-        alert("En construccion.");
-    });
-    $("#btnRegistroPaciente").click(function(){
         alert("En construccion.");
     });
     
@@ -74,6 +71,7 @@ function cerrarVentana(window){
 }
 //se realiza el efecto para mostrar y cerrar el menu de funciones
 function sliderMenuFuncion(event,menu){
+ 
     var link=$(event.currentTarget);
     if (link.parent().find('ul.active').size()==1){
         link.parent().find('ul.active').slideUp('medium',function(){

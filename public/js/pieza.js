@@ -21,8 +21,7 @@ var Pieza = function(numero,posX,posY){
         this.num.setY(posY+100);
         this.grupo.setY(posY+120);
     }
-    var imageObj = new Image();  
-    
+    var imageObj = new Image();      
     var image = new Kinetic.Image({
         x: posX,
         y: posY,

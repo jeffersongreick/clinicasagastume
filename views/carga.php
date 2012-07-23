@@ -13,6 +13,13 @@
         <script type="text/javascript" >
          <?php if (isset($JsonOdontograma)): echo $JsonOdontograma; endif;?>
     </script>
+    <script type="text/javascript">
+        <?php echo " var json =".$json.";";?>
+            alert(JSON.stringify(json));
+            $.each(json, function(i,value){
+               // alert(value.id_pieza);
+            });
+    </script>
         <link rel="shortcut icon" href="<?php echo URL ?>public/img/tooth.ico" type="image/ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
         <title>Clinica Sagastume</title>
