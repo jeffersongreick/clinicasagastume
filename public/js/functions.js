@@ -186,28 +186,30 @@ function guardar(){
                     estados = pieza.Cara1.estados;
                 }
                 if(j==2){
-                     estados = pieza.Cara2.estados;
+                    estados = pieza.Cara2.estados;
                 }
                 if(j==3){
-                     estados = pieza.Cara3.estados;
+                    estados = pieza.Cara3.estados;
                 }
                 if(j==4){
-                     estados = pieza.Cara4.estados;
+                    estados = pieza.Cara4.estados;
                 }
                 if(j==5){
-                     estados = pieza.Cara5.estados;
+                    estados = pieza.Cara5.estados;
                 }
+                var cara ={
+                    id:j,
+                    estados:[estados]
+                };
+                p.caras.push(cara);
                 if(estados.length>0){
-                    var cara ={
-                        id:j,
-                        estados:[estados]
-                    };
-                    p.caras.push(cara);
+                    
                 }    
             }
         }
         data.piezas.push(p);  
     }
+    alert(JSON.stringify(data));
   $.post(URL+"/odontograma/guardar", data);
 }
 
@@ -242,19 +244,4 @@ function agregarPieza(){
         stageOdontograma.add(layerOdontograma);
         layerOdontograma.draw();
     }
-}
-
-function cloneObject(source_) {
-    for (var item in source_) {
-        if (typeof source_[item] == 'object') {
-            this[item] = new cloneObject(source_[item]);
-        } else{
-            this[item] = source_[item];
-        }
-    }
-}
-//var my_clon = new cloneObject (my_object);
-
-function cargar_odontograma(data){
-    
 }

@@ -147,7 +147,7 @@ function cargarOdontograma(){
     layerOdontograma = new Kinetic.Layer();
     var id;
     for(i in piezas){
-        id = piezas[i].id_pieza;
+        id = piezas[i].id;
         var ps;
         if(id == 0){
             ps = new vacio(id,piezas[i].faltante,piezas[i].posX,piezas[i].posY);
