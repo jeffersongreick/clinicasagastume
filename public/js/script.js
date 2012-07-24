@@ -22,6 +22,9 @@ $(document).ready(function(){
     $("#btnOtros").click(function(){
         alert("En construccion.");
     });
+    $("#btnRegistroPaciente").click(function(){
+        alert("En construccion.");
+    });
     
     //funcion no habilitada
     $("#btnHistoria").click(function(){
