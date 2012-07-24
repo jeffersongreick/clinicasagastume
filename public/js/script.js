@@ -90,17 +90,17 @@ function sliderMenuFuncion(event,menu){
 }
 function validarOdontogramaInicial(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
-        if(data){
+        if(!data){
             alert("¡Ya existe un odontograma de estado inicial creado para este tratamiento!");
         }else{
-            location.href='odontograma/getViewOdontogramaFactory/1';
+            location.href=URL+'odontograma/getViewOdontogramaFactory/1';
         }
     });
 }
 function nuevoOdontogramaEstadoActual(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
-        if(data){
-            location.href='odontograma/getViewOdontogramaFactory/2';
+        if(!data){
+            location.href=URL+'odontograma/getViewOdontogramaFactory/2';
         }else{
             alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
         }

@@ -10,9 +10,9 @@ var caraEditada;
 //variable que guarda la imagen de la pieza y de los estados
 var group;
 var cambios = false;
-//window.onbeforeunload = function(){
-//    return "Esta a punto de descartar este odontograma";
-//}
+window.onbeforeunload = function(){
+    return "!ADVERTENCIA! Esta a punto de descartar este odontograma.";
+}
 window.onload = function(){
     stagePieza = new Kinetic.Stage({
         container: "canvasPieza",
@@ -20,7 +20,7 @@ window.onload = function(){
         height: 300
     });
     layerPieza = new Kinetic.Layer();
-
+    
     group = new Kinetic.Group({
         draggable: false
     });
@@ -49,7 +49,7 @@ window.onload = function(){
     $('#btnEditarPieza').click(function(){ 
         if(piezaEditada && piezaEditada.id != 0){
             cargarCara("1");
-            historialPieza = new Pieza('11',2000,2000);
+            historialPieza = new Pieza('11',0,2000,2000);
             historialPieza.Cara1.estados = piezaEditada.Cara1.estados.slice(0);
             historialPieza.Cara2.estados = piezaEditada.Cara2.estados.slice(0);
             historialPieza.Cara3.estados = piezaEditada.Cara3.estados.slice(0);
@@ -139,6 +139,10 @@ window.onload = function(){
 };
 //funcion de dibujo de odontogramas en canvas
 function cargarOdontograma(){
+    asignarPosicionesIsquierda('1',15,0);
+    asignarPosicionesDerecha('2',495,0);
+    asignarPosicionesIsquierda('4',15,270);
+    asignarPosicionesDerecha('3',495,270);
     stageOdontograma = new Kinetic.Stage({
         container: "canvasOdontograma",
         width: 980,
@@ -149,10 +153,12 @@ function cargarOdontograma(){
     for(i in piezas){
         id = piezas[i].id;
         var ps;
+        var posX = odontograma[piezas[i].pos].posX;
+        var posY = odontograma[piezas[i].pos].posY;
         if(id == 0){
-            ps = new vacio(id,piezas[i].faltante,piezas[i].posX,piezas[i].posY);
+            ps = new vacio(id,piezas[i].pos,posX,posY);
         }else{
-            ps = new Pieza(id,piezas[i].posX,piezas[i].posY);
+            ps = new Pieza(id,piezas[i].pos,posX,posY);
             var caras = piezas[i].caras;
             for(x in caras){
                 var estados = caras[x].estados;
@@ -161,7 +167,7 @@ function cargarOdontograma(){
                 }
             }
         }
-        odontograma.push(ps);
+        odontograma[piezas[i].pos].pieza= ps;
     }
     stageOdontograma.add(layerOdontograma);
     layerOdontograma.draw();
@@ -170,6 +176,7 @@ function cargarEstadosPieza(pieza,idCara,estados){
     switch(idCara){
         case '1':
             pieza.Cara1.estados.push(estados);
+            
             pieza.Cara1.marcarCara();
             break;
         case '2':
@@ -188,6 +195,33 @@ function cargarEstadosPieza(pieza,idCara,estados){
             pieza.Cara5.estados.push(estados);
             pieza.Cara5.marcarCara();
             break;
+    }
+     
+}
+function asignarPosicionesDerecha(num,x,y){
+    for(var i = 1;i<=8;i++){
+        var pos = num+i;
+        var position = {
+            id:pos,
+            posX:x,
+            posY:y,
+            pieza:null
+        };
+        x+=60;
+        odontograma[pos]=position;
+    }
+}
+function asignarPosicionesIsquierda(num,x,y){
+    for(var i = 8;i>=1;i--){
+        var pos = num+i;
+        var position = {
+            id:pos,
+            posX:x,
+            posY:y,
+            pieza:null
+        };
+        x+=60;
+        odontograma[pos]=position;
     }
 }
 function abrirVentana(window){

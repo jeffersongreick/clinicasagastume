@@ -64,7 +64,7 @@
                             <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
                             <input type="button" value="Imprimir" id="btnImprimir" class="button" />
                             <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardar()" />
-                            <a href="index.php" class="descripcionIcono" >
+                            <a href="<?php echo URL ?>odontograma/index/" class="descripcionIcono" >
                                 <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="button" />
                             </a>
                             <div class="clear"></div>

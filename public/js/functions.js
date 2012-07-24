@@ -121,14 +121,12 @@ function abrirVentanaCambiarPieza(){
     }else{
         alert("La pieza seleccionada no puede ser cambiada a temporal");
     }
-    
-    
 }
 function cambiarPieza(){
     var posX = piezaEditada.image.getX();
     var posY = piezaEditada.image.getY();
-    var p1 = new Pieza($("#imgNueva").data("numPieza"),posX,posY);
-    odontograma.push(p1);
+    var p1 = new Pieza($("#imgNueva").data("numPieza"),piezaEditada.pos,posX,posY);
+    odontograma[piezaEditada.pos].pieza = p1;
     layerOdontograma.remove(piezaEditada.image);
     layerOdontograma.remove(piezaEditada.grupo);
     layerOdontograma.remove(piezaEditada.num);
@@ -167,20 +165,18 @@ function calcularPieza(){
     num +=(piezaEditada.id % 10);
     return num;
 }
-//
 function guardar(){
     var data = {
         piezas : []
     }  
-    for(var i = 0; i<odontograma.length;i++){
-        var pieza = odontograma[i]
+    for(var i in odontograma){
+        var pieza = odontograma[i].pieza;
         var p = {
             id:pieza.id,
             caras:[]
         }   
         if(pieza.id != 0){
             for(var j = 1;j<=5;j++){          
-                //buena chanchada :D despues lo arreglo 
                 var estados
                 if(j==1){
                     estados = pieza.Cara1.estados;
@@ -197,29 +193,33 @@ function guardar(){
                 if(j==5){
                     estados = pieza.Cara5.estados;
                 }
-                var cara ={
-                    id:j,
-                    estados:[estados]
-                };
-                p.caras.push(cara);
                 if(estados.length>0){
-                    
+                    var cara ={
+                        id:j,
+                        estados:[estados]
+                    };
+                    p.caras.push(cara);
                 }    
             }
         }
         data.piezas.push(p);  
     }
-    alert(JSON.stringify(data));
-  $.post(URL+"/odontograma/guardar", data);
+    $.post(URL+"/odontograma/guardarOdontograma", data ,function(dato){
+        if(dato== true){
+            alert("!El odontograma ha sido guardado con exito");
+            location.href=URL+'odontograma/index/';
+        }else{
+            alert(dato);
+        }
+    });
+    
 }
-
 function extraerPieza(){
     if (confirm("AVISO: ¿Esta cierto de que deseas eliminar esta pieza junto a su informacion?")){
         var posX = piezaEditada.image.getX();
         var posY = piezaEditada.image.getY();
-        var p1 = new vacio(0,piezaEditada.id,posX,posY);
-        //    odontograma.splice(caraEditada.estados.indexOf(cb.value),1);
-        odontograma.push(p1);
+        var p1 = new vacio(0,piezaEditada.pos,posX,posY);
+        odontograma[piezaEditada.pos].pieza = p1;
         layerOdontograma.remove(piezaEditada.image);
         layerOdontograma.remove(piezaEditada.grupo);
         layerOdontograma.remove(piezaEditada.num);
@@ -227,16 +227,13 @@ function extraerPieza(){
         stageOdontograma.add(layerOdontograma);
         layerOdontograma.draw();
     }
-         
-    
 }
 function agregarPieza(){
-    if (confirm("AVISO: ¿Esta cierto de que deseas agregar la pieza "+piezaEditada.faltante+" al odontograma?")){
+    if (confirm("AVISO: ¿Esta cierto de que deseas agregar la pieza "+piezaEditada.pos+" al odontograma?")){
         var posX = piezaEditada.image.getX();
         var posY = piezaEditada.image.getY();
-        var p1 = new Pieza(piezaEditada.faltante,posX,posY);
-        //    odontograma.splice(caraEditada.estados.indexOf(cb.value),1);
-        odontograma.push(p1);
+        var p1 = new Pieza(piezaEditada.pos.toString(),piezaEditada.pos,posX,posY);
+        odontograma[piezaEditada.pos].pieza = p1;
         layerOdontograma.remove(piezaEditada.image);
         layerOdontograma.remove(piezaEditada.grupo);
         layerOdontograma.remove(piezaEditada.num);

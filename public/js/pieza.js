@@ -1,4 +1,4 @@
-var Pieza = function(numero,posX,posY){
+var Pieza = function(numero,pos,posX,posY){
     this.grupo = new Kinetic.Group();
     this.Cara1 = new cara(1,numero, this.grupo);
     this.Cara2 = new cara(2,numero, this.grupo);
@@ -37,6 +37,7 @@ var Pieza = function(numero,posX,posY){
     this.image.contenedor = this;
     this.selected = false;
     this.id = numero;
+    this.pos =pos;
     layerOdontograma.add(this.image);
     layerOdontograma.add(this.num);
     layerOdontograma.add(this.grupo);
@@ -71,7 +72,7 @@ Kinetic.Image.prototype.desmarcar = function(){
     this.contenedor.selected=false;
     layerOdontograma.draw();
 }
-var vacio = function(numero,faltante,posX,posY){
+var vacio = function(numero,pos,posX,posY){
     var imageObj = new Image();      
     var image = new Kinetic.Image({
         x: posX,
@@ -83,7 +84,7 @@ var vacio = function(numero,faltante,posX,posY){
         image: imageObj
     });
     imageObj.src = URL+"public/img/img_piezas/0.png";
-    this.faltante = faltante;
+    this.pos =pos;  
     this.image = image;
     this.image.contenedor = this;
     this.selected = false;

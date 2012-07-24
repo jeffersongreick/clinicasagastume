@@ -15,7 +15,7 @@ class Controller_Odontograma {
             $view = View::factory('escritorio');
             echo $view->render();
         } catch (Exception $exc) {
-            throw $exc->getMessage();
+            echo $exc->getMessage();
         }
     }
 
@@ -33,7 +33,7 @@ class Controller_Odontograma {
 
             switch ($accion) {
                 case 1:
-                    if ($this->verifOdontInicial(1)) {
+                    if ($this->verifOdontInicial()) {
                         $JsonOdontograma;
                         $datetime1 = new DateTime("now");
                         $datetime2 = new DateTime("2008/12/12");
@@ -55,11 +55,13 @@ class Controller_Odontograma {
                     }
                 case 2:
                     $JsonOdontograma = $this->getEstadoActual();
+                   
                     $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
                     $view = View::factory('odontograma');
                     $view->set('listaEstados', $this->getEstados());
                     $view->set('JsonOdontograma', $JsonOdontograma);
                     echo $view->render();
+                    
                     break;
             }
         } catch (Exception $exc) {
@@ -87,9 +89,10 @@ class Controller_Odontograma {
         }
     }
 
-    public function verifODontInicial($idTratamiento) {
+    public function verifODontInicial() {
         try {
-            $b = Model_ServicioOdontograma::getInstance()->verifODontInicial($idTratamiento);
+            $b = Model_ServicioOdontograma::getInstance()->verifODontInicial($this->idTratamiento);
+            echo $b;
             return $b;
         } catch (Exception $exc) {
             throw $exc->getMessage();
@@ -146,12 +149,16 @@ class Controller_Odontograma {
         }
     }
 
-    public function guardar() {
-        if (isset($_POST['piezas'])) {
-            $piezas = $_POST['piezas'];
-            $odontograma_model = Model_ServicioOdontograma::getInstance();
-            $p = $odontograma_model->guardar_odontograma($piezas);
-            echo $p;
+    public function guardarOdontograma() {
+        try {
+            if (isset($_POST['piezas'])) {
+                $piezas = $_POST['piezas'];
+                $odontograma_model = Model_ServicioOdontograma::getInstance();
+                $p = $odontograma_model->guardarOdontograma($piezas);
+                echo $p;
+            }
+        } catch (Exception $exc) {
+            echo "Error: ".$exc->getMessage();
         }
     }
 

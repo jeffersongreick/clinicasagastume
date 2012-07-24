@@ -20,29 +20,16 @@ class Model_ServicioOdontograma extends Model {
         try {
             $odontograma = array();
             $colPiezas = array();
-            $posS = 15;
-            $posI = 15;
             $row = $rows->fetch();
             $p = $this->getPiezasPaciente($row['id_odontograma']);
             foreach ($p as $key => $value) {
-                if ($key == "0") {
+                if ($key == "id_odontograma") {
                     $odontograma['id'] = $value;
                 } else {
                     $pieza = array();
                     $pieza['id'] = $value;
                     $pieza['caras'] = array();
-                    if ($value <= 28) {
-                        $pieza['posX'] = $posS;
-                        $pieza['posY'] = 0;
-                        $posS += 60;
-                    } else {
-                        $pieza['posX'] = $posI;
-                        $pieza['posY'] = 270;
-                        $posI += 60;
-                    }
-                    if ($pieza['id'] == 0) {
-                        $pieza['faltante'] = $key;
-                    }
+                    $pieza['pos'] = $key;
                     if (isset($row)) {
                         while ($row['id_pieza'] == $pieza['id']) {
                             if (!isset($cara)) {
@@ -65,6 +52,7 @@ class Model_ServicioOdontograma extends Model {
                             $row = $rows->fetch();
                             if ($row['id_pieza'] != $pieza['id']) {
                                 array_push($pieza['caras'], $cara);
+                                $cara = null;
                             }
                         }
                     }
@@ -78,33 +66,14 @@ class Model_ServicioOdontograma extends Model {
         }
     }
 
-    public function nuevoOdontograma($odontogramaInicial, $idTratamiento) {
-        try {
-            $sql = "INSERT INTO tbl_odontograma (id_tratamiento,fecha) values($idTratamiento," . date("Y/m/d") . ")";
-            $statement = $this->db->prepare($sql);
-            $statement->execute();
-            foreach ($odontogramaInicial as $a) {
-                $id_pieza = $a['id_pieza'];
-                $id_cara = $a['id_cara'];
-                $id_estado = $a['id_estado'];
-                $sql = "INSERT INTO tbl_odontograma_estado(id_odontograma,id_pieza,id_cara,id_estado,fecha_ins,usr_ins,fecha_upd,usr_upd) values
-                ((select max(id) from tbl_odontograma),$id_pieza,$id_cara,$id_estado,'" . date("Y/m/d H:i:s") . "',1,'" . date("Y/m/d H:i:s") . "',1)";
-                $statement = $this->db->prepare($sql);
-                $statement->execute();
-            }
-            return true;
-        } catch (PDOException $exc) {
-            throw new Exception($exc->getMessage());
-        }
-    }
-
     public function verifODontInicial($idTratamiento) {
         try {
-            $sql = "select min(id) from tbl_odontograma where id_tratamiento =" . $idTratamiento;
+            $sql = "select count(id) from tbl_odontograma where id_tratamiento =" . $idTratamiento;
             $statement = $this->db->prepare($sql);
             $statement->execute();
+            $p = $statement->fetch();
             $b = false;
-            if (!empty($statement)) {
+            if (!$p[0]>0){
                 $b = true;
             }
             return $b;
@@ -163,47 +132,52 @@ class Model_ServicioOdontograma extends Model {
 
     public function getPiezasPaciente($id_odontograma) {
         try {
-            $sql = "SELECT * FROM tbl_paciente_piezas where id_odontograma = " . $id_odontograma . ")";
+            $sql = "SELECT * FROM tbl_paciente_piezas where id_odontograma = " . $id_odontograma;
             $statement = $this->db->prepare($sql);
             $statement->execute();
-            return $statement->fetch(PDO::FETCH_NUM);
-        } catch (Exception $exc) {
-            throw $exc->getMessage();
+            return $statement->fetch(PDO::FETCH_NAMED);
+        } catch (PDOException $exc) {
+            echo new Exception($exc->getMessage());
         }
     }
 
-    public function guardar_odontograma($piezas) {
-        $sql = "INSERT INTO tbl_odontograma values()";
-        $this->db->query($sql);
-        $sql_piezas = "INSERT INTO tbl_paciente_piezas values(";
+    public function guardarOdontograma($piezas) {
+        try {
+            $this->db->beginTransaction();
 
-        $id_odontograma = $this->db->lastInsertId("tbl_odontograma");
-        $pieza_sql = "INSERT INTO tbl_odontograma_estado (id_odontograma,id_pieza,id_cara,id_estado,fecha_ins) 
+            $sql_odontograma = "INSERT INTO tbl_odontograma (id_tratamiento,fecha) values(1,'" . date("Y/m/d H:i:s") . "')";
+            $this->db->exec($sql_odontograma);
+            $id_odontograma = $this->db->lastInsertId("tbl_odontograma");
+            $sql_piezas = "INSERT INTO tbl_paciente_piezas values(" . $id_odontograma . ",";
+            $sql_estados = "INSERT INTO tbl_odontograma_estado (id_odontograma,id_pieza,id_cara,id_estado,fecha_ins) 
             values(:id,:pieza,:cara,:estado,:fecha)";
-        $statement = $this->db->prepare($pieza_sql);
-        $statement->bindValue(':id', $id_odontograma);
-        foreach ($piezas as $pieza) {
-            $sql_piezas.=$pieza['id'] . ",";
-            $statement->bindValue(':pieza', $pieza['id']);
-            echo "Pieza id: " . $pieza['id'] . "**";
-            if (isset($pieza['caras'])) {
-                foreach ($pieza['caras'] as $cara) {
-                    echo " Cara : " . $cara['id'] . " **";
-                    $statement->bindValue(':cara', $cara['id']);
-                    if (isset($cara['estados'])) {
-                        foreach ($cara['estados'][0] as $estado) {
-                            echo "Estado : " . $estado . " **";
-                            $statement->bindValue(':estado', $estado);
-                            $statement->bindValue(':fecha', date('Y/m/d H:i:s'));
-                            $statement->execute();
+            $statement = $this->db->prepare($sql_estados);
+
+            $statement->bindValue(':id', $id_odontograma);
+            foreach ($piezas as $pieza) {
+                $sql_piezas.=$pieza['id'] . ",";
+                $statement->bindValue(':pieza', $pieza['id']);
+                if (isset($pieza['caras'])) {
+                    foreach ($pieza['caras'] as $cara) {
+                        $statement->bindValue(':cara', $cara['id']);
+                        if (isset($cara['estados'])) {
+                            foreach ($cara['estados'][0] as $estado) {
+                                $statement->bindValue(':estado', $estado);
+                                $statement->bindValue(':fecha', date('Y/m/d H:i:s'));
+                                $statement->execute();
+                            }
                         }
                     }
                 }
             }
+            $sql_piezas = substr_replace($sql_piezas, ')', (strlen($sql_piezas) - 1));
+            $this->db->exec($sql_piezas);
+            $this->db->commit();
+            return true;
+        } catch (PDOException $exc) {
+            $this->db->rollBack();
+            throw new Exception($exc->getMessage());
         }
-        $sql_piezas.=")";
-        str_replace(",)", ")", $sql_piezas);
-        echo $sql_piezas;
     }
 
     public function obtener_odontograma($id) {
@@ -214,60 +188,45 @@ class Model_ServicioOdontograma extends Model {
 
     public function getPiezasAdultos() {
         $piezas = array();
-        $piezas = $this->auxGetPiezasIzquierda(1, 8, $piezas, 15, 0, null);
-        $piezas = $this->auxGetPiezasDerecha(2, 8, $piezas, 495, 0, null);
-        $piezas = $this->auxGetPiezasIzquierda(4, 8, $piezas, 15, 270, null);
-        $piezas = $this->auxGetPiezasDerecha(3, 8, $piezas, 495, 270, null);
+        $piezas = $this->auxGetPiezasIzquierda(1, 1, "adulto", $piezas);
+        $piezas = $this->auxGetPiezasDerecha(2, 2, "adulto", $piezas);
+        $piezas = $this->auxGetPiezasIzquierda(4, 4, "adulto", $piezas);
+        $piezas = $this->auxGetPiezasDerecha(3, 3, "adulto", $piezas);
         return $piezas;
     }
 
     public function getPiezasInfantiles() {
         $piezas = array();
-        $piezas = $this->auxGetPiezasIzquierda(0, 3, $piezas, 15, 0, 18);
-        $piezas = $this->auxGetPiezasIzquierda(5, 5, $piezas, 195, 0, null);
-        $piezas = $this->auxGetPiezasDerecha(6, 5, $piezas, 495, 0, null);
-        $piezas = $this->auxGetPiezasDerecha(0, 3, $piezas, 795, 0, 26);
-        $piezas = $this->auxGetPiezasIzquierda(0, 3, $piezas, 15, 270, 48);
-        $piezas = $this->auxGetPiezasIzquierda(8, 5, $piezas, 195, 270, null);
-        $piezas = $this->auxGetPiezasDerecha(7, 5, $piezas, 495, 270, null);
-        $piezas = $this->auxGetPiezasDerecha(0, 3, $piezas, 795, 270, 36);
+        $piezas = $this->auxGetPiezasIzquierda(5, 1, "infantil", $piezas);
+        $piezas = $this->auxGetPiezasDerecha(6, 2, "infantil", $piezas);
+        $piezas = $this->auxGetPiezasIzquierda(8, 4, "infantil", $piezas);
+        $piezas = $this->auxGetPiezasDerecha(7, 3, "infantil", $piezas);
         return $piezas;
     }
 
-    public function auxGetPiezasIzquierda($num, $limit, $colPiezas, $posX, $posY, $faltante) {
-        for ($i = $limit; $i >= 1; $i--) {
+    public function auxGetPiezasIzquierda($id, $num, $tipo, $colPiezas) {
+        for ($i = 8; $i >= 1; $i--) {
             $pieza = array();
-            if ($num == 0) {
-                $pieza['id'] = $num;
-                $pieza['faltante'] = $faltante;
-                $faltante -=1;
+            if ($tipo == "infantil" & $i > 5) {
+                $pieza['id'] = 0;
             } else {
-                $pieza['id'] = $num . $i;
-                $pieza['caras'] = array();
+                $pieza['id'] = $id . $i;
             }
-            $pieza['posX'] = $posX;
-            $pieza['posY'] = $posY;
-            $posX += 60;
+            $pieza['pos'] = $num . $i;
             array_push($colPiezas, $pieza);
         }
         return $colPiezas;
     }
 
-    public function auxGetPiezasDerecha($num, $limit, $colPiezas, $posX, $posY, $faltante) {
-        for ($i = 1; $i <= $limit; $i++) {
+    public function auxGetPiezasDerecha($id, $num, $tipo, $colPiezas) {
+        for ($i = 1; $i <= 8; $i++) {
             $pieza = array();
-            if ($num == 0) {
-                $pieza['id'] = $num;
-                $pieza['faltante'] = $faltante;
-                $faltante +=1;
+            if ($tipo == "infantil" & $i > 5) {
+                $pieza['id'] = 0;
             } else {
-                $pieza['id'] = $num . $i;
-                $pieza['caras'] = array();
+                $pieza['id'] = $id . $i;
             }
-            $pieza['caras'] = array();
-            $pieza['posX'] = $posX;
-            $pieza['posY'] = $posY;
-            $posX += 60;
+            $pieza['pos'] = $num . $i;
             array_push($colPiezas, $pieza);
         }
         return $colPiezas;
