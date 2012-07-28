@@ -22,6 +22,7 @@ class Model_ServicioOdontograma extends Model {
             $colPiezas = array();
             $row = $rows->fetch();
             $p = $this->getPiezasPaciente($row['id_odontograma']);
+            asort($p);
             foreach ($p as $key => $value) {
                 if ($key == "id_odontograma") {
                     $odontograma['id'] = $value;
@@ -144,7 +145,6 @@ class Model_ServicioOdontograma extends Model {
     public function guardarOdontograma($piezas) {
         try {
             $this->db->beginTransaction();
-
             $sql_odontograma = "INSERT INTO tbl_odontograma (id_tratamiento,fecha) values(1,'" . date("Y/m/d H:i:s") . "')";
             $this->db->exec($sql_odontograma);
             $id_odontograma = $this->db->lastInsertId("tbl_odontograma");
@@ -152,7 +152,6 @@ class Model_ServicioOdontograma extends Model {
             $sql_estados = "INSERT INTO tbl_odontograma_estado (id_odontograma,id_pieza,id_cara,id_estado,fecha_ins) 
             values(:id,:pieza,:cara,:estado,:fecha)";
             $statement = $this->db->prepare($sql_estados);
-
             $statement->bindValue(':id', $id_odontograma);
             foreach ($piezas as $pieza) {
                 $sql_piezas.=$pieza['id'] . ",";
@@ -178,12 +177,6 @@ class Model_ServicioOdontograma extends Model {
             $this->db->rollBack();
             throw new Exception($exc->getMessage());
         }
-    }
-
-    public function obtener_odontograma($id) {
-        $sql = "SELECT * FROM tbl_odontograma_estado where id_odontograma = " . $id;
-        $result = $this->db->query($sql);
-        return $result->fetchAll();
     }
 
     public function getPiezasAdultos() {

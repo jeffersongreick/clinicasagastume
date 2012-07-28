@@ -34,7 +34,7 @@
                         <li>
                             <input type="button" id="btnTratamiento_actual" class="button_menu" value="Tratamiento en curso"/>
                             <ul >
-                                <li><a href=""><input type="button" id="btnOdontograma_estado_inicial" class="button_menu" value=" Estado inicial"/></a></li>
+                                <li><input type="button" onclick="visualizarEstadoInicial()" id="btnOdontograma_estado_inicial" class="button_menu" value=" Estado inicial"/></li>
                                 <li><input type="button" id="btnOdontograma_estado_actual" class="button_menu" value="Estado actual"/></li>
                                 <li><a href=""><input type="button" id="btnPlan_tratamiento" class="button_menu" value="Plan de tratamiento"/></a></li>
                             </ul>
@@ -76,7 +76,7 @@
                         </table>
                     </div>
                     <input type="button" id="btnEditar_tratamiento_actual" class="button_menu" value="Editar"/>
-                    <input type="button" id="btnVisualizar_tratamiento_actual" class="button_menu" value="Visualizar"/>
+                    <input type="button" id="btnVisualizar_tratamiento_actual" onclick="visualizarEstadoActual()" class="button_menu" value="Visualizar"/>
                     <input type="button" id="btnNuevo_tratamiento_actual" onclick="nuevoOdontogramaEstadoActual()" class="button_menu" value="Nuevo"/>
                     <input type="button" class="button_cancel_menu" value="Cancelar"/>
                 </div>

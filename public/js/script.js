@@ -109,3 +109,21 @@ function nuevoOdontogramaEstadoActual(){
         }
     });
 }
+function visualizarEstadoInicial(){
+    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+        if(!data){
+            location.href=URL+'odontograma/visualizar_odontograma/inicial';
+        }else{
+            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
+        }
+    });
+}
+function visualizarEstadoActual(){
+    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+        if(!data){
+            location.href=URL+'odontograma/visualizar_odontograma/actual';
+        }else{
+            alert("¡No se ha encontrado ningun odontograma para el paciente en este tratamiento!");
+        }
+    });
+}
