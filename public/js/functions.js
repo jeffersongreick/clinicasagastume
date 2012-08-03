@@ -165,54 +165,55 @@ function calcularPieza(){
     num +=(piezaEditada.id % 10);
     return num;
 }
-function guardar(){
-    var data = {
-        piezas : []
-    }  
-    for(var i in odontograma){
-        var pieza = odontograma[i].pieza;
-        var p = {
-            id:pieza.id,
-            caras:[]
-        }   
-        if(pieza.id != 0){
-            for(var j = 1;j<=5;j++){          
-                var estados
-                if(j==1){
-                    estados = pieza.Cara1.estados;
+function guardarOdontograma(){
+    if (confirm("¿Cierto de finalizar la edicion y guardar el odontograma?")){
+        var data = {
+            piezas : []
+        }  
+        for(var i in odontograma){
+            var pieza = odontograma[i].pieza;
+            var p = {
+                id:pieza.id,
+                caras:[]
+            }   
+            if(pieza.id != 0){
+                for(var j = 1;j<=5;j++){          
+                    var estados
+                    if(j==1){
+                        estados = pieza.Cara1.estados;
+                    }
+                    if(j==2){
+                        estados = pieza.Cara2.estados;
+                    }
+                    if(j==3){
+                        estados = pieza.Cara3.estados;
+                    }
+                    if(j==4){
+                        estados = pieza.Cara4.estados;
+                    }
+                    if(j==5){
+                        estados = pieza.Cara5.estados;
+                    }
+                    if(estados.length>0){
+                        var cara ={
+                            id:j,
+                            estados:[estados]
+                        };
+                        p.caras.push(cara);
+                    }    
                 }
-                if(j==2){
-                    estados = pieza.Cara2.estados;
-                }
-                if(j==3){
-                    estados = pieza.Cara3.estados;
-                }
-                if(j==4){
-                    estados = pieza.Cara4.estados;
-                }
-                if(j==5){
-                    estados = pieza.Cara5.estados;
-                }
-                if(estados.length>0){
-                    var cara ={
-                        id:j,
-                        estados:[estados]
-                    };
-                    p.caras.push(cara);
-                }    
             }
+            data.piezas.push(p);  
         }
-        data.piezas.push(p);  
+        $.post(URL+"/odontograma/guardarOdontograma", data ,function(dato){
+            if(dato== true){
+                alert("!El odontograma ha sido guardado con exito");
+                location.href=URL+'odontograma/index/';
+            }else{
+                alert(dato);
+            }
+        });
     }
-    $.post(URL+"/odontograma/guardarOdontograma", data ,function(dato){
-        if(dato== true){
-            alert("!El odontograma ha sido guardado con exito");
-            location.href=URL+'odontograma/index/';
-        }else{
-            alert(dato);
-        }
-    });
-    
 }
 function extraerPieza(){
     if (confirm("AVISO: ¿Esta cierto de que deseas eliminar esta pieza junto a su informacion?")){

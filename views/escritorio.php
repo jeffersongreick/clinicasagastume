@@ -32,74 +32,65 @@
                 <div class="function" id="treatment_manager">
                     <ul>
                         <li>
-                            <input type="button" id="btnTratamiento_actual" class="button_menu" value="Tratamiento en curso"/>
-                            <ul >
-                                <li><input type="button" onclick="visualizarEstadoInicial()" id="btnOdontograma_estado_inicial" class="button_menu" value=" Estado inicial"/></li>
-                                <li><input type="button" id="btnOdontograma_estado_actual" class="button_menu" value="Estado actual"/></li>
-                                <li><a href=""><input type="button" id="btnPlan_tratamiento" class="button_menu" value="Plan de tratamiento"/></a></li>
+                            <input type="button" id="btnOdontograma_estado_actual" class="button_menu" value="Estados"/>
+                            <ul>
+                                <li><input type="button" id="btnNuevo_tratamiento_actual" onclick="nuevoOdontogramaEstadoActual()" class="button_menu" value="Nuevo odontograma"/></li>
+                                <li><input type="button" id="btnVisualizar_tratamiento_actual" onclick="visualizarEstadoActual()" class="button_menu" value="Visualizar"/></li>
                             </ul>
                         </li>
                         <li>
-                            <input type="button" id="btnNuevo_tratamiento" class="button_menu" value="Nuevo tratamiento"/>
-                            <ul >
-                                <li><input type="button" id="btn_nuevo_estado_inicial"  onclick="validarOdontogramaInicial()" class="button_menu" value="Nuevo odontograma inicial"/></li>
-                                <li><input type="button" id="btn_nuevo_plan_tratamiento" class="button_menu" value="Nuevo plan tratamiento"/></li>
+                            <input type="button" id="btnOdontograma_tratamientos_realizados" class="button_menu" value="Tratamientos realizados"/>
+                            <ul>
+                                <li><input type="button" id="btnNuevo_tratamiento_actual"  class="button_menu" value="Nuevo odontograma"/></li>
+                                <li><input type="button" id="btnVisualizar_tratamiento_actual" class="button_menu" value="Visualizar"/></li>
                             </ul>
                         </li>
+                        <li>
+                            <input type="button" id="btnOdontograma_tratamientos_curso" class="button_menu" value="Tratamientos en curso"/>
+                            <ul>
+                                <li><input type="button" id="btnNuevo_tratamiento_actual"  class="button_menu" value="Nuevo odontograma"/></li>
+                                <li><input type="button" id="btnVisualizar_tratamiento_actual" class="button_menu" value="Visualizar"/></li>
+                            </ul>
+                        </li>
+
                         <li>
                             <input type="button" class="button_cancel_menu" value="Cancelar"/>
                         </li>
                     </ul>
                 </div>
-                <!--menu busqueda de odontogramas-->
-                <div id="buscarOdontograma" class="function">
-                    <p>Desde:</p><input type="text" id="fromFecha" class="fieldText" value="Fecha" style="color: gray"/>
-                    <p>Hasta:</p><input type="text" id="toFecha" class="fieldText" value="Fecha" style="color: gray" />
-                    <div class="listado">
-                        <table class="tabla">
-                            <tr>
-                                <td scope="col" style="width: 20%; background-color: #A5DCFF">Id</td>
-                                <td scope="col" style="width: 40%; background-color: #A5DCFF">Fecha</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" style="width: 20%">5</td>
-                                <td scope="row" style="width: 40%">15/02/11</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" style="width: 20%">19</td>
-                                <td scope="row" style="width: 40%">18/02/11</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" style="width: 20%">58</td>
-                                <td scope="row" style="width: 40%">25/02/11</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <input type="button" id="btnEditar_tratamiento_actual" class="button_menu" value="Editar"/>
-                    <input type="button" id="btnVisualizar_tratamiento_actual" onclick="visualizarEstadoActual()" class="button_menu" value="Visualizar"/>
-                    <input type="button" id="btnNuevo_tratamiento_actual" onclick="nuevoOdontogramaEstadoActual()" class="button_menu" value="Nuevo"/>
-                    <input type="button" class="button_cancel_menu" value="Cancelar"/>
-                </div>
+                <div class="function" id="treatment_plan">
+                    <ul>
+                        <li><input type="button" id="btn_nuevo_plan_propuesto"  class="button_menu" value="Plan propuesto"/></li>
+                        <li><input type="button" id="btn_nuevo_plan_compromiso" class="button_menu" value="Plan de compromiso"/></li>
+                        <li>
+                            <input type="button" class="button_cancel_menu" value="Cancelar"/>
+                        </li>
+                    </ul>
+                </div>   
                 <!-- iconos escritorio-->
-                <div class="iconoContainer" id="btnTratamiento">
-                    <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_tratamiento.png" alt="odontograma"  class="iconos_escritorio" />
-                    <div class="nombreFuncion">Tratamientos</div>
-                </div>
-                <div class="iconoContainer" id="btnRegistroPaciente">
-                    <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_registros.png" alt="odontograma"  class="iconos_escritorio" />
-                    <div class="nombreFuncion">Registro pacientes</div>
-                </div>
-                <div class="iconoContainer" id="btnHistoria" >
-                    <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_historia.png" alt="odontograma" class="iconos_escritorio" />
-                    <div class="nombreFuncion">Historia Clinica</div>
-                </div>
-                <div class="iconoContainer" id="btnOtros">
-                    <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_otros.png" alt="odontograma"  class="iconos_escritorio" />
-                    <div class="nombreFuncion">Otros</div>
+                <div id="contenedor_iconos" style="width:370px;height: 520px">
+                    <div class="iconoContainer" id="btnOdontogramas">
+                        <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_tratamiento.png" alt="odontograma"  class="iconos_escritorio" />
+                        <div class="nombreFuncion">Odontogramas</div>
+                    </div>
+                    <div class="iconoContainer" onclick="validarOdontogramaInicial()" id="btnOdontograma_inicial">
+                        <input type="image"  src="<?php echo URL ?>public/img/ico_escritorio/ico_odontograma_inicial.png" alt="odontograma"  class="iconos_escritorio" />
+                        <div class="nombreFuncion">Odontograma Inicial</div>
+                    </div>
+                    <div class="iconoContainer" id="btnPlanes">
+                        <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_otros.png" alt="odontograma"  class="iconos_escritorio" />
+                        <div class="nombreFuncion">Plan de tratamiento</div>
+                    </div>
+                    <div class="iconoContainer" id="btnHistoria" >
+                        <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_historia.png" alt="odontograma" class="iconos_escritorio" />
+                        <div class="nombreFuncion">Historia Clinica</div>
+                    </div>
+                    <div class="iconoContainer" id="btnFinalizarTratamiento" >
+                        <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_finalizar.png" alt="odontograma" class="iconos_escritorio" />
+                        <div class="nombreFuncion">Finalizar tratamiento</div>
+                    </div>
                 </div>
                 <div class="block"></div>
-                <!--menu funciones                -->
-
             </div>
         </div>
     </body>
