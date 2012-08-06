@@ -62,6 +62,7 @@
                     <ul>
                         <li><input type="button" id="btn_nuevo_plan_propuesto"  class="button_menu" value="Plan propuesto"/></li>
                         <li><input type="button" id="btn_nuevo_plan_compromiso" class="button_menu" value="Plan de compromiso"/></li>
+                        <li><input type="button" id="btn_plan_modo_textual" class="button_menu" value="Modo textual"/></li>
                         <li>
                             <input type="button" class="button_cancel_menu" value="Cancelar"/>
                         </li>
