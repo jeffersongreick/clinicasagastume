@@ -9,23 +9,17 @@ $(document).ready(function(){
     $(".iconoContainer").mouseout(function(){
         $(this).removeClass("enfoque");
     }); 
-    $("#btnTratamiento").click(function(){
+    $("#btnOdontogramas").click(function(){
         abrirVentana("#treatment_manager");
     });
-    
+    $("#btnPlanes").click(function(){
+        abrirVentana("#treatment_plan");
+    });
     //cierra el menu
     $(".button_cancel_menu").click(function(event){
         sliderMenuFuncion(event,$(this).parents().find('.function'));
         cerrarVentana($(this).parents().find('.function'));
     });
-    //funcion no habilitada
-    $("#btnOtros").click(function(){
-        alert("En construccion.");
-    });
-    $("#btnRegistroPaciente").click(function(){
-        alert("En construccion.");
-    });
-    
     //funcion no habilitada
     $("#btnHistoria").click(function(){
         alert("En construccion..");
@@ -34,30 +28,6 @@ $(document).ready(function(){
     $(".button_menu").click(function(event){
         sliderMenuFuncion(event,$(this).parents().find('.function'));
     })
-    $("#btnOdontograma_estado_actual").click(function(event){
-        sliderMenuFuncion(event,$(this).parents().find('.function'));
-        $("#treatment_manager").slideUp("4000",function(){
-            $("#buscarOdontograma").slideDown("4000");
-        });
-    });
-    //abre el menu de seleccion de fecha    
-    $("#fromFecha").datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        changeYear: true,
-        onSelect: function( selectedDate ) {
-            $( "#toFecha" ).datepicker( "option", "minDate", selectedDate );
-        }
-    });
-    //abre el menu de seleccion de fecha    
-    $( "#toFecha" ).datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        changeYear: true,
-        onSelect: function( selectedDate ) {
-            $( "#fromFecha" ).datepicker( "option", "maxDate", selectedDate );
-        }
-    });
 });
 
 //abre una caja pasada por parametro
@@ -74,7 +44,6 @@ function cerrarVentana(window){
 }
 //se realiza el efecto para mostrar y cerrar el menu de funciones
 function sliderMenuFuncion(event,menu){
- 
     var link=$(event.currentTarget);
     if (link.parent().find('ul.active').size()==1){
         link.parent().find('ul.active').slideUp('medium',function(){
@@ -94,9 +63,11 @@ function sliderMenuFuncion(event,menu){
 function validarOdontogramaInicial(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
         if(!data){
-            alert("¡Ya existe un odontograma de estado inicial creado para este tratamiento!");
+             location.href=URL+'odontograma/visualizar_odontograma/inicial';
         }else{
-            location.href=URL+'odontograma/getViewOdontogramaFactory/1';
+            if(confirm("Todavia no se ha creado un odontograma de estado inicial. ¿Desea crearlo ahora?")){
+                location.href=URL+'odontograma/getViewOdontogramaFactory/1';
+            }
         }
     });
 }
@@ -104,15 +75,6 @@ function nuevoOdontogramaEstadoActual(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
         if(!data){
             location.href=URL+'odontograma/getViewOdontogramaFactory/2';
-        }else{
-            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
-        }
-    });
-}
-function visualizarEstadoInicial(){
-    $.get(URL+"odontograma/verifOdontInicial/",function(data){
-        if(!data){
-            location.href=URL+'odontograma/visualizar_odontograma/inicial';
         }else{
             alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
         }

@@ -56,7 +56,6 @@ class Controller_Odontograma {
     // no va mas 
     public function getViewOdontogramaFactory($accion) {
         try {
-
             switch ($accion) {
                 case 1:
                     if ($this->verifOdontInicial()) {
@@ -71,7 +70,7 @@ class Controller_Odontograma {
                             $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getPiezasInfantiles();
                             $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma);
                         }
-                        $view = View::factory('odontograma');
+                        $view = View::factory('editor_odontograma');
                         $view->set('listaEstados', $this->getEstados());
                         $view->set('JsonOdontograma', $JsonOdontograma);
                         echo $view->render();
@@ -81,9 +80,8 @@ class Controller_Odontograma {
                     }
                 case 2:
                     $JsonOdontograma = $this->getEstadoActual();
-
                     $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
-                    $view = View::factory('odontograma');
+                    $view = View::factory('editor_odontograma');
                     $view->set('listaEstados', $this->getEstados());
                     $view->set('JsonOdontograma', $JsonOdontograma);
                     echo $view->render();
@@ -140,15 +138,6 @@ class Controller_Odontograma {
             throw $exc->getMessage();
         }
     }
-
-    public function guardarEstadoActual($odontograma, $idTratamiento) {
-        try {
-            
-        } catch (Exception $exc) {
-            throw $exc->getMessage();
-        }
-    }
-
     public function getOdontogramasTratamiento($idTratamiento) {
         try {
             $odontogramas = Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($idTratamiento);
