@@ -225,6 +225,12 @@ class Model_ServicioOdontograma extends Model {
         return $colPiezas;
     }
 
+    public function cargarEstandar($id){
+        $sql = "Select id_pieza,id_cara,id_estado,estado 
+            From tbl_odontograma_estado inner join tbl_estado on id_estado = id where id =".$id." order by id_pieza,id_cara";
+        $result = $this->db->query($sql);
+        return $result->fetchAll();
+    }
 }
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 
 class Controller_Odontograma {
+
     private $idTratamiento = 1;
     private $idPaciente = 1;
 
@@ -22,6 +23,37 @@ class Controller_Odontograma {
         }
     }
 
+    public function inicial() {
+        if ($this->verifOdontInicial()) {
+            $JsonOdontograma;
+            $datetime1 = new DateTime("now");
+            $datetime2 = new DateTime("2008/12/12");
+            $intervalo = date_diff($datetime1, $datetime2);
+            if ($intervalo->format('d') > 2922) {
+                $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getPiezasAdultos();
+                $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma);
+            } else {
+                $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getPiezasInfantiles();
+                $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma);
+            }
+            $view = View::factory('odontograma');
+            $view->set('listaEstados', $this->getEstados());
+            $view->set('JsonOdontograma', $JsonOdontograma);
+            echo $view->render();
+        } else {
+            throw new Exception('El odontograma no podrá ser guardado. No existe un odontograma de estado inicial registrado.');
+        }
+    }
+
+    public function actual() {
+        $JsonOdontograma = $this->getEstadoActual();
+        $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
+        $view = View::factory('odontograma');
+        $view->set('listaEstados', $this->getEstados());
+        $view->set('JsonOdontograma', $JsonOdontograma);
+    }
+
+    // no va mas 
     public function getViewOdontogramaFactory($accion) {
         try {
 
@@ -72,8 +104,6 @@ class Controller_Odontograma {
             case "actual":
                 $JsonOdontograma = $this->getEstadoActual();
                 break;
-
-            
         }
         $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
         $view = View::factory('visualizador_odontograma');
@@ -152,11 +182,13 @@ class Controller_Odontograma {
 
     public function cargar($id) {
         $model_odotograma = Model_ServicioOdontograma::getInstance();
-        $datos = $model_odotograma->obtener_odontograma($id);
-        $view = View::factory('carga');
-        $view->set('json', json_encode($datos));
+        $datos = $model_odotograma->cargarEstandar($id);
+        $view = View::factory('base');
+        $view_estandar = View::factory('estandar');
+        $view->script('script', 'public/js/cara.js');
+        $view->set('contenido', $view_estandar);
+        $view_estandar->set('piezas', $datos);
         echo $view->render();
-        //  var_dump(json_encode($datos));
     }
 
 }

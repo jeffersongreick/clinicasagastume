@@ -52,5 +52,19 @@ class View {
     public function __toString() {
         return $this->render();
     }
+    
+    public function script($key,$value){
+        if (is_array($value)) {
+            $aux = "";
+            foreach ($value as $url) {
+                $aux .="<script type ='text/javascript' src ='".URL."".$url."'></script> \n \t";
+            }
+             $this->data[$key] = $aux;
+        } else {
+            $this->data[$key] = "<script type ='text/javascript' src ='".URL."".$value."'></script> \n";
+        }
+
+        return $this;
+    }
 
 }
