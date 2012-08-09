@@ -40,36 +40,39 @@
     margin: 0 30px;
 }
 .button_menu,.button_cancel_menu{
-    width: 310px;
-    height: 50px;
-    font-size: 20px;
+    font-size: 25px;
+    padding: 5px 15px;
     color: white;
-    font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
-    padding: 5px;
-    background: -webkit-linear-gradient(top, rgba(181,189,200,1) 0%,rgba(130,140,149,1) 36%,rgba(40,52,59,1) 100%); 
-    margin: 10px;
+    background:#586C83;
+    margin: 5px;
 }
 
+
+.button_menu:hover,.button_cancel_menu:hover {
+    opacity: 0.8;
+    box-shadow: 0px 0px 3px 2px white;
+}
 ul li ul .button_menu{
     width: 260px;
     height: 40px;
     background: white;
     color: black;
 }
+.fieldText{
+    font-size: larger;
+    width: 95%;
+    margin: 5px 10px;
+}
+#contenedor_botones {
+    display: table;
+    margin:15px auto;  
+}
+#buscarPaciente {
+    left: 25%;
+    width: 500px;
 
-#buscarOdontograma .button_menu ,#buscarOdontograma .button_cancel_menu{
-    margin: 3px 10px;
-    width: 140px;
-}
-#buscarOdontograma .fieldText{
-    display: inline-block;
-    width: auto;
-}
-#buscarOdontograma p{
-    display: inline;
-    margin: 3px 10px;
 }
 .listado{
     height: 75%;
@@ -77,13 +80,18 @@ ul li ul .button_menu{
     margin: 5px 10px;
     background-color: white;
     border: none;
+      border: solid 1px blue;
+      max-height: 200px;
+    overflow-y: scroll;
 }
 .tabla{
     width: 100%;
     border-collapse: collapse;
+  
     font-size: large;
     color: black;
     height: 200px;
+    
 }
 .tabla td{
     border: solid 1px red;

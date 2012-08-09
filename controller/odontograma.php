@@ -1,12 +1,22 @@
 <?php
 
 class Controller_Odontograma {
+
     private $idTratamiento = 1;
     private $idPaciente = 1;
 
     public function index() {
         try {
-            $view = View::factory('escritorio');
+            $view = View::factory('login');
+            echo $view->render();
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+    public function principal() {
+        try {
+            $view = View::factory('principal');
             echo $view->render();
         } catch (Exception $exc) {
             echo $exc->getMessage();
@@ -70,8 +80,6 @@ class Controller_Odontograma {
             case "actual":
                 $JsonOdontograma = $this->getEstadoActual();
                 break;
-
-            
         }
         $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
         $view = View::factory('visualizador_odontograma');
@@ -108,6 +116,7 @@ class Controller_Odontograma {
             throw $exc->getMessage();
         }
     }
+
     public function getOdontogramasTratamiento($idTratamiento) {
         try {
             $odontogramas = Model_ServicioOdontograma::getInstance()->getOdontogramasTratamiento($idTratamiento);
@@ -138,6 +147,7 @@ class Controller_Odontograma {
             echo "Error: " . $exc->getMessage();
         }
     }
+
 }
 
 ?>
