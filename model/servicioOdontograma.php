@@ -16,6 +16,18 @@ class Model_ServicioOdontograma extends Model {
         parent::__construct();
     }
 
+    public function getPaciente($ci) {
+        try {
+            $sql = "SELECT tbl_persona.ci,tbl_persona.nombre,tbl_persona.apellido FROM clinicadb.tbl_persona 
+                inner join tbl_paciente on tbl_paciente.ci_persona= tbl_persona.ci where tbl_paciente.ci_persona =" . $ci;
+            $statement = $this->db->prepare($sql);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_NAMED);
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
+    }
+
     public function crearOdontograma($rows, $id_paciente) {
         try {
             $odontograma = array();
@@ -74,7 +86,7 @@ class Model_ServicioOdontograma extends Model {
             $statement->execute();
             $p = $statement->fetch();
             $b = false;
-            if (!$p[0]>0){
+            if (!$p[0] > 0) {
                 $b = true;
             }
             return $b;
@@ -225,12 +237,13 @@ class Model_ServicioOdontograma extends Model {
         return $colPiezas;
     }
 
-    public function cargarEstandar($id){
+    public function cargarEstandar($id) {
         $sql = "Select id_pieza,id_cara,id_estado,estado 
-            From tbl_odontograma_estado inner join tbl_estado on id_estado = id where id =".$id." order by id_pieza,id_cara";
+            From tbl_odontograma_estado inner join tbl_estado on id_estado = id where id =" . $id . " order by id_pieza,id_cara";
         $result = $this->db->query($sql);
         return $result->fetchAll();
     }
+
 }
 
 ?>

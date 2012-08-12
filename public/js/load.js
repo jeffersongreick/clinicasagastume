@@ -1,4 +1,4 @@
-var URL = "http://localhost/pepe/odontograma/";
+var URL = "http://localhost/clinica/";
 var layerOdontograma , layerPieza;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;

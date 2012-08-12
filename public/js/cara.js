@@ -1,4 +1,4 @@
-var URL = "http://localhost/pepe/odontograma/";
+var URL = "http://localhost/clinica/";
 var cara = function(numero,pieza,grp){
     this.numero = numero;
     this.estados = [];

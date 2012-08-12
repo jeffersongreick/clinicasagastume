@@ -22,33 +22,22 @@
             <div id="aplication">
                 <div id="buscarPaciente" class="function">
                     <h2 id="title2">Buscar paciente</h2>
-                    <input type="text" id="text_ci" class="fieldText" placeholder="Cedula" />
 
-                    <div class="listado">
-                        <table class="tabla">
-                            <tr>
-                                <td scope="col" style="width: 20%; background-color: #A5DCFF">Ci</td>
-                                <td scope="col" style="width: 40%; background-color: #A5DCFF">Nombre</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" style="width: 20%">455445554</td>
-                                <td scope="row" style="width: 40%">Rodrigo Cotto barrios</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" style="width: 20%">4485693319</td>
-                                <td scope="row" style="width: 40%">Diego Plada</td>
-                            </tr>
-                            <tr>
-                                <td scope="row" style="width: 20%">447899665</td>
-                                <td scope="row" style="width: 40%">Marciano Duran</td>
-                            </tr>
-                            
-                        </table>
+                    <input type="search" results="5" id="search_ci" class="fieldText" placeholder="Cedula" />
+
+                    <div id="patient_data" >
+                        <p id="patient_ci" class="data">C.I.:</p>
+                        <p id="patient_name" class="data">Nombre:</p>
+                        <p class="data">Tratamiento:</p>
+                        <div id="patient_treatment" style="display: none;">
+                        </div>
+
                     </div>
-                    <div id="contenedor_botones">
-                        <input type="button" id="btnAceptar_paciente" class="button_menu" value="Aceptar"/>
-                            <input type="button" class="button_cancel_menu" value="Cancelar"/>
+
+                    <div id="contenedor_botones" >
+                        <input type="button" class="button_cancel_menu" value="Cancelar"/>
                     </div>
+                    <img id="img_load" src="<?php echo URL ?>public/img/loader.gif" style="display: none; margin:0 auto 0 auto;"/>
                 </div>
                 <!-- panel de datos del paciente-->
                 <div id="contenedor_iconos" style="width:370px;height: 520px; margin-top: 10px;">

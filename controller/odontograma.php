@@ -14,6 +14,15 @@ class Controller_Odontograma {
         }
     }
 
+    public function escritorio() {
+        try {
+            $view = View::factory('escritorio');
+            echo $view->render();
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
     public function principal() {
         try {
             $view = View::factory('principal');

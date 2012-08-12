@@ -1,4 +1,4 @@
-var URL = 'http://localhost/pepe/odontograma/';
+var URL = 'http://localhost/clinica/';
 //capas de odontogramas y editor de pieza
 
 $(document).ready(function(){
