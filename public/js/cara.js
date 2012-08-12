@@ -1,3 +1,4 @@
+var URL = "http://localhost/pepe/odontograma/";
 var cara = function(numero,pieza,grp){
     this.numero = numero;
     this.estados = [];
