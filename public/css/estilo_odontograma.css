@@ -25,12 +25,11 @@
 }
 /*estilo editor*/
 #items{
-    max-height: 430px;
+    max-height: 510px;
     width: 750px;
     padding: 0px;
     float: left;
     color: white;
-    border: solid white;
     border-top: none;
     border-radius: 3px;
 }
@@ -40,32 +39,25 @@
     visibility: hidden;
 }
 
-#items > label {
-    font-size: 20px;
-    height: 30px;
-    float: left;
-    display: block;
-    width: 365px;
+#items > #title_state {
+    font-size: 30px;
+    margin: 0;
     color: white;
     font-weight: bold;
     text-align: center;
-    cursor: pointer;
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%);
+
 }
 #items > input:hover + label {
     background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 17%,rgba(255,255,255,0) 62%,rgba(255,255,255,0) 100%);
     color: black;
 }
-#items > input:checked + label {
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%);
-}
-
-.tabs .treatment_items {
-    display: none;  
-}
 .state_items{
-    height: 355px;
+    height: 450px;
     padding: 5px;
     overflow-y: scroll;
+     border: solid white;
+
 }
 #canvasPieza{
     float: left;
@@ -116,7 +108,7 @@
 #containerPiezas{
     float: left;
     margin-left: 100px;
-    
+
 }
 #cambioPiezaTitulo{
     margin: 2px 0;
@@ -125,7 +117,3 @@
 .botonesCentrados{
     margin-left: 40px;
 }
-
-/** #cambioPiezaContainer{
-    border: solid white;
-}*/

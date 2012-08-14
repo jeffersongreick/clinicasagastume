@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_escritorio.css" type="text/css" media="screen"/>
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/script.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/tratamiento_script.js"></script>
         <link rel="shortcut icon" href="<?php echo URL ?>public/img/tooth.ico" type="image/ico"/>
         <title>Clinica Sagastume</title>
     </head>
@@ -21,9 +21,10 @@
             <div id="aplication">
                 <!-- panel de datos del paciente-->
                 <div id="pnlData">
-                    <p id="patientName">Paciente: <span>Marciano Durán</span></p> 
-                    <a href="" id="idTreatment">Tratamiento: 16</a>
+                    <p id="patientName">Paciente: <span><?php echo $_SESSION['tratamiento']->getPaciente()->toString()?></span></p> 
+                    <p  id="idTreatment">Tratamiento id: <?php echo $_SESSION['tratamiento']->getId()?></p>
                     <p style="margin: 0;">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
+                    
                 </div>
                 <!--menu funciones tratamiento-->
                 <div class="function" id="treatment_manager">
@@ -84,8 +85,14 @@
                         <div class="nombreFuncion">Historia Clinica</div>
                     </div>
                     <div class="iconoContainer" id="btnFinalizarTratamiento" >
-                        <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_finalizar.png" alt="odontograma" class="iconos_escritorio" />
+                        <input type="image" onclick="finalizarTratamiento()" src="<?php echo URL ?>public/img/ico_escritorio/ico_finalizar.png" alt="odontograma" class="iconos_escritorio" />
                         <div class="nombreFuncion">Finalizar tratamiento</div>
+                    </div>
+                    <div class="iconoContainer" id="btnSalirTratamiento" >
+                        <a href="<?php echo URL ?>usuario/principal/" >
+                            <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_salir.png" alt="odontograma" class="iconos_escritorio" />
+                            <div class="nombreFuncion">Salir</div>
+                        </a>
                     </div>
                 </div>
                 <div class="block"></div>

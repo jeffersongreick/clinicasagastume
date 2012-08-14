@@ -4,7 +4,7 @@ class Model_Persona extends Model {
 
     private $ci;
     private $nombre;
-    private $Apellidos;
+    private $apellidos;
     private $email;
     private $foto;
     private $activo;
@@ -29,11 +29,11 @@ class Model_Persona extends Model {
     }
 
     public function getApellidos() {
-        return $this->Apellidos;
+        return $this->apellidos;
     }
 
     public function setApellidos($Apellidos) {
-        $this->Apellidos = $Apellidos;
+        $this->apellidos = $Apellidos;
     }
 
     public function getEmail() {
@@ -58,6 +58,9 @@ class Model_Persona extends Model {
 
     public function setActivo($activo) {
         $this->activo = $activo;
+    }
+    public function toString(){
+        return $this->nombre." ".$this->apellidos;
     }
 }
 

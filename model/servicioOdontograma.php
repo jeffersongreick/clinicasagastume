@@ -112,30 +112,6 @@ class Model_ServicioOdontograma extends Model {
         }
     }
 
-    public function getOdontogramasTratamiento($idTratamiento, $desdeFecha, $hastaFecha) {
-        try {
-            $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,p.nombre as nombre_pieza, p.url_img as url_pieza,
-        c.descripcion as desc_cara,e.estado as desc_estado,e.url_img as url_estado FROM 
-        tbl_odontograma_estado as o inner join tbl_piezas as p inner join
-        tbl_cara as c inner join tbl_estado as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_estado = e.id
-        where id_odontograma = (select id from tbl_odontograma where id_tratamiento =" . $idTratamiento;
-            if (isset($desdeFecha) & isset($hastaFecha)) {
-                $sql .=" and fecha BETWEEN '$desdeFecha' AND '$hastaFecha'";
-            }
-            $sql .=") order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado";
-            echo $sql;
-            $statement = $this->db->prepare($sql);
-            $statement->execute();
-            $colOdontogramas = array();
-            if (isset($statement)) {
-                $colOdontogramas = $this->crearOdontograma($statement);
-            }
-            return $colOdontogramas;
-        } catch (Exception $exc) {
-            throw $exc->getMessage();
-        }
-    }
-
     public function getEstados() {
         $sql = "SELECT * FROM tbl_estado";
         $query = $this->db->query($sql);
@@ -243,7 +219,6 @@ class Model_ServicioOdontograma extends Model {
         $result = $this->db->query($sql);
         return $result->fetchAll();
     }
-
 }
 
 ?>

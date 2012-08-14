@@ -60,13 +60,26 @@ function sliderMenuFuncion(event,menu){
         });
     }  
 }
+function finalizarTratamiento(){
+    if(confirm("¿Esta seguro que quiere finalizar el tratamiento?")){
+        $.get(URL+"tratamiento/finalizarTratamiento/",function(data){
+            if(data == true){
+                alert("¡El tratamiento se ha finalizado exitosamente!");
+                location.href=URL+'usuario/principal/';
+            }else{
+                alert(data);
+            }
+        });
+        F
+    }   
+}
 function validarOdontogramaInicial(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
         if(!data){
-             location.href=URL+'odontograma/visualizar_odontograma/inicial';
+            location.href=URL+'odontograma/visualizar_odontograma/inicial';
         }else{
             if(confirm("Todavia no se ha creado un odontograma de estado inicial. ¿Desea crearlo ahora?")){
-                location.href=URL+'odontograma/getViewOdontogramaFactory/1';
+                location.href=URL+'odontograma/inicial/';
             }
         }
     });
@@ -74,7 +87,7 @@ function validarOdontogramaInicial(){
 function nuevoOdontogramaEstadoActual(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
         if(!data){
-            location.href=URL+'odontograma/getViewOdontogramaFactory/2';
+            location.href=URL+'odontograma/actual/';
         }else{
             alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
         }

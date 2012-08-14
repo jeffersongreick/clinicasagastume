@@ -32,19 +32,6 @@ window.onload = function(){
     $("label img").mouseout(function(){
         $(this).removeClass("enfoque");
     });
-    //    cambia entre opciones de items estados o prestaciones
-    $("#tab_state").click(function(){
-        $(".treatment_items").fadeOut("2000",function(){
-            $("#item_description").html("");
-            $(".state_items").fadeIn("2000");
-        });
-    })
-    $("#tab_treatment").click(function(){
-        $(".state_items").fadeOut("2000",function(){
-            $("#item_description").html("");
-            $(".treatment_items").fadeIn("2000");    
-        });
-    })
     //    cambia de odontograma a edicion de pieza
     $('#btnEditarPieza').click(function(){ 
         if(piezaEditada && piezaEditada.id != 0){

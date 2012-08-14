@@ -6,18 +6,20 @@
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/kinetic.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/load.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/load_odontograma.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/pieza.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/functions.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/functions_odontograma.js"></script>
         <script type="text/javascript" src="<?php echo URL ?>public/js/cara.js"></script>
-        <script type="text/javascript" >
-         <?php if (isset($JsonOdontograma)): echo $JsonOdontograma; endif;?>
-    </script>
         <link rel="shortcut icon" href="<?php echo URL ?>public/img/tooth.ico" type="image/ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
         <title>Clinica Sagastume</title>
     </head>
     <body>
+        <script type="text/javascript" >
+<?php if (isset($JsonOdontograma)): echo $JsonOdontograma;
+endif;
+?>
+        </script>
         <div id="container" >
             <!--cabecera-->
             <div id="header">
@@ -64,9 +66,8 @@
                             <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
                             <input type="button" value="Imprimir" id="btnImprimir" class="button" />
                             <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardarOdontograma()" />
-                            <a href="<?php echo URL ?>odontograma/index/" class="descripcionIcono" >
-                                <input type="button" value="Cancelar" id="btnCancelarOdontograma" class="button" />
-                            </a>
+                            <input type="button" value="Cancelar" onClick="history.go(-1)"  id="btnCancelarOdontograma" class="button" />
+
                             <div class="clear"></div>
                         </div>
                         <!--editor pieza-->
@@ -84,25 +85,15 @@
                             </div>
 
                             <div id="items">
-                                <input id="tab_state" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
-                                <label for="tab_state" class="tab-label">Estados</label>
-                                <input id="tab_treatment" type="radio" name="radio-set" class="tab-selector-2" />
-                                <label for="tab_treatment" class="tab-label">Prestaciones</label>
+                                <h1 id="title_state"  class="tab-selector-1">Estados</h1>
                                 <div class="clear"></div>
-                                <div class="tabs">
-                                    <div class="state_items">
-                                        <?php if (isset($listaEstados)): ?>
-                                            <?php foreach ($listaEstados as $estado): ?> 
-                                                <input type='checkbox' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregarEstado(this)'/><label for='estado_<?php echo $estado->id ?>'>
-                                                    <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->estado ?>'/></label>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="treatment_items">
-                                        <input type="checkbox" id="p" class="item" />
-                                        <label for="p" >
-                                        </label>
-                                    </div>
+                                <div class="state_items">
+                                    <?php if (isset($listaEstados)): ?>
+    <?php foreach ($listaEstados as $estado): ?> 
+                                            <input type='checkbox' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregarEstado(this)'/><label for='estado_<?php echo $estado->id ?>'>
+                                                <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->estado ?>'/></label>
+                                        <?php endforeach; ?>
+<?php endif; ?>
                                 </div>
                                 <div id="item_description"></div>
                             </div>

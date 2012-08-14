@@ -16,10 +16,10 @@ $(document).ready(function(){
         $(".block").fadeIn("4000"); 
         $('#buscarPaciente').slideDown("4000");
     });
-    $(".button_cancel_menu").click(function(){
+    $(".button_cancel").click(function(){
         $(".block").fadeOut("4000");
         $("#buscarPaciente").slideUp("4000",function(){
-            $('#contenedor_botones .button_menu').remove();
+            $('#contenedor_botones .button').remove();
             $('#patient_treatment').children().remove();
             $('.error_msg').remove();
             $('#patient_ci').html('C.I.:');
@@ -49,7 +49,7 @@ $(document).ready(function(){
             }else{
                 $("#patient_treatment").fadeOut(200,function(){
                     $('#contenedor_botones').fadeOut(200);
-                    $('#contenedor_botones .button_menu').remove();
+                    $('#contenedor_botones .button').remove();
                     $('.error_msg').remove();
                     $('#patient_treatment').children().remove();
                     $('#patient_ci').html('C.I.:');
@@ -75,16 +75,16 @@ function cargarPaciente(){
             $('#patient_name').html('Nombre: '+paciente.nombre);
             if(paciente.tratamientos == false){
                 $('#patient_treatment').append('<p class="data">El paciente no tiene un tratamiento en curso.¿Desea empezar un nuevo tratamiento?</p>');
-                $('<input type="submit" id="btn_treatment_new" onclick="nuevo_tratamiento()" class="button_menu" value="Nuevo"/>').insertBefore('#contenedor_botones .button_cancel_menu');
+                $('<input type="submit" id="btn_treatment_new" onclick="nuevo_tratamiento()" class="button" value="Nuevo"/>').insertBefore('#contenedor_botones .button_cancel');
                 $("#patient_treatment").fadeIn(500);
                 $('#contenedor_botones').fadeIn(500);
             }else{
                 var tratamiento = paciente.tratamientos;
-                $('#patient_treatment').append('<p id="treatment_id" class="data">id: '+tratamiento.id+'</p>');
+                $('#patient_treatment').append('<p id="treatment_id" value="'+tratamiento.id+'" class="data">id: '+tratamiento.id+'</p>');
                 $('#patient_treatment').append('<p id="Data_init" class="data">Fecha inicio: '+tratamiento.fecha_ins+'</p>');
                 $('#patient_treatment').append('<p id="Data_fin" class="data">Ultimo registro: </p>');
                 $('#patient_treatment').append('<p id="treatment_state" class="data">Estado: en curso</p>');
-                $('<input type="submit" id="btn_treatment_accept" class="button_menu" onclick="ingresar_tratamiento()" value="Ingresar"/>').insertBefore('#contenedor_botones .button_cancel_menu');
+                $('<input type="submit" id="btn_treatment_accept" class="button" onclick="ingresar_tratamiento()" value="Ingresar"/>').insertBefore('#contenedor_botones .button_cancel');
                 $("#patient_treatment").fadeIn(500);
                 $('#contenedor_botones').fadeIn(500);
             }
@@ -104,5 +104,5 @@ function nuevo_tratamiento(){
     location.href=URL+'tratamiento/nuevoTratamiento/'+$('#search_ci').attr("value");
 }
 function ingresar_tratamiento(){
-    location.href=URL+'tratamiento/ingresar/'+$('#patient_ci').attr("value");
+    location.href=URL+'tratamiento/tratamiento/'+$('#treatment_id').attr("value");
 }

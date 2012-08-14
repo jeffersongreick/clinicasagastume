@@ -12,6 +12,7 @@ class View {
     public static function factory($view_name) {
         return new View($view_name);
     }
+
     //funcion encargada de generar el html de las vistas
     public function render() {
         //esto carga las varibales de la vista, toma los valores del array data
@@ -52,16 +53,29 @@ class View {
     public function __toString() {
         return $this->render();
     }
-    
-    public function script($key,$value){
+
+    public function css($key, $value) {
         if (is_array($value)) {
             $aux = "";
             foreach ($value as $url) {
-                $aux .="<script type ='text/javascript' src ='".URL."".$url."'></script> \n \t";
+                $aux .="<link rel='stylesheet' href='" . URL . "" . $url . "'type='text/css' media='screen'/> \n \t";
             }
-             $this->data[$key] = $aux;
+            $this->data[$key] = $aux;
         } else {
-            $this->data[$key] = "<script type ='text/javascript' src ='".URL."".$value."'></script> \n";
+            $this->data[$key] = "<link rel='stylesheet' href='" . URL . "" . $value . "'type='text/css' media='screen'/> \n";
+        }
+        return $this;
+    }
+
+    public function script($key, $value) {
+        if (is_array($value)) {
+            $aux = "";
+            foreach ($value as $url) {
+                $aux .="<script type ='text/javascript' src ='" . URL . "" . $url . "'></script> \n \t";
+            }
+            $this->data[$key] = $aux;
+        } else {
+            $this->data[$key] = "<script type ='text/javascript' src ='" . URL . "" . $value . "'></script> \n";
         }
 
         return $this;

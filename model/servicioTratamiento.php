@@ -1,8 +1,9 @@
 <?php
 class Model_ServicioTratamiento extends Model {
-
+    
     private static $instance;
 
+    
     public static function getInstance() {
         if (!isset(self::$instance)) {
             $a = __CLASS__;
@@ -25,10 +26,36 @@ class Model_ServicioTratamiento extends Model {
             echo $exc->getMessage();
         }
     }
+    public function getTratamiento($id) {
+        try {
+            $sql = "select * from tbl_tratamiento where id = " . $id;
+            $statement = $this->db->prepare($sql);
+            $statement->execute();
+            $t = $statement->fetch(PDO::FETCH_NAMED);
+            $tratamiento = new Model_Tratamiento();
+            $tratamiento->setId($t['id']);
+            $tratamiento->setPaciente(Model_ServicioPaciente::getInstance()->getPaciente($t['ci_paciente']));
+            $tratamiento->setFecha_ins($t['fecha_ins']);
+            $tratamiento->setUsr_ins($t['usr_ins']);
+            return $tratamiento;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }
 
     public function nuevoTratamiento($ci) {
         try {
             $sql = "INSERT INTO tbl_tratamiento (ci_paciente,activo,fecha_ins,usr_ins) values(".$ci.",true,'" . date("Y/m/d H:i:s") . "',3)";
+            $statement = $this->db->prepare($sql);
+            $statement->execute();
+            return true;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }
+    public function finalizarTratamiento($idTratamiento) {
+        try {
+            $sql = "UPDATE tbl_tratamiento SET activo = 0 WHERE id = ".$idTratamiento;
             $statement = $this->db->prepare($sql);
             $statement->execute();
             return true;

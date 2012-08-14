@@ -36,7 +36,6 @@ body{
 }
 #wrap input[type="text"],input[type="password"]{
     font-size: larger;
-
 }
 #wrap{
     background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.65) 100%);

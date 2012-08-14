@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<?php echo URL ?>public/css/login.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_login.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
         <link rel="shortcut icon" href="<?php echo URL ?>public/img/tooth.ico" type="image/ico"/>
         <title>Clinica Sagastume</title>
@@ -15,7 +15,7 @@
             </div>
             <div id="wrap">
                 <h1 id="title2">Login</h1>
-                <form action="odontograma/principal" autocomplete="on">
+                <form action="usuario/principal" autocomplete="on">
                     <label for="user_name">Usuario</label>
                     <input type="text" id="user_name" placeholder="username">
                     <label for="password">Password</label>

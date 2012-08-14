@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_escritorio.css" type="text/css" media="screen"/>
         <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="<?php echo URL ?>public/js/jquery.js"></script>
-        <script type="text/javascript" src="<?php echo URL ?>public/js/principalScript.js"></script>
+        <script type="text/javascript" src="<?php echo URL ?>public/js/principal_script.js"></script>
         <link rel="shortcut icon" href="<?php echo URL ?>public/img/tooth.ico" type="image/ico"/>
 <!--        <link rel="stylesheet" href="<?php echo URL ?>public/css/estilo_odontograma.css" type="text/css" media="screen"/>-->
         <title>Clinica Sagastume</title>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div id="contenedor_botones" >
-                        <input type="button" class="button_cancel_menu" value="Cancelar"/>
+                        <input type="button" class="button_cancel" value="Cancelar"/>
                     </div>
                     <img id="img_load" src="<?php echo URL ?>public/img/loader.gif" style="display: none; margin:0 auto 0 auto;"/>
                 </div>

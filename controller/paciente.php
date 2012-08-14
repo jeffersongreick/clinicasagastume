@@ -1,10 +1,11 @@
 <?php
-
+session_start();
 class Controller_Paciente {
+
 
     public function getTratamientoPaciente($ci) {
         try {
-            $paciente = Model_ServicioOdontograma::getInstance()->getPaciente($ci);
+            $paciente = Model_ServicioPaciente::getInstance()->getDatosPaciente($ci);
             if ($paciente == false) {
                 echo "El paciente no esta registrado.";
             } else {
