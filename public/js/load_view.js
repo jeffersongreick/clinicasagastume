@@ -42,7 +42,8 @@ function cargarOdontograma(){
             for(x in caras){
                 var estados = caras[x].estados;
                 for(y in estados){
-                    cargarEstadosPieza(ps,caras[x].id,estados[y].id);
+                 cargarEstadosPieza(ps,caras[x].id,{id:estados[y].id,activo:estados[y].activo});
+
                 }
             }
         }

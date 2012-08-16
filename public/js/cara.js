@@ -1,4 +1,4 @@
-var URL = "http://localhost/GitClinicaSagastume/";
+var URL = "http://localhost/clinica/";
 var cara = function(numero,pieza,grp){
     this.numero = numero;
     this.estados = [];
@@ -9,7 +9,14 @@ var cara = function(numero,pieza,grp){
 
 cara.prototype = new Kinetic.Layer();
 cara.prototype.marcarCara= function (){
-    if(this.estados.length ==0){
+    var c = 0;
+    for(var i in this.estados){
+        if(this.estados[i].activo == 1){
+            c+=1;
+            break;
+        }
+    }
+    if(c ==0){
         if(this.numero == 5){
             this.img.setFill("#d5ebfb");  
         }else{

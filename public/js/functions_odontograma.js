@@ -124,9 +124,12 @@ function borrarItem(id){
 }
 function actualizarEstados(){
     for(i in caraEditada.estados){
-        var id_estado = caraEditada.estados[i].id;
-        $('.state_items #estado_'+id_estado).attr("checked","checked");
-        agregarImagenEstado(id_estado);
+        if(caraEditada.estados[i].activo == 1){
+            var id_estado = caraEditada.estados[i].id;
+            $('.state_items #estado_'+id_estado).attr("checked","checked");
+            agregarImagenEstado(id_estado);
+        }
+        
     }
 }
 function abrirVentanaCambiarPieza(){
@@ -228,7 +231,7 @@ function guardarOdontograma(){
             }
             data.piezas.push(p);  
         }
-//        alert(JSON.stringify(data));
+        //        alert(JSON.stringify(data));
         $.post(URL+"/odontograma/"+tipo, data ,function(dato){
             if(dato== true){
                 alert("!El odontograma ha sido guardado con exito");

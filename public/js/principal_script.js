@@ -1,4 +1,4 @@
-var URL = 'http://localhost/GitClinicaSagastume/';
+var URL = 'http://localhost/clinica/';
 $(document).ready(function(){
     $('#btnPacientes').click(function(){
         alert("En construccion...");
