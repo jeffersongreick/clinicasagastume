@@ -1,4 +1,4 @@
-var URL = "http://localhost/clinica/";
+var URL = "http://localhost/GitClinicaSagastume/";
 var layerOdontograma , layerPieza;
 //escena del canvas donde se agragara los layers
 var stageOdontograma , stagePieza;

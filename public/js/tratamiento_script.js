@@ -1,4 +1,4 @@
-var URL = 'http://localhost/clinica/';
+var URL = 'http://localhost/GitClinicaSagastume/';
 //capas de odontogramas y editor de pieza
 
 $(document).ready(function(){
