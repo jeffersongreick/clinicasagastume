@@ -25,12 +25,11 @@ class Model_ServicioOdontograma extends Model {
             $cara;
             while ($pieza = $p->fetch(PDO::FETCH_NAMED)) {
                 $pieza['caras'] = array();
-               
                 if (isset($row)) {
                     if (!isset($odontograma['id'])) {
                         $odontograma['id'] = $row['id_odontograma'];
                     }
-                    while ($row['id_pieza'] == $pieza['id_pieza']) {
+                    while ($row['id_pieza'] == $pieza['id']) {
                         if (!isset($cara)) {
                             $cara = array();
                             $cara['id'] = $row['id_cara'];
@@ -49,7 +48,7 @@ class Model_ServicioOdontograma extends Model {
                         $estado['url_img'] = $row['url_estado'];
                         array_push($cara['estados'], $estado);
                         $row = $rows->fetch();
-                        if ($row['id_pieza'] != $pieza['id_pieza']) {
+                        if ($row['id_pieza'] != $pieza['id']) {
                             array_push($pieza['caras'], $cara);
                         }
                     }
@@ -57,70 +56,10 @@ class Model_ServicioOdontograma extends Model {
                 array_push($colPiezas, $pieza);
             }
             $odontograma['piezas'] = $colPiezas;
-
             return $odontograma;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
-
-
-
-
-
-
-
-
-
-//        try {
-//            $odontograma = array();
-//            $colPiezas = array();
-//
-//            $row = $rows->fetch();
-//
-//            $p = Model_ServicioPieza::getInstance()->getPiezasPaciente($row['id_odontograma']);
-//            asort($p);
-//            foreach ($p as $key => $value) {
-//                if ($key == "id_odontograma") {
-//                    $odontograma['id'] = $value;
-//                } else {
-//                    $pieza = array();
-//                    $pieza['id'] = $value;
-//                    $pieza['caras'] = array();
-//                    $pieza['pos'] = $key;
-//                    if (isset($row)) {
-//                        while ($row['id_pieza'] == $pieza['id']) {
-//                            if (!isset($cara)) {
-//                                $cara = array();
-//                                $cara['id'] = $row['id_cara'];
-//                                $cara['desc'] = $row['desc_cara'];
-//                                $cara['estados'] = array();
-//                            } else if ($row['id_cara'] != $cara['id']) {
-//                                array_push($pieza['caras'], $cara);
-//                                $cara = array();
-//                                $cara['id'] = $row['id_cara'];
-//                                $cara['desc'] = $row['desc_cara'];
-//                                $cara['estados'] = array();
-//                            }
-//                            $estado = Array();
-//                            $estado['id'] = $row['id_estado'];
-//                            $estado['desc_estado'] = $row['desc_estado'];
-//                            $estado['url_img'] = $row['url_estado'];
-//                            array_push($cara['estados'], $estado);
-//                            $row = $rows->fetch();
-//                            if ($row['id_pieza'] != $pieza['id']) {
-//                                array_push($pieza['caras'], $cara);
-//                                $cara = null;
-//                            }
-//                        }
-//                    }
-//                    array_push($colPiezas, $pieza);
-//                }
-//            }
-//            $odontograma['piezas'] = $colPiezas;
-//            return $odontograma;
-//        } catch (Exception $exc) {
-//            throw $exc->getMessage();
-//        }
     }
 
     public function verifODontInicial($idTratamiento) {

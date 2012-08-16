@@ -18,7 +18,7 @@ class Model_ServicioPieza extends Model {
 
     public function getPiezasPaciente($id_odontograma) {
         try {
-            $sql = "SELECT posicion as pos,id_pieza,nombre FROM tbl_paciente_pieza inner join 
+            $sql = "SELECT posicion as pos,id,nombre FROM tbl_paciente_pieza inner join 
             tbl_piezas on tbl_paciente_pieza.id_pieza = tbl_piezas.id where id_odontograma =  " . $id_odontograma;
             $statement = $this->db->prepare($sql);
             $statement->execute();
