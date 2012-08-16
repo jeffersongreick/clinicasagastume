@@ -93,6 +93,29 @@ window.onload = function(){
         layerOdontograma.draw();
         historialPieza = null;
         cambios = false;
+        
+        for(var j = 1;j<=5;j++){          
+            var estados;
+            if(j==1){
+                estados = piezaEditada.Cara1.estados;
+            }
+            if(j==2){
+                estados = piezaEditada.Cara2.estados;
+            }
+            if(j==3){
+                estados = piezaEditada.Cara3.estados;
+            }
+            if(j==4){
+                estados = piezaEditada.Cara4.estados;
+            }
+            if(j==5){
+                estados = piezaEditada.Cara5.estados;
+            }
+            if(estados.length>0){
+                 alert(JSON.stringify(estados));
+            }    
+        }
+        
         $('#slideContainer').animate({
             scrollLeft:0
         },500);
@@ -150,7 +173,7 @@ function cargarOdontograma(){
             for(x in caras){
                 var estados = caras[x].estados;
                 for(y in estados){
-                    cargarEstadosPieza(ps,caras[x].id,estados[y].id);
+                    cargarEstadosPieza(ps,caras[x].id,{id:estados[y].id,activo:estados[y].activo});
                 }
             }
         }
@@ -163,7 +186,6 @@ function cargarEstadosPieza(pieza,idCara,estados){
     switch(idCara){
         case '1':
             pieza.Cara1.estados.push(estados);
-            
             pieza.Cara1.marcarCara();
             break;
         case '2':
