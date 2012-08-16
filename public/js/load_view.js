@@ -32,6 +32,7 @@ function cargarOdontograma(){
     for(i in piezas){
         id = piezas[i].id;
         var ps;
+        alert(id);
         var posX = odontograma[piezas[i].pos].posX;
         var posY = odontograma[piezas[i].pos].posY;
         if(id == 0){

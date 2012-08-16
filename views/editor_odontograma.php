@@ -31,8 +31,8 @@ endif;
             <div id="aplication">
                 <!-- panel de datos del paciente-->
                 <div id="pnlData">
-                    <p id="patientName">Paciente: <span>Marciano Durán</span></p> 
-                    <a href="" id="idTreatment">Tratamiento: 16</a>
+                    <p id="patientName">Paciente: <span><?php echo $_SESSION['nombre_paciente']?></span></p> 
+                    <p  id="idTreatment">Tratamiento id: <?php echo $_SESSION['id_tratamiento']?></p>
                     <p style="margin: 0;">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
                 </div>
                 <div id="slideContainer">

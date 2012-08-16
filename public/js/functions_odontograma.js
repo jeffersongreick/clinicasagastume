@@ -113,12 +113,9 @@ function agregarEstado(cb){
 }
 
 function borrarItem(id){
-  
     for(var i = 0; i < caraEditada.estados.length ; i++){
-       
         if(caraEditada.estados[i].id == id){
             caraEditada.estados.splice(i,1);
-           
             break;
         }
     }
@@ -195,6 +192,7 @@ function guardarOdontograma(){
             var pieza = odontograma[i].pieza;
             var p = {
                 id:pieza.id,
+                pos:pieza.pos,
                 caras:[]
             }   
             if(pieza.id != 0){
