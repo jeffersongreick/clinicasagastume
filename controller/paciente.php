@@ -1,7 +1,6 @@
 <?php
-session_start();
-class Controller_Paciente {
 
+class Controller_Paciente {
 
     public function getTratamientoPaciente($ci) {
         try {

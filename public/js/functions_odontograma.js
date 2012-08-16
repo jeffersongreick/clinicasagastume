@@ -36,7 +36,6 @@ function cargarCara(numPieza){
             console.log("igual a"+numPieza+"?");
     }
     imagenObj.src = caraEditada.img_pieza; 
-    
     actualizarEstados.call();   
 }
 //diseña en la imagen de la pieza editada la figura asignada el estado o prestacion
@@ -90,21 +89,43 @@ function quitarImagenEstado(id_estado){
 function agregarEstado(cb){
     cambios = true;
     if(cb.checked){
-        if(caraEditada.estados.length <=2){
+        if("losquequieras"=="losquequieras"){
+            borrarItem(cb.value);
             agregarImagenEstado(cb.value);
-            caraEditada.estados.push(cb.value);
+            
+            caraEditada.estados.push({
+                id:cb.value,
+                activo:1
+            });
         }else{
             alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
             $(cb).removeAttr('checked');
         }   
     }else{
         quitarImagenEstado(cb.value);
-        caraEditada.estados.splice(caraEditada.estados.indexOf(cb.value),1);
+        borrarItem(cb.value);
+        caraEditada.estados.push({
+            id:cb.value,
+            activo:0
+        });
+        
+    }
+}
+
+function borrarItem(id){
+  
+    for(var i = 0; i < caraEditada.estados.length ; i++){
+       
+        if(caraEditada.estados[i].id == id){
+            caraEditada.estados.splice(i,1);
+           
+            break;
+        }
     }
 }
 function actualizarEstados(){
     for(i in caraEditada.estados){
-        var id_estado = caraEditada.estados[i];
+        var id_estado = caraEditada.estados[i].id;
         $('.state_items #estado_'+id_estado).attr("checked","checked");
         agregarImagenEstado(id_estado);
     }
@@ -205,10 +226,11 @@ function guardarOdontograma(){
             }
             data.piezas.push(p);  
         }
-        $.post(URL+"/odontograma/guardarOdontograma", data ,function(dato){
+        
+        $.post(URL+"/odontograma/"+tipo, data ,function(dato){
             if(dato== true){
                 alert("!El odontograma ha sido guardado con exito");
-                location.href=URL+'odontograma/index/';
+                location.href=URL+'tratamiento/tratamiento/';
             }else{
                 alert(dato);
             }

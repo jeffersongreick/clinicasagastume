@@ -72,7 +72,7 @@
     border-radius: 3px;
 }
 .piezaSeleccionableContainer input:checked + label img,
-.tabs input:checked + label img {
+ input:checked + label img {
     background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
 }
 #ventanaCambioPieza{
