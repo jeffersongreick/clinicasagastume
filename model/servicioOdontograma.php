@@ -81,14 +81,14 @@ class Model_ServicioOdontograma extends Model {
 
     public function getOdontograma($idTratamiento, $tipo) {
         try {
-            $sql = "SELECT o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,o.activo,
+            $sql = "SELECT COUNT(o.id_odontograma) as cantidad ,o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado,
         c.descripcion as desc_cara,e.estado as desc_estado,e.url_img as url_estado FROM 
         tbl_odontograma_estados as o inner join tbl_piezas as p inner join
         tbl_caras as c inner join tbl_estados as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_estado = e.id
-        where id_odontograma = (select id from tbl_odontogramas where id_tratamiento = " . $idTratamiento . " and id_tipo = " . $tipo . ")
-        order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado";
+        where id_odontograma = (select id from tbl_odontogramas where id_tratamiento = ? and id_tipo = ?)
+        GROUP BY o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado";
             $statement = $this->db->prepare($sql);
-            $statement->execute();
+            $statement->execute(array($idTratamiento,$tipo));
             $odontograma = $this->crearOdontograma($statement);
             return $odontograma;
         } catch (Exception $exc) {

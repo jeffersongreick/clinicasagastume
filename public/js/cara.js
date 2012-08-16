@@ -1,4 +1,4 @@
-var URL = "http://localhost/clinica/";
+var URL = "http://localhost/GitClinicaSagastume/";
 var cara = function(numero,pieza,grp){
     this.numero = numero;
     this.estados = [];
