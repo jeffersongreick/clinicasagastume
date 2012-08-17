@@ -21,6 +21,7 @@ class Model_ServicioOdontograma extends Model {
             $odontograma = array();
             $colPiezas = array();
             $row = $rows->fetch();
+            
             $p = Model_ServicioPieza::getInstance()->getPiezasPaciente($row['id_odontograma']);
             $cara;
             while ($pieza = $p->fetch(PDO::FETCH_NAMED)) {
@@ -49,10 +50,13 @@ class Model_ServicioOdontograma extends Model {
                         $estado['activo'] = $row['activo'];
                         array_push($cara['estados'], $estado);
                         $row = $rows->fetch();
+                        
                         if ($row['id_pieza'] != $pieza['id']) {
                             array_push($pieza['caras'], $cara);
+                            $cara = null;
                         }
                     }
+                    
                 }
                 array_push($colPiezas, $pieza);
             }

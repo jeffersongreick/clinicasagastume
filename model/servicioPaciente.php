@@ -18,7 +18,7 @@ class Model_ServicioPaciente extends Model {
 
     public function getDatosPaciente($ci) {
         try {
-            $sql = "SELECT ci,nombre,apellido FROM clinicadb.tbl_personas inner join tbl_pacientes on tbl_pacientes.ci_persona= tbl_personas.ci where tbl_pacientes.ci_persona =" . $ci;
+            $sql = "SELECT ci,nombre,apellido FROM tbl_personas inner join tbl_pacientes on tbl_pacientes.ci_persona= tbl_personas.ci where tbl_pacientes.ci_persona =" . $ci;
             $statement = $this->db->prepare($sql);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_NAMED);
@@ -30,7 +30,7 @@ class Model_ServicioPaciente extends Model {
 
     public function getPaciente($ci) {
         try {
-            $sql = "SELECT * FROM clinicadb.tbl_personas inner join tbl_pacientes on tbl_pacientes.ci_persona= tbl_personas.ci where tbl_pacientes.ci_persona =" . $ci;
+            $sql = "SELECT * FROM tbl_personas inner join tbl_pacientes on tbl_pacientes.ci_persona= tbl_personas.ci where tbl_pacientes.ci_persona =" . $ci;
             $statement = $this->db->prepare($sql);
             $statement->execute();
             $t = $statement->fetch(PDO::FETCH_NAMED);
