@@ -56,7 +56,6 @@ class Model_ServicioTratamiento extends Model {
             $tratamiento->setFecha_ins(date("Y/m/d H:i:s"));
             $tratamiento->setUsr_ins(3);
             return $tratamiento;
-           
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }
@@ -71,6 +70,10 @@ class Model_ServicioTratamiento extends Model {
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }
+    }
+
+    public function listarPrestaciones($str) {
+        
     }
 
 }

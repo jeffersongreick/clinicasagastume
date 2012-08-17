@@ -16,7 +16,7 @@ class Controller_Odontograma {
                     $JsonOdontograma = Model_ServicioPieza::getInstance()->getPiezasInfantiles();
                     $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma).";var tipo ='guardarOdontogramaInicial'";
                 }
-                $view = View::factory('editor_odontograma');
+                $view = View::factory('editor_odontograma_estados');
                 $view->set('listaEstados', Model_ServicioEstado::getInstance()->obtenerEstados());
                 $view->set('JsonOdontograma', $JsonOdontograma);
                 echo $view->render();
@@ -31,7 +31,7 @@ class Controller_Odontograma {
             $_SESSION['id_odontograma'] = $JsonOdontograma['id'];
             $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']).";var tipo ='guardarOdontogramaActual';";
             
-            $view = View::factory('editor_odontograma');
+            $view = View::factory('editor_odontograma_estados');
 
             $view->set('listaEstados', Model_ServicioEstado::getInstance()->obtenerEstados());
             $view->set('JsonOdontograma', $JsonOdontograma);

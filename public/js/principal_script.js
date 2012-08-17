@@ -106,3 +106,5 @@ function nuevo_tratamiento(){
 function ingresar_tratamiento(){
     location.href=URL+'tratamiento/tratamiento/'+$('#treatment_id').attr("value");
 }
+
+

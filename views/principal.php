@@ -23,7 +23,7 @@
                 <div id="buscarPaciente" class="function">
                     <h2 id="title2">Buscar paciente</h2>
 
-                    <input type="search" results="5" id="search_ci" class="fieldText" placeholder="Cedula" />
+                    <input type="search" results="5" id="search_ci" class="fieldText"  placeholder="Cedula" pattern="[0-9]{4}" title="Solo digitos"/>
 
                     <div id="patient_data" >
                         <p id="patient_ci" class="data">C.I.:</p>

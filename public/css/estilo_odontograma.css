@@ -35,7 +35,7 @@
     border-radius: 3px;
 }
 #listadoPiezas input,
-#items input {
+#items input[type="checkbox"] {
     position: absolute;
     visibility: hidden;
 }
@@ -53,11 +53,11 @@
     background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 17%,rgba(255,255,255,0) 62%,rgba(255,255,255,0) 100%);
     color: black;
 }
-.state_items{
+.state_items,.treatments_items{
     height: 450px;
     padding: 5px;
     overflow-y: scroll;
-     border: solid white;
+    border: solid white;
 
 }
 #canvasPieza{
@@ -73,7 +73,7 @@
     border-radius: 3px;
 }
 .piezaSeleccionableContainer input:checked + label img,
- input:checked + label img {
+input:checked + label img {
     background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
 }
 #ventanaCambioPieza{

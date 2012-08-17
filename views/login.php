@@ -17,9 +17,9 @@
                 <h1 id="title2">Login</h1>
                 <form action="usuario/principal" autocomplete="on">
                     <label for="user_name">Usuario</label>
-                    <input type="text" id="user_name" placeholder="username">
+                    <input type="text" id="user_name" placeholder=" username">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="pass">
+                    <input type="password" id="password" placeholder=" pass">
                     <br/>
                     <input type="submit" id="submit" value="Ingresar">
                 </form>

@@ -103,3 +103,6 @@ function visualizarEstadoActual(){
         }
     });
 }
+function nuevoPlanTratamientoPropuesto(){
+    location.href=URL+'tratamiento/nuevoPlanTratamientoPropuesto/';
+}

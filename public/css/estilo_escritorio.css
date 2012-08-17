@@ -59,15 +59,8 @@ ul li ul .button_menu{
     background: white;
     color: black;
 }
-.fieldText{
-    font-size: larger;
-    width: 95%;
-    margin: 5px 10px;
-}
-#contenedor_botones {
-    display: table;
-    margin:15px auto;  
-}
+
+
 #buscarPaciente {
     left: 25%;
     width: 500px;
