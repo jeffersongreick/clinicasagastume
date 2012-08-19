@@ -164,6 +164,10 @@ class Model_ServicioOdontograma extends Model {
             throw new Exception($exc->getMessage());
         }
     }
+        public function guardarPlanTratamiento($piezas, $tipo) {
+            
+        }
+
 
     public function cargarEstandar($id) {
         $sql = "Select id_pieza,id_cara,id_estado,estado 

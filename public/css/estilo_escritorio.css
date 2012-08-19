@@ -66,16 +66,7 @@ ul li ul .button_menu{
     width: 500px;
 
 }
-/*.listado{
-    height: 75%;
-    margin: 5px 10px;
-    background-color: white;
-    border: none;
-    border: solid 1px blue;
-    overflow-y: scroll;
-}*/
 #patient_data{
-    /*    height: 310px;*/
     border: solid 1px white;
     margin: 5px 10px;
 }

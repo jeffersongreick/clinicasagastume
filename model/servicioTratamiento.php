@@ -71,11 +71,6 @@ class Model_ServicioTratamiento extends Model {
             echo $exc->getMessage();
         }
     }
-
-    public function listarPrestaciones($str) {
-        
-    }
-
 }
 
 ?>

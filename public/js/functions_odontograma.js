@@ -1,3 +1,121 @@
+//ayuda a establecer la posicion del ultimo item (estado o prestacion agregado a una pieza en edicion)
+var posicion = 200;
+var historialPieza;
+var caraEditada;
+var cambios = false;
+var layerPieza,stagePieza;
+window.onbeforeunload = function(){
+    return "!ADVERTENCIA! Esta a punto de descartar este odontograma.";
+}
+$(document).ready(function(){
+    stagePieza = new Kinetic.Stage({
+        container: "canvasPieza",
+        width: 200,
+        height: 300
+    });
+    layerPieza = new Kinetic.Layer();
+    //    cambia de odontograma a edicion de pieza
+    
+    $('#btnEditarPieza').click(function(){ 
+        if(piezaEditada && piezaEditada.id != 0){
+            cargarCara("1");
+            historialPieza = new Pieza('11',0,2000,2000);
+            historialPieza.Cara1.factores = piezaEditada.Cara1.factores.slice(0);
+            historialPieza.Cara2.factores = piezaEditada.Cara2.factores.slice(0);
+            historialPieza.Cara3.factores = piezaEditada.Cara3.factores.slice(0);
+            historialPieza.Cara4.factores = piezaEditada.Cara4.factores.slice(0);
+            historialPieza.Cara5.factores = piezaEditada.Cara5.factores.slice(0);
+            $('#slideContainer').animate({
+                scrollLeft:1000
+            },500);
+        }else{
+            alert("No ha seleccionado ninguna pieza");
+        }
+    });
+    $('.cara').click(function(){
+        cargarCara($(this).attr("value"));
+    });
+    $('#btnCancelar_edicion_pieza').click(function(){
+        if (cambios == true){
+            if (confirm("AVISO: ¿Desea borrar los cambios realizados en la pieza?")){
+                $('.item').removeAttr('checked');
+                posicion = 200;
+                piezaEditada.Cara1.factores = historialPieza.Cara1.factores.slice(0);
+                piezaEditada.Cara2.factores = historialPieza.Cara2.factores.slice(0);
+                piezaEditada.Cara3.factores = historialPieza.Cara3.factores.slice(0);
+                piezaEditada.Cara4.factores = historialPieza.Cara4.factores.slice(0);
+                piezaEditada.Cara5.factores = historialPieza.Cara5.factores.slice(0);
+                piezaEditada.Cara1.marcarCara();
+                piezaEditada.Cara2.marcarCara();
+                piezaEditada.Cara3.marcarCara();
+                piezaEditada.Cara4.marcarCara();
+                piezaEditada.Cara5.marcarCara();
+                layerOdontograma.draw();
+                historialPieza = null;
+                cambios = false;
+                $('#slideContainer').animate({
+                    scrollLeft:0
+                },500);
+            }
+        }else{
+            $('.item').removeAttr('checked');
+            posicion = 200;
+            $('#slideContainer').animate({
+                scrollLeft:0
+            },500);
+        }
+    });
+    $('#btnGuardar_edicion_pieza').click(function(){    
+        $('.item').removeAttr('checked');
+        posicion = 200;
+        piezaEditada.Cara1.marcarCara();
+        piezaEditada.Cara2.marcarCara();
+        piezaEditada.Cara3.marcarCara();
+        piezaEditada.Cara4.marcarCara();
+        piezaEditada.Cara5.marcarCara();
+        layerOdontograma.draw();
+        historialPieza = null;
+        cambios = false;
+        $('#slideContainer').animate({
+            scrollLeft:0
+        },500);
+    });
+    $('#btnCambiarPieza').click(function(){
+        if(piezaEditada && piezaEditada.id != 0){
+            abrirVentanaCambiarPieza();
+        }else{
+            alert("No ha seleccionado ninguna pieza");
+        }
+    });
+    $('#btnCancelarNuevaPieza').click(function(){
+        cerrarVentana('#ventanaCambioPieza');
+    });
+    $('#btnExtraer').click(function(){
+        if(piezaEditada && piezaEditada.id != 0){
+            extraerPieza();
+        }else if(piezaEditada){
+            agregarPieza();
+        }else{
+            alert("No ha seleccionado ninguna pieza");
+        }
+    });
+    $('#btnGuardarNuevaPieza').click(function(){
+        cambiarPieza();
+        cerrarVentana('#ventanaCambioPieza');
+    });
+});
+function abrirVentana(window){
+    //Bloquea el uso del escritorio
+    $(".block").fadeIn("4000"); 
+    $(window).slideDown("4000");
+}
+//cierra una caja pasada por parametro
+function cerrarVentana(window){
+    //desbloquea el uso del escritorio
+    $(".block").fadeOut("4000");
+    $(window).slideUp("4000");
+}
+
 function cargarCara(numPieza){
     group.removeChildren();
     $('.item').removeAttr('checked');
@@ -36,11 +154,11 @@ function cargarCara(numPieza){
             console.log("igual a"+numPieza+"?");
     }
     imagenObj.src = caraEditada.img_pieza; 
-    actualizarEstados.call();   
+    actualizarItems.call();   
 }
 //diseña en la imagen de la pieza editada la figura asignada el estado o prestacion
 //si el item esta seleccionado marca, sino el contrario
-function agregarImagenEstado(id_estado){
+function agregarImagen(id_item){
     var imagenObj = new Image();
     imagenObj.onload = function() {
         var image = new Kinetic.Image({
@@ -50,7 +168,7 @@ function agregarImagenEstado(id_estado){
             width: 60,
             height: 60,
             name : "item",
-            id : id_estado,
+            id : id_item,
             draggable:true
         });
         group.add(image);
@@ -68,11 +186,11 @@ function agregarImagenEstado(id_estado){
         });
         posicion -=50;
     };
-    imagenObj.src = URL+"public/img/ico_prestaciones/img"+id_estado+".png"; 
+    imagenObj.src = URL+url_img+id_item+".png"; 
 }
     
-function quitarImagenEstado(id_estado){
-    group.remove(stagePieza.get('#'+ id_estado)[0]);
+function quitarImagen(id){
+    group.remove(stagePieza.get('#'+ id)[0]);
     var items = layerPieza.get(".item");
     posicion = 200;
     for(var i = 0;i < items.length ;i++){
@@ -86,50 +204,46 @@ function quitarImagenEstado(id_estado){
         posicion -=50;   
     }
 }
-function agregarEstado(cb){
+function agregar(cb){
     cambios = true;
     if(cb.checked){
-        if("losquequieras"=="losquequieras"){
+        if(contarItems() <4){
             borrarItem(cb.value);
-            agregarImagenEstado(cb.value);
-            
-            caraEditada.estados.push({
+            agregarImagen(cb.value);
+            caraEditada.factores.push({
                 id:cb.value,
                 activo:1
             });
         }else{
-            alert("Solamente puede ingresar hasta 3 patologias por cara de una pieza.");   
+            alert("Solamente puede ingresar hasta 4 patologias por cara de una pieza.");   
             $(cb).removeAttr('checked');
         }   
     }else{
-        quitarImagenEstado(cb.value);
+        quitarImagen(cb.value);
         borrarItem(cb.value);
-        caraEditada.estados.push({
+        caraEditada.factores.push({
             id:cb.value,
             activo:0
         });
         
     }
-  
-
 }
 
-function borrarItem(id){
-    for(var i = 0; i < caraEditada.estados.length ; i++){
-        if(caraEditada.estados[i].id == id){
-            caraEditada.estados.splice(i,1);
-            break;
+function contarItems(){
+    var count = 0
+    for(var i = 0; i < caraEditada.factores.length ; i++){
+        if(caraEditada.factores[i].activo == 1){
+            count +=1;
         }
     }
+    return count;
 }
-function actualizarEstados(){
-    for(i in caraEditada.estados){
-        if(caraEditada.estados[i].activo == 1){
-            var id_estado = caraEditada.estados[i].id;
-            $('.state_items #estado_'+id_estado).attr("checked","checked");
-            agregarImagenEstado(id_estado);
+function borrarItem(id){
+    for(var i = 0; i < caraEditada.factores.length ; i++){
+        if(caraEditada.factores[i].id == id){
+            caraEditada.factores.splice(i,1);
+            break;
         }
-        
     }
 }
 function abrirVentanaCambiarPieza(){
@@ -188,59 +302,49 @@ function calcularPieza(){
     num +=(piezaEditada.id % 10);
     return num;
 }
-function guardarOdontograma(){
-    if (confirm("¿Cierto de finalizar la edicion y guardar el odontograma?")){
-        var data = {
-            piezas : []
-        }  
-        
-        for(var i in odontograma){
-            var pieza = odontograma[i].pieza;
-            var p = {
-                id:pieza.id,
-                pos:pieza.pos,
-                caras:[]
-            }   
+function armarJSON(){
+    var data = {
+        piezas : []
+    }  
+    for(var i in odontograma){
+        var pieza = odontograma[i].pieza;
+        var p = {
+            id:pieza.id,
+            pos:pieza.pos,
+            caras:[]
+        }   
             
-            if(pieza.id != 0){
-                for(var j = 1;j<=5;j++){          
-                    var estados;
-                    if(j==1){
-                        estados = pieza.Cara1.estados;
-                    }
-                    if(j==2){
-                        estados = pieza.Cara2.estados;
-                    }
-                    if(j==3){
-                        estados = pieza.Cara3.estados;
-                    }
-                    if(j==4){
-                        estados = pieza.Cara4.estados;
-                    }
-                    if(j==5){
-                        estados = pieza.Cara5.estados;
-                    }
-                    if(estados.length>0){
-                        var cara ={
-                            id:j,
-                            estados:[estados]
-                        };
-                        p.caras.push(cara);
-                    }    
+        if(pieza.id != 0){
+            for(var j = 1;j<=5;j++){          
+                var factores;
+                if(j==1){
+                    factores = pieza.Cara1.factores;
                 }
+                if(j==2){
+                    factores = pieza.Cara2.factores;
+                }
+                if(j==3){
+                    factores = pieza.Cara3.factores;
+                }
+                if(j==4){
+                    factores = pieza.Cara4.factores;
+                }
+                if(j==5){
+                    factores = pieza.Cara5.factores;
+                }
+                if(factores.length>0){
+                    var cara ={
+                        id:j,
+                        factores:[factores]
+                    };
+                    p.caras.push(cara);
+                }    
             }
-            data.piezas.push(p);  
         }
-        //        alert(JSON.stringify(data));
-        $.post(URL+"/odontograma/"+tipo, data ,function(dato){
-            if(dato== true){
-                alert("!El odontograma ha sido guardado con exito");
-                location.href=URL+'tratamiento/tratamiento/';
-            }else{
-                alert(dato);
-            }
-        });
+        data.piezas.push(p);  
     }
+  return data;
+    
 }
 function extraerPieza(){
     if (confirm("AVISO: ¿Esta cierto de que deseas eliminar esta pieza junto a su informacion?")){

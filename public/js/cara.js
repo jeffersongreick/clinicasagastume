@@ -1,7 +1,6 @@
-var URL = "http://localhost/clinica/";
 var cara = function(numero,pieza,grp){
     this.numero = numero;
-    this.estados = [];
+    this.factores = [];
     this.img= this.crearCara(numero);
     this.img_pieza = URL+"public/img/img_piezas/cara"+numero+"/"+pieza+".png";
     grp.add(this.img);
@@ -10,8 +9,8 @@ var cara = function(numero,pieza,grp){
 cara.prototype = new Kinetic.Layer();
 cara.prototype.marcarCara= function (){
     var c = 0;
-    for(var i in this.estados){
-        if(this.estados[i].activo == 1){
+    for(var i in this.factores){
+        if(this.factores[i].activo == 1){
             c+=1;
             break;
         }
