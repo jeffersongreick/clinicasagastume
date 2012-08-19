@@ -6,24 +6,24 @@ class Controller_Odontograma {
 
     public function inicial() {
         try {
-            $JsonOdontograma;
+            $odontograma;
             $today = new DateTime("now");
             $intervalo = $today;
             if ($intervalo->format('d') > 2922) {
-                $JsonOdontograma = Model_ServicioPieza::getInstance()->getPiezasAdultos();
-                $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma) . ";var tipo ='guardarOdontogramaInicial'";
+                $odontograma = Model_ServicioPieza::getInstance()->getPiezasAdultos();
+                $odontograma = $this->getScriptOdontograma(1, $odontograma);
             } else {
-                $JsonOdontograma = Model_ServicioPieza::getInstance()->getPiezasInfantiles();
-                $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma) . ";var tipo ='guardarOdontogramaInicial'";
+                $odontograma = Model_ServicioPieza::getInstance()->getPiezasInfantiles();
+                $odontograma = $this->getScriptOdontograma(1, $odontograma);
             }
             $view_base = View::factory('base');
-            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma.js','public/js/functions_odontograma_estado.js');
+            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma.js', 'public/js/functions_odontograma_estado.js');
             $view_base->script('script', $s);
             $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
             $view_base->css('css', $c);
             $view = View::factory('editor_odontograma_estados');
             $view->set('listaEstados', Model_ServicioEstado::getInstance()->obtenerEstados());
-            $view_base->set('JsonOdontograma', $JsonOdontograma);
+            $view_base->set('JsonOdontograma', $odontograma);
             $view_base->set('contenido', $view);
             echo $view_base->render();
         } catch (Exception $exc) {
@@ -33,17 +33,17 @@ class Controller_Odontograma {
 
     public function actual() {
         try {
-            $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 2);
-            $_SESSION['id_odontograma'] = $JsonOdontograma['id'];
-            $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']) . ";var tipo ='guardarOdontogramaActual';";
+            $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 2);
+            $_SESSION['id_odontograma'] = $odontograma['id'];
+            $odontograma = $this->getScriptOdontograma(2, $odontograma);
             $view_base = View::factory('base');
-            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/functions_odontograma.js', 'public/js/load_odontograma.js','public/js/functions_odontograma_estado.js');
+            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/functions_odontograma.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma_estado.js');
             $view_base->script('script', $s);
             $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
             $view_base->css('css', $c);
             $view = View::factory('editor_odontograma_estados');
             $view->set('listaEstados', Model_ServicioEstado::getInstance()->obtenerEstados());
-            $view_base->set('JsonOdontograma', $JsonOdontograma);
+            $view_base->set('JsonOdontograma', $odontograma);
             $view_base->set('contenido', $view);
             echo $view_base->render();
         } catch (Exception $exc) {
@@ -51,23 +51,32 @@ class Controller_Odontograma {
         }
     }
 
+    private function getScriptOdontograma($tipo, $piezas) {
+        $js = "<script type='text/javascript'>";
+        $js.="var tipo =" . $tipo . ";";
+        $js.="var piezas = " . json_encode($piezas['piezas']) . ";";
+        $js.="</script>";
+        return $js;
+    }
+
     public function visualizar_odontograma($tipo) {
         switch ($tipo) {
             case "inicial":
-                $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 1);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 1);
+                $odontograma = $this->getScriptOdontograma(1, $odontograma);
                 break;
             case "actual":
-                $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 2);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 2);
+                $odontograma = $this->getScriptOdontograma(2, $odontograma);
                 break;
         }
-        $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
         $view_base = View::factory('base');
         $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js');
         $view_base->script('script', $s);
         $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
         $view_base->css('css', $c);
         $view = View::factory('visualizador_odontograma');
-        $view_base->set('JsonOdontograma', $JsonOdontograma);
+        $view_base->set('JsonOdontograma', $odontograma);
         $view_base->set('contenido', $view);
         echo $view_base->render();
     }
@@ -106,6 +115,7 @@ class Controller_Odontograma {
             echo "Error: " . $exc->getMessage();
         }
     }
+
     public function guardarPlanPropuesto() {
         try {
             if (isset($_POST['piezas'])) {
@@ -117,6 +127,7 @@ class Controller_Odontograma {
             echo "Error: " . $exc->getMessage();
         }
     }
+
     public function guardarPlanCompromiso() {
         try {
             if (isset($_POST['piezas'])) {

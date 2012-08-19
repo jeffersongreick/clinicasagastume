@@ -1,4 +1,4 @@
-var url_img = "public/img/ico_estados/img";
+var url_img = "public/img/ico_estados/img/";
 $(document).ready(function(){
     //    efecto de enfoque en items de estado y prestacion
     $(" label img").mouseover(function(){

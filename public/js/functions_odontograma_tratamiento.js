@@ -1,4 +1,4 @@
-var url_img = "public/img/ico_prestaciones/ico_prestacion.png";
+var url_img = "public/img/ico_prestaciones/";
 function filtrarPrestacion(txt) {
     filas = $(".item_prestacion");
     for (i=0; ele=filas[i]; i++) {

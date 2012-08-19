@@ -186,7 +186,7 @@ function agregarImagen(id_item){
         });
         posicion -=50;
     };
-    imagenObj.src = URL+url_img+id_item+".png"; 
+    imagenObj.src = URL+url_img+"img"+id_item+".png"; 
 }
     
 function quitarImagen(id){

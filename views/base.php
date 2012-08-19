@@ -7,7 +7,7 @@
         <?php if (isset($script)) echo $script ?> 
         <script type="text/javascript" >
         <?php if (isset($JsonOdontograma)) echo $JsonOdontograma; ?>
-        </script>
+            </script>
         <title>Clinica Sagastume</title>
     </head>
     <body>
