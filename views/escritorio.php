@@ -37,12 +37,23 @@
 </div>
 <div class="function" id="treatment_plan">
     <ul>
-        <li><input type="button" id="btn_nuevo_plan_propuesto"  onclick="nuevoPlanTratamientoPropuesto()" class="button_menu" value="Plan propuesto"/></li>
-        <li><input type="button" id="btn_nuevo_plan_compromiso" class="button_menu" value="Plan de compromiso"/></li>
-        <li><input type="button" id="btn_plan_modo_textual" class="button_menu" value="Modo textual"/></li>
         <li>
-            <input type="button" class="button_cancel_menu" value="Cancelar"/>
+            <input type="button" id="btn_plan_propuesto"   class="button_menu" value="Plan propuesto"/>
+            <ul>
+                <li><input type="button" id="btn_nuevo_plan_propuesto" onclick="nuevoPlanTratamientoPropuesto()" class="button_menu" value="Nuevo odontograma"/></li>
+                <li><input type="button" id="btnVisualizar_plan_propuesto" onclick="visualizarPlanPropuesto()" class="button_menu" value="Visualizar"/></li>
+            </ul>
+
         </li>
+        <li>
+            <input type="button" id="btn_plan_compromiso" class="button_menu" value="Plan de compromiso"/>
+            <ul>
+                <li><input type="button" id="btn_nuevo_plan_compromiso" onclick="nuevoPlanTratamientoCompromiso()" class="button_menu" value="Nuevo odontograma"/></li>
+                <li><input type="button" id="btnVisualizar_plan_compromiso" onclick="visualizarPlanCompromiso()" class="button_menu" value="Visualizar"/></li>
+            </ul>
+        </li>
+        <li><input type="button" id="btn_plan_modo_textual" class="button_menu" value="Modo textual"/></li>
+        <li><input type="button" class="button_cancel_menu" value="Cancelar"/></li>
     </ul>
 </div>   
 <!-- iconos escritorio-->

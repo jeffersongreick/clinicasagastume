@@ -85,6 +85,24 @@ function validarOdontogramaInicial(){
         }
     });
 }
+function nuevoPlanTratamientoPropuesto(){
+    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+        if(data==1){
+            location.href=URL+'odontograma/planTratamiento/propuesto';
+        }else{
+            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
+        }
+    });
+}
+function nuevoPlanTratamientoCompromiso(){
+    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+        if(data==1){
+            location.href=URL+'odontograma/planTratamiento/compromiso';
+        }else{
+            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
+        }
+    });
+}
 function nuevoOdontogramaEstadoActual(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
         if(data==1){
@@ -94,6 +112,7 @@ function nuevoOdontogramaEstadoActual(){
         }
     });
 }
+
 function visualizarEstadoActual(){
     $.get(URL+"odontograma/verifOdontInicial/",function(data){
         if(data==1){
@@ -103,12 +122,22 @@ function visualizarEstadoActual(){
         }
     });
 }
-function nuevoPlanTratamientoPropuesto(){
-    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+function visualizarPlanPropuesto(){
+    $.get(URL+"odontograma/verifPlan/3",function(data){
         if(data==1){
-            location.href=URL+'odontograma/planPropuesto/';
+            location.href=URL+'odontograma/visualizar_odontograma/propuesto';
         }else{
-            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
+            alert("¡No se ha encontrado ningun odontograma para el paciente en este tratamiento!");
         }
     });
 }
+function visualizarPlanCompromiso(){
+    $.get(URL+"odontograma/verifPlan/4",function(data){
+        if(data==1){
+            location.href=URL+'odontograma/visualizar_odontograma/compromiso';
+        }else{
+            alert("¡No se ha encontrado ningun odontograma para el paciente en este tratamiento!");
+        }
+    });
+}
+

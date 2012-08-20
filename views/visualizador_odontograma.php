@@ -10,9 +10,12 @@
         <!--odontograma-->
         <div id="odontograma">
             <div id="canvasOdontograma"></div>
-            <input type="button" value="Detalles" id="btnDetalles" class="button" />
-            <input type="button" value="Imprimir" id="btnImprimir" class="button" />
-            <input type="button" value="Volver" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'" id="btnVolver" class="button" />
+            <div id="contenedor_botones" >
+
+                <input type="button" value="Detalles" id="btnDetalles" class="button" />
+                <input type="button" value="Imprimir" id="btnImprimir" class="button" />
+                <input type="button" value="Volver" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'" id="btnVolver" class="button" />
+            </div>
             <div class="clear"></div>
         </div>
     </div>

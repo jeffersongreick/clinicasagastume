@@ -30,12 +30,14 @@
                 </div>
             </div>
             <div id="canvasOdontograma"></div>
-            <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
-            <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
-            <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
-            <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardarOdontograma()" />
-            <input type="button" value="Cancelar" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'"  id="btnCancelarOdontograma" class="button" />
+            <div id="contenedor_botones" >
 
+                <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
+                <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
+                <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
+                <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardarOdontograma()" />
+                <input type="button" value="Cancelar" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'"  id="btnCancelarOdontograma" class="button" />
+            </div>
             <div class="clear"></div>
         </div>
         <!--editor pieza-->
@@ -59,7 +61,7 @@
                     <?php if (isset($listaEstados)): ?>
                         <?php foreach ($listaEstados as $estado): ?> 
                             <input type='checkbox' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregar(this)'/><label for='estado_<?php echo $estado->id ?>'>
-                                <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->estado ?>'/></label>
+                                <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->descripcion ?>'/></label>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
