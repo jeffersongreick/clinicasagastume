@@ -73,11 +73,7 @@ class Model_ServicioOdontograma extends Model {
             $statement = $this->db->prepare($sql);
             $statement->execute();
             $p = $statement->fetch();
-            $b = false;
-            if ($p[0] > 0) {
-                $b = true;
-            }
-            return $b;
+            return ($p[0] > 0)?true:false;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }

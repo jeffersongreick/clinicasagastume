@@ -129,14 +129,26 @@ class Controller_Odontograma {
         }
     }
 
-    public function cargar($id) {
+    public function verEstandar() {
         $model_odotograma = Model_ServicioOdontograma::getInstance();
-        $datos = $model_odotograma->cargarEstandar($id);
+        $datos = $model_odotograma->getOdontograma(1, 1);
         $view = View::factory('base');
+        $scripts = array(
+            'public/js/kinetic.js', 
+            'public/js/jquery.js', 
+            'public/js/cara.js', 
+            'public/js/pieza.js', 
+            'public/js/load_odontograma.js'            
+        );
+        $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getOdontograma(1, 1);
+        $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
+        $view->set('JsonOdontograma', $JsonOdontograma);
+        $view->script('script', $scripts);
+        $view_odontograma = View::factory('visualizador_odontograma');
         $view_estandar = View::factory('estandar');
-        $view->script('script', 'public/js/cara.js');
+        $view_estandar->set('odontograma', $view_odontograma);               
         $view->set('contenido', $view_estandar);
-        $view_estandar->set('piezas', $datos);
+        $view_estandar->set('datos', $datos);
         echo $view->render();
     }
 
