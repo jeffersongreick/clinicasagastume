@@ -34,7 +34,7 @@
             <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
             <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
             <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardarOdontograma()" />
-            <input type="button" value="Cancelar" onClick="history.go(-1)"  id="btnCancelarOdontograma" class="button" />
+            <input type="button" value="Cancelar" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'"  id="btnCancelarOdontograma" class="button" />
 
             <div class="clear"></div>
         </div>

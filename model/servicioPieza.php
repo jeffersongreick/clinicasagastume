@@ -16,10 +16,11 @@ class Model_ServicioPieza extends Model {
         parent::__construct();
     }
 
-    public function getPiezasPaciente($id_odontograma) {
+    public function getPiezasPaciente($idTratamiento, $tipo) {
         try {
             $sql = "SELECT posicion as pos,id,nombre FROM tbl_paciente_pieza inner join 
-            tbl_piezas on tbl_paciente_pieza.id_pieza = tbl_piezas.id where id_odontograma =  " . $id_odontograma;
+            tbl_piezas on tbl_paciente_pieza.id_pieza = tbl_piezas.id where id_odontograma = 
+            (SELECT id FROM tbl_odontogramas where id_tratamiento = " . $idTratamiento . " and id_tipo = " . $tipo . ")";
             $statement = $this->db->prepare($sql);
             $statement->execute();
             return $statement;

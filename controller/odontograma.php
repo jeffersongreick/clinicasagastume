@@ -6,7 +6,6 @@ class Controller_Odontograma {
 
     public function inicial() {
         try {
-            $odontograma;
             $today = new DateTime("now");
             $intervalo = $today;
             if ($intervalo->format('d') > 2922) {
@@ -33,9 +32,9 @@ class Controller_Odontograma {
 
     public function actual() {
         try {
-            $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 2);
+            $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 2);
             $_SESSION['id_odontograma'] = $odontograma['id'];
-            $odontograma = $this->getScriptOdontograma(2, $odontograma);
+            $odontograma = $this->getScriptOdontograma(2, $odontograma['piezas']);
             $view_base = View::factory('base');
             $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/functions_odontograma.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma_estado.js');
             $view_base->script('script', $s);
@@ -51,10 +50,43 @@ class Controller_Odontograma {
         }
     }
 
+    public function planPropuesto() {
+        try {
+            $odontograma = Model_ServicioOdontograma::getInstance()->getEstructuraBucal($_SESSION['id_tratamiento']);
+            $odontograma = $this->getScriptOdontograma(3, $odontograma['piezas']);
+            $view_base = View::factory('base');
+            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma.js', 'public/js/functions_odontograma_tratamiento.js');
+            $view_base->script('script', $s);
+            $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
+            $view_base->css('css', $c);
+            $view = View::factory('editor_odontograma_prestaciones');
+            $view->set('prestaciones', $this->listarPrestacionesHtml());
+            $view_base->set('JsonOdontograma', $odontograma);
+            $view_base->set('contenido', $view);
+            echo $view_base->render();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function listarPrestacionesHtml() {
+        try {
+            $list = Model_ServicioPrestacion::getInstance()->listarPrestaciones();
+            $items = "";
+            foreach ($list as $item) {
+                $items .= "<input class='item' onchange='agregar(this)' id='prestacion_" . $item['id'] . "' type='checkbox' value=" . $item['id'] . "><label
+                  for='prestacion_" . $item['id'] . "' class='item_prestacion'>" . utf8_encode($item['descripcion']) . "</label>";
+            }
+            return $items;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     private function getScriptOdontograma($tipo, $piezas) {
         $js = "<script type='text/javascript'>";
         $js.="var tipo =" . $tipo . ";";
-        $js.="var piezas = " . json_encode($piezas['piezas']) . ";";
+        $js.="var piezas = " . json_encode($piezas) . ";";
         $js.="</script>";
         return $js;
     }
@@ -62,12 +94,12 @@ class Controller_Odontograma {
     public function visualizar_odontograma($tipo) {
         switch ($tipo) {
             case "inicial":
-                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 1);
-                $odontograma = $this->getScriptOdontograma(1, $odontograma);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 1);
+                $odontograma = $this->getScriptOdontograma(1, $odontograma['piezas']);
                 break;
             case "actual":
-                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontograma($_SESSION['id_tratamiento'], 2);
-                $odontograma = $this->getScriptOdontograma(2, $odontograma);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 2);
+                $odontograma = $this->getScriptOdontograma(2, $odontograma['piezas']);
                 break;
         }
         $view_base = View::factory('base');

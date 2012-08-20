@@ -12,7 +12,7 @@
             <div id="canvasOdontograma"></div>
             <input type="button" value="Detalles" id="btnDetalles" class="button" />
             <input type="button" value="Imprimir" id="btnImprimir" class="button" />
-            <input type="button" value="Volver" onClick="history.go(-1)" id="btnVolver" class="button" />
+            <input type="button" value="Volver" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'" id="btnVolver" class="button" />
             <div class="clear"></div>
         </div>
     </div>

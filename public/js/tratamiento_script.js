@@ -104,5 +104,11 @@ function visualizarEstadoActual(){
     });
 }
 function nuevoPlanTratamientoPropuesto(){
-    location.href=URL+'tratamiento/nuevoPlanTratamientoPropuesto/';
+    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+        if(data==1){
+            location.href=URL+'odontograma/planPropuesto/';
+        }else{
+            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
+        }
+    });
 }

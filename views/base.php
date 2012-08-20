@@ -5,9 +5,7 @@
         <link rel="shortcut icon" href="<?php echo URL ?>public/img/tooth.ico" type="image/ico"/>
         <?php if (isset($css)) echo $css ?> 
         <?php if (isset($script)) echo $script ?> 
-        <script type="text/javascript" >
         <?php if (isset($JsonOdontograma)) echo $JsonOdontograma; ?>
-            </script>
         <title>Clinica Sagastume</title>
     </head>
     <body>

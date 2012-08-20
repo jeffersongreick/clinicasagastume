@@ -16,15 +16,16 @@ class Model_ServicioOdontograma extends Model {
         parent::__construct();
     }
 
-    public function crearOdontograma($rows) {
+    public function crearOdontograma($estados, $piezas) {
         try {
             $odontograma = array();
             $colPiezas = array();
-            $row = $rows->fetch();
-            
-            $p = Model_ServicioPieza::getInstance()->getPiezasPaciente($row['id_odontograma']);
-            $cara;
-            while ($pieza = $p->fetch(PDO::FETCH_NAMED)) {
+            $cara = NULL;
+            $row = NULL;
+            if (!empty($estados)) {
+                $row = $estados->fetch();
+            }
+            while ($pieza = $piezas->fetch(PDO::FETCH_NAMED)) {
                 $pieza['caras'] = array();
                 if (isset($row)) {
                     if (!isset($odontograma['id'])) {
@@ -49,14 +50,13 @@ class Model_ServicioOdontograma extends Model {
                         $estado['url_img'] = $row['url_estado'];
                         $estado['activo'] = $row['activo'];
                         array_push($cara['estados'], $estado);
-                        $row = $rows->fetch();
-                        
+                        $row = $estados->fetch();
+
                         if ($row['id_pieza'] != $pieza['id']) {
                             array_push($pieza['caras'], $cara);
                             $cara = null;
                         }
                     }
-                    
                 }
                 array_push($colPiezas, $pieza);
             }
@@ -83,7 +83,7 @@ class Model_ServicioOdontograma extends Model {
         }
     }
 
-    public function getOdontograma($idTratamiento, $tipo) {
+    public function getOdontogramaEstados($idTratamiento, $tipo) {
         try {
             $sql = "SELECT COUNT(o.id_odontograma) as cantidad ,o.id_odontograma,o.activo, o.id_pieza,o.id_cara,o.id_estado,
         c.descripcion as desc_cara,e.estado as desc_estado,e.url_img as url_estado FROM 
@@ -93,7 +93,18 @@ class Model_ServicioOdontograma extends Model {
         GROUP BY o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado having cantidad % 2 != 0 order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_estado";
             $statement = $this->db->prepare($sql);
             $statement->execute(array($idTratamiento, $tipo));
-            $odontograma = $this->crearOdontograma($statement);
+            $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento, $tipo);
+            $odontograma = $this->crearOdontograma($statement, $piezas);
+            return $odontograma;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+    public function getEstructuraBucal($idTratamiento) {
+        try {
+            $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento, 2);
+            $odontograma = $this->crearOdontograma($a = array(), $piezas);
             return $odontograma;
         } catch (Exception $exc) {
             echo $exc->getMessage();
@@ -147,7 +158,7 @@ class Model_ServicioOdontograma extends Model {
                                     $ins = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,1, ?)";
                                     $stat = $this->db->prepare($ins);
                                     $stat->execute(array($pieza['id'], $cara['id'], $estado['id'], $estado['activo']));
-                                } else if($estado['activo'] == 1 && ($statement->rowCount() % 2) == 0) {
+                                } else if ($estado['activo'] == 1 && ($statement->rowCount() % 2) == 0) {
                                     $ins = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,1, ?)";
                                     $stat = $this->db->prepare($ins);
                                     $stat->execute(array($pieza['id'], $cara['id'], $estado['id'], $estado['activo']));
@@ -164,10 +175,10 @@ class Model_ServicioOdontograma extends Model {
             throw new Exception($exc->getMessage());
         }
     }
-        public function guardarPlanTratamiento($piezas, $tipo) {
-            
-        }
 
+    public function guardarPlanTratamiento($piezas, $tipo) {
+        
+    }
 
     public function cargarEstandar($id) {
         $sql = "Select id_pieza,id_cara,id_estado,estado 

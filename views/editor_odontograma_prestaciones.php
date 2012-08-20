@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!-- panel de datos del paciente-->
 <div id="pnlData">
     <p id="patientName">Paciente: <span><?php echo $_SESSION['nombre_paciente'] ?></span></p> 
@@ -33,10 +32,8 @@
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
                 <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
-                <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
-                <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
                 <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardarOdontograma()" />
-                <input type="button" value="Cancelar" onClick="history.go(-1)"  id="btnCancelarOdontograma" class="button" />
+                <input type="button" value="Cancelar" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'"  id="btnCancelarOdontograma" class="button" />
             </div>
             <div class="clear"></div>
         </div>

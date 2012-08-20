@@ -12,14 +12,24 @@ function actualizarItems(){
         if(caraEditada.factores[i].activo == 1){
             var id = caraEditada.factores[i].id;
             $('.option_list #prestacion_'+id).attr("checked","checked");
-            agregarImagenEstado(id);
+            agregarImagen(id);
         }
     }
 }
 function guardarOdontograma(){
     if (confirm("¿Cierto de finalizar la edicion y guardar el odontograma?")){
+        var metodo = "";
         var json = armarJSON();
-        $.post(URL+"/odontograma/"+tipo, json ,function(data){
+        if(tipo == 3){
+            metodo = "guardarPlanPropuesto/";
+        }else if(tipo == 4){
+            metodo = "guardarPlanCompromiso/";
+        }else if(tipo == 5){
+            metodo = "guardarTratamientosCurso/";
+        }else if(tipo == 6){
+            metodo = "guardarRealizados/";
+        }
+        $.post(URL+"/odontograma/"+metodo, json ,function(data){
             if(data== true){
                 alert("!El odontograma ha sido guardado con exito");
                 location.href=URL+'tratamiento/tratamiento/';

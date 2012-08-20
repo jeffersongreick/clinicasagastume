@@ -10,7 +10,6 @@ window.onload = function(){
     cargarOdontograma();
 };
 function cargarOdontograma(){
-   
     group = new Kinetic.Group({
         draggable: false
     });
@@ -75,7 +74,6 @@ function cargarEstadosPieza(pieza,idCara,estados){
             pieza.Cara5.marcarCara();
             break;
     }
-     
 }
 function asignarPosicionesDerecha(num,x,y){
     for(var i = 1;i<=8;i++){
