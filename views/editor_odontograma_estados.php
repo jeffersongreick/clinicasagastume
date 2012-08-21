@@ -10,7 +10,7 @@
         <!--odontograma-->
         <div id="odontograma">
             <div id="ventanaCambioPieza">
-                <p id="cambioPiezaTitulo">La informacion registrada en este odontograma sobre la pieza anterior sera borrada.
+                <p id="title3">La informacion registrada en este odontograma sobre la pieza anterior sera borrada.
                     Esta seguro del cambio?</p>
                 <div id="containerPiezas">
                     <div class="descripcionPiezaCambiar">

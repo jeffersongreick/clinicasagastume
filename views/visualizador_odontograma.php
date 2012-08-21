@@ -9,9 +9,26 @@
     <div id="slide">
         <!--odontograma-->
         <div id="odontograma">
+            <div id="windowDetail">
+                <p class="title3"></p>
+                <div class="table_container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="colCara">Cara</th>
+                                <th class="colFactor" >Estado</th>
+                            </tr>       
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="contenedor_botones" >
+                    <input type="button" value="Volver" id="btnVolverDetalles" class="button" />
+                </div>
+            </div>
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
-
                 <input type="button" value="Detalles" id="btnDetalles" class="button" />
                 <input type="button" value="Imprimir" id="btnImprimir" class="button" />
                 <input type="button" value="Volver" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'" id="btnVolver" class="button" />

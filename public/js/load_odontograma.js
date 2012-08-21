@@ -8,6 +8,17 @@ var group;
 //funcion de dibujo de odontogramas en canvas
 window.onload = function(){
     cargarOdontograma();
+    $('#btnVolverDetalles').click(function(){
+        $('.table_container table tbody').children().remove();
+        cerrarVentana('#windowDetail');
+    });
+    $('#btnDetalles').click(function(){
+        if(piezaEditada && piezaEditada.id != 0){
+            mostrarDetalles();
+        }else{
+            alert("No ha seleccionado ninguna pieza");
+        }
+    });
 };
 function cargarOdontograma(){
     group = new Kinetic.Group({
@@ -36,12 +47,13 @@ function cargarOdontograma(){
             var caras = piezas[i].caras;
             for(x in caras){
 
-                var estados = caras[x].estados;
+                var factores = caras[x].factores;
                 
-                for(y in estados){
-                    cargarEstadosPieza(ps,caras[x].id,{
-                        id:estados[y].id,
-                        activo:estados[y].activo
+                for(y in factores){
+                    cargarFactoresPieza(ps,caras[x].id,{
+                        id:factores[y].id,
+                        descripcion:factores[y].descripcion,
+                        activo:factores[y].activo
                     });
                 }
             }
@@ -51,7 +63,7 @@ function cargarOdontograma(){
     stageOdontograma.add(layerOdontograma);
     layerOdontograma.draw();
 }
-function cargarEstadosPieza(pieza,idCara,estados){
+function cargarFactoresPieza(pieza,idCara,estados){
     switch(idCara){
         case '1':
             pieza.Cara1.factores.push(estados);
@@ -99,5 +111,31 @@ function asignarPosicionesIsquierda(num,x,y){
         };
         x+=60;
         odontograma[pos]=position;
+    }
+}
+function abrirVentana(window){
+    //Bloquea el uso del escritorio
+    $(".block").fadeIn("4000"); 
+    $(window).slideDown("4000");
+}
+//cierra una caja pasada por parametro
+function cerrarVentana(window){
+    //desbloquea el uso del escritorio
+    $(".block").fadeOut("4000");
+    $(window).slideUp("4000");
+}
+function mostrarDetalles(){
+    $('.title3').html("Detalles de pieza nº"+piezaEditada.id);
+    verif(piezaEditada.Cara1);
+    verif(piezaEditada.Cara2);
+    verif(piezaEditada.Cara3);
+    verif(piezaEditada.Cara4);
+    verif(piezaEditada.Cara5);
+    abrirVentana('#windowDetail');
+}
+function verif(cara){
+    for(f in cara.factores){
+        $('.table_container table tbody').append("<tr><td class='colCara'> "+cara.numero+" </td>"
+            +"<td class='colFactor'>"+cara.factores[f].descripcion+"</td></tr>");
     }
 }

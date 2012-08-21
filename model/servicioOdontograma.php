@@ -16,14 +16,14 @@ class Model_ServicioOdontograma extends Model {
         parent::__construct();
     }
 
-    public function crearOdontograma($estados, $piezas) {
+    public function crearOdontograma($elementos, $piezas, $tipo) {
         try {
             $odontograma = array();
             $colPiezas = array();
             $cara = NULL;
             $row = NULL;
-            if (!empty($estados)) {
-                $row = $estados->fetch();
+            if (!empty($elementos)) {
+                $row = $elementos->fetch();
             }
             while ($pieza = $piezas->fetch(PDO::FETCH_NAMED)) {
                 $pieza['caras'] = array();
@@ -36,22 +36,21 @@ class Model_ServicioOdontograma extends Model {
                             $cara = array();
                             $cara['id'] = $row['id_cara'];
                             $cara['desc'] = $row['desc_cara'];
-                            $cara['estados'] = array();
+                            $cara['factores'] = array();
                         } else if ($row['id_cara'] != $cara['id']) {
                             array_push($pieza['caras'], $cara);
                             $cara = array();
                             $cara['id'] = $row['id_cara'];
                             $cara['desc'] = $row['desc_cara'];
-                            $cara['estados'] = array();
+                            $cara['factores'] = array();
                         }
-                        $estado = Array();
-                        $estado['id'] = $row['id_estado'];
-                        $estado['desc_estado'] = $row['desc_estado'];
-                        $estado['url_img'] = $row['url_estado'];
-                        $estado['activo'] = $row['activo'];
-                        array_push($cara['estados'], $estado);
-                        $row = $estados->fetch();
-
+                        $item = Array();
+                        $item['id'] = $row['id_' . $tipo];
+                        $item['descripcion'] = $row['desc_' . $tipo];
+//                        $item['url_img'] = $row['url_estado'];
+                        $item['activo'] = $row['activo'];
+                        array_push($cara['factores'], $item);
+                        $row = $elementos->fetch();
                         if ($row['id_pieza'] != $pieza['id']) {
                             array_push($pieza['caras'], $cara);
                             $cara = null;
@@ -66,17 +65,13 @@ class Model_ServicioOdontograma extends Model {
             throw $exc->getMessage();
         }
     }
-    public function verifOdontograma($idTratamiento,$tipo) {
+
+    public function verifOdontograma($idTratamiento, $tipo) {
         try {
-            $sql = "select count(id) from tbl_odontogramas where id_tratamiento =" . $idTratamiento . " and id_tipo = " . $tipo;
+            $sql = "select id from tbl_odontogramas where id_tratamiento =" . $idTratamiento . " and id_tipo = " . $tipo;
             $statement = $this->db->prepare($sql);
             $statement->execute();
-            $p = $statement->fetch();
-            $b = false;
-            if ($p[0] > 0) {
-                $b = true;
-            }
-            return $b;
+            return $statement->rowCount() > 0;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
@@ -93,34 +88,26 @@ class Model_ServicioOdontograma extends Model {
             $statement = $this->db->prepare($sql);
             $statement->execute(array($idTratamiento, $tipo));
             $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento, $tipo);
-            $odontograma = $this->crearOdontograma($statement, $piezas);
-            return $odontograma;
-        } catch (Exception $exc) {
-            echo $exc->getMessage();
-        }
-    }
-    public function getOdontogramaPrestaciones($idTratamiento, $tipo) {
-        try {
-            $sql = "SELECT COUNT(o.id_odontograma) as cantidad ,o.id_odontograma,o.activo, o.id_pieza,o.id_cara,o.id_prestacion,
-        c.descripcion as desc_cara,e.descripcion as desc_estado FROM 
-        tbl_odontograma_prestaciones as o inner join tbl_piezas as p inner join
-        tbl_caras as c inner join tbl_prestaciones as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_prestacion = e.id
-        where id_odontograma = (select id from tbl_odontogramas where id_tratamiento = ? and id_tipo = ?)
-        GROUP BY o.id_odontograma, o.id_pieza,o.id_cara,o.id_prestacion having cantidad % 2 != 0 order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_prestacion";
-            $statement = $this->db->prepare($sql);
-            $statement->execute(array($idTratamiento, $tipo));
-            $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento, $tipo);
-            $odontograma = $this->crearOdontograma($statement, $piezas);
+            $odontograma = $this->crearOdontograma($statement, $piezas, "estado");
             return $odontograma;
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }
     }
 
-    public function getEstructuraBucal($idTratamiento) {
+    public function getOdontogramaPrestaciones($idTratamiento, $tipo) {
         try {
+            $sql = "SELECT COUNT(o.id_odontograma) as cantidad ,o.id_odontograma,o.activo, o.id_pieza,o.id_cara,o.id_prestacion,
+        c.descripcion as desc_cara,e.descripcion as desc_prestacion FROM 
+        tbl_odontograma_prestaciones as o inner join tbl_piezas as p inner join
+        tbl_caras as c inner join tbl_prestaciones as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_prestacion = e.id
+        where id_odontograma = (select id from tbl_odontogramas where id_tratamiento = ? and id_tipo = ?)
+        GROUP BY o.id_odontograma, o.id_pieza,o.id_cara,o.id_prestacion having cantidad % 2 != 0 order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_prestacion";
+
+            $statement = $this->db->prepare($sql);
+            $statement->execute(array($idTratamiento, $tipo));
             $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento, 2);
-            $odontograma = $this->crearOdontograma($a = array(), $piezas);
+            $odontograma = $this->crearOdontograma($statement, $piezas, "prestacion");
             return $odontograma;
         } catch (Exception $exc) {
             echo $exc->getMessage();
@@ -153,6 +140,16 @@ class Model_ServicioOdontograma extends Model {
         } catch (PDOException $exc) {
             $this->db->rollBack();
             throw new Exception($exc->getMessage());
+        }
+    }
+
+    public function getEstructuraBucal($idTratamiento) {
+        try {
+            $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento, 2);
+            $odontograma = $this->crearOdontograma($a = array(), $piezas, "");
+            return $odontograma;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
         }
     }
 
@@ -193,7 +190,6 @@ class Model_ServicioOdontograma extends Model {
     }
 
     public function guardarPlanTratamiento($piezas, $tipo, $idTratamiento) {
-        echo json_encode($piezas);
         try {
             $this->db->beginTransaction();
             $sql_odontograma = "INSERT INTO tbl_odontogramas (id_tratamiento,id_tipo) values(" . $idTratamiento . "," . $tipo . ")";

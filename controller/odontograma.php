@@ -111,11 +111,11 @@ class Controller_Odontograma {
                 $odontograma = $this->getScriptOdontograma(2, $odontograma['piezas']);
                 break;
             case "propuesto":
-                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 3);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaPrestaciones($_SESSION['id_tratamiento'], 3);
                 $odontograma = $this->getScriptOdontograma(3, $odontograma['piezas']);
                 break;
             case "compromiso":
-                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 4);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaPrestaciones($_SESSION['id_tratamiento'], 4);
                 $odontograma = $this->getScriptOdontograma(4, $odontograma['piezas']);
                 break;
         }
@@ -130,9 +130,9 @@ class Controller_Odontograma {
         echo $view_base->render();
     }
 
-    public function verifODontInicial() {
+    public function verifOdontograma($tipo) {
         try {
-            $b = Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], 1);
+            $b = Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], $tipo);
             echo $b;
         } catch (Exception $exc) {
             throw $exc->getMessage();
@@ -142,8 +142,8 @@ class Controller_Odontograma {
 
     public function verifPlan($tipo) {
         try {
-            $b = Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'],$tipo);
-            echo $b;
+            $a = Model_ServicioOdontograma::getInstance();
+            echo ($a->verifOdontograma($_SESSION['id_tratamiento'], 1) && $a->verifOdontograma($_SESSION['id_tratamiento'], $tipo)) ? true : false;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }
@@ -163,7 +163,7 @@ class Controller_Odontograma {
         }
     }
 
-    public function guardarOdontogramaEstados() {
+    public function guardarOdontogramaActual() {
         try {
             if (isset($_POST['piezas'])) {
                 $piezas = $_POST['piezas'];
@@ -191,7 +191,7 @@ class Controller_Odontograma {
         try {
             if (isset($_POST['piezas'])) {
                 $piezas = $_POST['piezas'];
-                $p = Model_ServicioOdontograma::getInstance()->guardarPlanTratamiento($piezas, 4,$_SESSION['id_tratamiento']);
+                $p = Model_ServicioOdontograma::getInstance()->guardarPlanTratamiento($piezas, 4, $_SESSION['id_tratamiento']);
                 echo $p;
             }
         } catch (Exception $exc) {

@@ -74,8 +74,7 @@ function finalizarTratamiento(){
     }   
 }
 function validarOdontogramaInicial(){
-    $.get(URL+"odontograma/verifOdontInicial/",function(data){
-        
+    $.get(URL+"odontograma/verifOdontograma/1",function(data){
         if(data==1){
             location.href=URL+'odontograma/visualizar_odontograma/inicial/';
         }else{
@@ -86,25 +85,26 @@ function validarOdontogramaInicial(){
     });
 }
 function nuevoPlanTratamientoPropuesto(){
-    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+    $.get(URL+"odontograma/verifPlan/3",function(data){
         if(data==1){
-            location.href=URL+'odontograma/planTratamiento/propuesto';
+            alert("¡Ya se encuentra registrado un plan propuesto para el tratamiento!");
         }else{
-            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
+            location.href=URL+'odontograma/planTratamiento/propuesto';
         }
     });
 }
 function nuevoPlanTratamientoCompromiso(){
-    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+    $.get(URL+"odontograma/verifPlan/4",function(data){
         if(data==1){
-            location.href=URL+'odontograma/planTratamiento/compromiso';
+            alert("¡Ya se encuentra registrado un plan de compromiso para el tratamiento!");
+            
         }else{
-            alert("¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!");
+            location.href=URL+'odontograma/planTratamiento/compromiso';
         }
     });
 }
 function nuevoOdontogramaEstadoActual(){
-    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+    $.get(URL+"odontograma/verifOdontograma/1",function(data){
         if(data==1){
             location.href=URL+'odontograma/actual/';
         }else{
@@ -114,7 +114,7 @@ function nuevoOdontogramaEstadoActual(){
 }
 
 function visualizarEstadoActual(){
-    $.get(URL+"odontograma/verifOdontInicial/",function(data){
+    $.get(URL+"odontograma/verifOdontograma/1",function(data){
         if(data==1){
             location.href=URL+'odontograma/visualizar_odontograma/actual';
         }else{
@@ -127,7 +127,7 @@ function visualizarPlanPropuesto(){
         if(data==1){
             location.href=URL+'odontograma/visualizar_odontograma/propuesto';
         }else{
-            alert("¡No se ha encontrado ningun odontograma para el paciente en este tratamiento!");
+            alert("¡No se ha encontrado ningun plan propuesto para el paciente en este tratamiento!");
         }
     });
 }
@@ -136,7 +136,7 @@ function visualizarPlanCompromiso(){
         if(data==1){
             location.href=URL+'odontograma/visualizar_odontograma/compromiso';
         }else{
-            alert("¡No se ha encontrado ningun odontograma para el paciente en este tratamiento!");
+            alert("¡No se ha encontrado ningun plan de compromiso para el paciente en este tratamiento!");
         }
     });
 }

@@ -1,4 +1,4 @@
-var url_img = "public/img/ico_estados/img/";
+var url_img = "public/img/ico_estados/";
 $(document).ready(function(){
     //    efecto de enfoque en items de estado y prestacion
     $(" label img").mouseover(function(){
@@ -38,7 +38,7 @@ function actualizarItems(){
         if(caraEditada.factores[i].activo == 1){
             var id = caraEditada.factores[i].id;
             $('.state_items #estado_'+id).attr("checked","checked");
-            agregarImagenEstado(id);
+            agregarImagen(id);
         }
     }
 }
@@ -144,15 +144,4 @@ function calcularPieza(){
     }
     num +=(piezaEditada.id % 10);
     return num;
-}
-function abrirVentana(window){
-    //Bloquea el uso del escritorio
-    $(".block").fadeIn("4000"); 
-    $(window).slideDown("4000");
-}
-//cierra una caja pasada por parametro
-function cerrarVentana(window){
-    //desbloquea el uso del escritorio
-    $(".block").fadeOut("4000");
-    $(window).slideUp("4000");
 }

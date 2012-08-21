@@ -179,7 +179,8 @@ function agregar(cb){
             agregarImagen(cb.value);
             caraEditada.factores.push({
                 id:cb.value,
-                activo:1
+                activo:1,
+                descripcion:cb.name
             });
         }else{
             alert("Solamente puede ingresar hasta 4 patologias por cara de una pieza.");   

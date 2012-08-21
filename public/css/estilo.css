@@ -15,13 +15,16 @@
     width: 1000px;
     margin: 0 auto;
 }
+.title3{
+    margin: 5px 0;
+    text-align: center;
+}
 #title2{
     font-size: larger;
     border-bottom: solid 1px seashell;
     border-radius: 0px; 
     text-align: center;
     padding-bottom: 10px; 
-
 }
 #title{
     background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 70%,rgba(255,255,255,0) 100%);

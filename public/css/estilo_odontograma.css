@@ -77,15 +77,17 @@ input:checked + label img,input:checked + .item_prestacion {
     background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
     color: white;
 }
-#ventanaCambioPieza{
+#ventanaCambioPieza, #windowDetail{
     width: 500px;
     height: 450px;
+    max-height: 450px;
     z-index: 2;
     position: absolute;
     top: 10px;
     margin-left: 270px;
     background: black url(../img/fondo1.png) 50% 50% repeat;
     display: none;
+    box-shadow: 0px 0px 20px 5px #7E7E7D;
     border: solid white 2px;
 }
 .imgPieza{
@@ -110,12 +112,51 @@ input:checked + label img,input:checked + .item_prestacion {
 #containerPiezas{
     float: left;
     margin-left: 100px;
-
-}
-#cambioPiezaTitulo{
-    margin: 2px 0;
-    text-align: center;
 }
 .botonesCentrados{
     margin-left: 40px;
 }
+#windowDetail{
+    
+}
+.table_container table{
+    border-collapse: collapse;
+    width: 450px;
+    margin: 15px 25px;
+    max-height: 100px;
+    height: auto;
+    text-align: center;
+    border: solid 1px white;
+
+}
+.table_container thead th{
+    background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
+    font-size: xx-large;
+    border-bottom: solid 1px white;
+}
+.table_container thead tr{
+    width: 100%;
+    display: block;
+}
+.table_container table tbody{
+    width: 450px;
+    display:block;
+    height: 300px;
+    overflow: auto;
+}
+.table_container{
+
+}
+.table_container .colCara{
+    width: 80px;
+    min-width: 80px;
+    border-bottom: dashed 1px white;
+    font-size: x-large;
+}
+.table_container .colFactor{
+    width: 370px;
+    overflow-x:  hidden;
+    border-bottom: dashed 1px white;
+    font-size: large;
+}
+
