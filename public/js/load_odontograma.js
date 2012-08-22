@@ -137,7 +137,10 @@ function mostrarDetalles(){
 }
 function factoresCara(cara){
     for(f in cara.factores){
-        $('.table_container table tbody').append("<tr><td class='colCara'> "+cara.numero+" </td>"
-            +"<td class='colFactor'>"+cara.factores[f].descripcion+"</td></tr>");
+        if(cara.factores[f].activo == 1){
+            alert("cara "+cara.numero+" estado "+cara.factores[f].descripcion);
+            $('.table_container table tbody').append("<tr><td class='colCara'> "+cara.numero+" </td>"
+                +"<td class='colFactor'>"+cara.factores[f].descripcion+"</td></tr>");
+        }
     }
 }

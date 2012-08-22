@@ -95,6 +95,12 @@ function visualizarPlanPropuesto(){
 function visualizarPlanCompromiso(){
     location.href=URL+'odontograma/visualizar_plan/4';
 }
+function visualizarTratamientoCurso(){
+    location.href=URL+'odontograma/visualizar_tratamiento/5';
+}
+function visualizarTratamientoRealizado(){
+    location.href=URL+'odontograma/visualizar_tratamiento/6';
+}
 function tratamientosRealizados(){
     $.get(URL+"odontograma/verifExistenciaPlan/",function(data){
         if(data==1){

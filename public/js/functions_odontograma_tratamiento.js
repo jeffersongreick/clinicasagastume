@@ -31,7 +31,7 @@ function guardarOdontograma(){
                 metodo = "guardarTratamientoCurso/";
                 break;
             case 6:
-                metodo = "guardarRealizados/";
+                metodo = "guardarTratamientoRealizado/";
                 break;
             case 7:
                 metodo = "actualizarTratamientoCurso/";

@@ -57,7 +57,7 @@ class Model_ServicioOdontograma extends Model {
                         }
                         $item = Array();
                         $item['id'] = $row['id_' . $tipo];
-                        $item['descripcion'] = $row['desc_' . $tipo];
+                        $item['descripcion'] = utf8_encode($row['desc_' . $tipo]);
 //                        $item['url_img'] = $row['url_estado'];
                         $item['activo'] = $row['activo'];
                         array_push($cara['factores'], $item);
@@ -138,7 +138,9 @@ class Model_ServicioOdontograma extends Model {
                     foreach ($pieza['caras'] as $cara) {
                         if (isset($cara['factores'])) {
                             foreach ($cara['factores'][0] as $estado) {
-                                $statement->execute(array($id_odontograma, $pieza['id'], $cara['id'], $estado['id'], $estado['activo']));
+                                if ($estado['activo'] == 1) {
+                                    $statement->execute(array($id_odontograma, $pieza['id'], $cara['id'], $estado['id'], $estado['activo']));
+                                }
                             }
                         }
                     }
@@ -165,7 +167,9 @@ class Model_ServicioOdontograma extends Model {
                     foreach ($pieza['caras'] as $cara) {
                         if (isset($cara['factores'])) {
                             foreach ($cara['factores'][0] as $prestacion) {
-                                $statement->execute(array($id_odontograma, $pieza['id'], $cara['id'], $prestacion['id'], $prestacion['activo']));
+                                if ($prestacion['activo'] == 1) {
+                                    $statement->execute(array($id_odontograma, $pieza['id'], $cara['id'], $prestacion['id'], $prestacion['activo']));
+                                }
                             }
                         }
                     }

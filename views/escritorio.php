@@ -18,15 +18,15 @@
         <li>
             <input type="button" id="btnOdontograma_tratamientos_realizados" class="button_menu" value="Tratamientos realizados"/>
             <ul>
-                <li><input type="button" id="btnNuevo_tratamiento_actual"  onclick="tratamientosRealizados()" class="button_menu" value="Nuevo odontograma"/></li>
-                <li><input type="button" id="btnVisualizar_tratamiento_actual" onclick="" class="button_menu" value="Visualizar"/></li>
+                <li><input type="button" id="btnNuevo_tratamiento_realizado"  onclick="tratamientosRealizados()" class="button_menu" value="Nuevo odontograma"/></li>
+                <li><input type="button" id="btnVisualizar_tratamiento_reslizado" onclick="visualizarTratamientoRealizado()" class="button_menu" value="Visualizar"/></li>
             </ul>
         </li>
         <li>
             <input type="button" id="btnOdontograma_tratamientos_curso" class="button_menu" value="Tratamientos en curso"/>
             <ul>
                 <li><input type="button" id="btn_tratamiento_actual" onclick="tratamientoCurso()" class="button_menu" value="Nuevo odontograma"/></li>
-                <li><input type="button" id="btnVisualizar_tratamiento_actual" onclick="" class="button_menu" value="Visualizar"/></li>
+                <li><input type="button" id="btnVisualizar_tratamiento_actual" onclick="visualizarTratamientoCurso()" class="button_menu" value="Visualizar"/></li>
             </ul>
         </li>
 
