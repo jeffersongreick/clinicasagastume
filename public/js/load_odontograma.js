@@ -115,25 +115,27 @@ function asignarPosicionesIsquierda(num,x,y){
 }
 function abrirVentana(window){
     //Bloquea el uso del escritorio
-    $(".block").fadeIn("4000"); 
-    $(window).slideDown("4000");
+    $(".block").fadeIn("fast"); 
+    $(window).slideDown("fast");
 }
 //cierra una caja pasada por parametro
 function cerrarVentana(window){
     //desbloquea el uso del escritorio
-    $(".block").fadeOut("4000");
-    $(window).slideUp("4000");
+    $(".block").fadeOut("fast");
+    $(window).slideUp("fast");
 }
 function mostrarDetalles(){
-    $('.title3').html("Detalles de pieza nº"+piezaEditada.id);
-    verif(piezaEditada.Cara1);
-    verif(piezaEditada.Cara2);
-    verif(piezaEditada.Cara3);
-    verif(piezaEditada.Cara4);
-    verif(piezaEditada.Cara5);
+    $('.title3').html(function(){
+        factoresCara(piezaEditada.Cara1);
+        factoresCara(piezaEditada.Cara2);
+        factoresCara(piezaEditada.Cara3);
+        factoresCara(piezaEditada.Cara4);
+        factoresCara(piezaEditada.Cara5);
+        
+    },"Detalles de pieza nº"+piezaEditada.id);
     abrirVentana('#windowDetail');
 }
-function verif(cara){
+function factoresCara(cara){
     for(f in cara.factores){
         $('.table_container table tbody').append("<tr><td class='colCara'> "+cara.numero+" </td>"
             +"<td class='colFactor'>"+cara.factores[f].descripcion+"</td></tr>");

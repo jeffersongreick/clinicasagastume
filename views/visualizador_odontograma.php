@@ -16,7 +16,7 @@
                         <thead>
                             <tr>
                                 <th class="colCara">Cara</th>
-                                <th class="colFactor" >Estado</th>
+                                <th class="colFactor" >Item</th>
                             </tr>       
                         </thead>
                         <tbody>
@@ -30,7 +30,7 @@
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
                 <input type="button" value="Detalles" id="btnDetalles" class="button" />
-                <input type="button" value="Imprimir" id="btnImprimir" class="button" />
+                <input type="button" value="Estandar" id="btnEstandar" class="button" />
                 <input type="button" value="Volver" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'" id="btnVolver" class="button" />
             </div>
             <div class="clear"></div>

@@ -9,8 +9,26 @@
     <div id="slide">
         <!--odontograma-->
         <div id="odontograma">
+            <div id="windowDetail">
+                <p class="title3"></p>
+                <div class="table_container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="colCara">Cara</th>
+                                <th class="colFactor" >Estado</th>
+                            </tr>       
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="contenedor_botones" >
+                    <input type="button" value="Volver" id="btnVolverDetalles" class="button" />
+                </div>
+            </div>
             <div id="ventanaCambioPieza">
-                <p id="title3">La informacion registrada en este odontograma sobre la pieza anterior sera borrada.
+                <p class="title3">La informacion registrada en este odontograma sobre la pieza anterior sera borrada.
                     Esta seguro del cambio?</p>
                 <div id="containerPiezas">
                     <div class="descripcionPiezaCambiar">
@@ -31,8 +49,8 @@
             </div>
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
-
                 <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
+                <input type="button" value="Detalles" id="btnDetalles" class="button" />
                 <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
                 <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
                 <input type="button" value="Guardar" id="btnGuardarOdontograma" class="button" onclick="guardarOdontograma()" />
@@ -60,7 +78,7 @@
                 <div class="state_items">
                     <?php if (isset($listaEstados)): ?>
                         <?php foreach ($listaEstados as $estado): ?> 
-                            <input type='checkbox' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregar(this)'/><label for='estado_<?php echo $estado->id ?>'>
+                            <input type='checkbox' name='<?php echo $estado->descripcion ?>' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregar(this)'/><label for='estado_<?php echo $estado->id ?>'>
                                 <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->descripcion ?>'/></label>
                         <?php endforeach; ?>
                     <?php endif; ?>

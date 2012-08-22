@@ -17,17 +17,26 @@ function actualizarItems(){
     }
 }
 function guardarOdontograma(){
-    if (confirm("¿Cierto de finalizar la edicion y guardar el odontograma?")){
+    if (confirm("¿Desea finalizar la edicion y guardar el odontograma?")){
         var metodo = "";
         var json = armarJSON();
-        if(tipo == 3){
-            metodo = "guardarPlanPropuesto/";
-        }else if(tipo == 4){
-            metodo = "guardarPlanCompromiso/";
-        }else if(tipo == 5){
-            metodo = "guardarTratamientosCurso/";
-        }else if(tipo == 6){
-            metodo = "guardarRealizados/";
+        switch(tipo){
+            case 3:
+                metodo = "guardarPlanPropuesto/";
+                break;
+            case 4:
+                metodo = "guardarPlanCompromiso/";
+                break;
+            case 5:
+                metodo = "guardarTratamientoCurso/";
+                break;
+            case 6:
+                metodo = "guardarRealizados/";
+                break;
+            case 7:
+                metodo = "actualizarTratamientoCurso/";
+                break;
+
         }
         $.post(URL+"/odontograma/"+metodo, json ,function(data){
             if(data== true){

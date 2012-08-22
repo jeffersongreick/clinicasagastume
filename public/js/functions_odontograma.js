@@ -193,7 +193,6 @@ function agregar(cb){
             id:cb.value,
             activo:0
         });
-        
     }
 }
 
