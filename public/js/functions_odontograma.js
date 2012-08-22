@@ -4,8 +4,11 @@ var historialPieza;
 var caraEditada;
 var cambios = false;
 var layerPieza,stagePieza;
+var finalizar = false;
 window.onbeforeunload = function(){
-    return "!ADVERTENCIA! Esta a punto de descartar este odontograma.";
+    if(finalizar == false){
+        return "!ADVERTENCIA! Esta a punto de descartar este odontograma.";
+    }
 }
 $(document).ready(function(){
     stagePieza = new Kinetic.Stage({
@@ -15,7 +18,6 @@ $(document).ready(function(){
     });
     layerPieza = new Kinetic.Layer();
     //    cambia de odontograma a edicion de pieza
-    
     $('#btnEditarPieza').click(function(){ 
         if(piezaEditada && piezaEditada.id != 0){
             cargarCara("1");
@@ -254,6 +256,6 @@ function armarJSON(){
         }
         data.piezas.push(p);  
     }
-  return data;
+    return data;
     
 }

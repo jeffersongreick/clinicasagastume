@@ -54,6 +54,7 @@ function guardarOdontograma(){
         $.post(URL+"/odontograma/"+metodo, json ,function(data){
             if(data== true){
                 alert("!El odontograma ha sido guardado con exito");
+                finalizar = true;
                 location.href=URL+'tratamiento/tratamiento/';
             }else{
                 alert(data);

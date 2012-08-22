@@ -112,6 +112,23 @@ class Model_ServicioOdontograma extends Model {
             echo $exc->getMessage();
         }
     }
+    public function getTratamientoRealizado($idTratamiento) {
+        try {
+            $sql = "SELECT o.id_odontograma,o.activo, o.id_pieza,o.id_cara,o.id_prestacion,
+        c.descripcion as desc_cara,e.descripcion as desc_prestacion FROM 
+        tbl_odontograma_prestaciones as o inner join tbl_piezas as p inner join
+        tbl_caras as c inner join tbl_prestaciones as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_prestacion = e.id
+        where id_odontograma = (select max(id) from tbl_odontogramas where id_tratamiento = ? and id_tipo = 6)
+        GROUP BY o.id_odontograma, o.id_pieza,o.id_cara,o.id_prestacion order by o.id_odontograma, o.id_pieza,o.id_cara,o.id_prestacion";
+            $statement = $this->db->prepare($sql);
+            $statement->execute(array($idTratamiento));
+            $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento, 2);
+            $odontograma = $this->crearOdontograma($statement, $piezas, "prestacion");
+            return $odontograma;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }
 
     public function getEstructuraBucal($idTratamiento) {
         try {
@@ -157,7 +174,9 @@ class Model_ServicioOdontograma extends Model {
     public function guardarTratamientos($piezas, $tipo, $idTratamiento) {
         try {
             $this->db->beginTransaction();
+            echo $sql_odontograma;
             $sql_odontograma = "INSERT INTO tbl_odontogramas (id_tratamiento,id_tipo) values(" . $idTratamiento . "," . $tipo . ")";
+            
             $this->db->exec($sql_odontograma);
             $id_odontograma = $this->db->lastInsertId("tbl_odontogramas");
             $sql_estados = "INSERT INTO tbl_odontograma_prestaciones (id_odontograma,id_pieza,id_cara,id_prestacion,activo) values(?,?,?,?,?)";

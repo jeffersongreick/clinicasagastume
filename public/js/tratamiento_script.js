@@ -86,6 +86,9 @@ function nuevoOdontogramaEstadoActual(){
 function tratamientoCurso(){
     location.href=URL+'odontograma/tratamientoCurso/';
 }
+function tratamientosRealizados(){
+    location.href=URL+'odontograma/tratamientoRealizado/';
+}
 function visualizarEstadoActual(){
     location.href=URL+'odontograma/visualizar_odontograma_estados/2';
 }
@@ -101,15 +104,7 @@ function visualizarTratamientoCurso(){
 function visualizarTratamientoRealizado(){
     location.href=URL+'odontograma/visualizar_tratamiento/6';
 }
-function tratamientosRealizados(){
-    $.get(URL+"odontograma/verifExistenciaPlan/",function(data){
-        if(data==1){
-            location.href=URL+'odontograma/planTratamiento/compromiso';
-        }else{
-            alert("¡Todavía no se ha registrado un plan de tratamiento! ¡Favor registre uno para seguir!");
-        }
-    });
-}
+
 
 
 
