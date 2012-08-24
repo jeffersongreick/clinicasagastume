@@ -41,7 +41,7 @@ var Pieza = function(numero,pos,posX,posY){
     layerOdontograma.add(this.image);
     layerOdontograma.add(this.num);
     layerOdontograma.add(this.grupo);
-    this.image.on('click dragstart',function(){
+    this.image.on('click touchstart',function(){
         if(this.contenedor.selected == true){
             this.desmarcar();
         }else{
@@ -90,7 +90,7 @@ var vacio = function(numero,pos,posX,posY){
     this.selected = false;
     this.id = numero;
     layerOdontograma.add(this.image);
-    this.image.on('click dragstart',function(){
+    this.image.on('click touchstart',function(){
         if(this.contenedor.selected == true){
             this.desmarcar();
         }else{

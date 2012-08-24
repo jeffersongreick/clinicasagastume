@@ -27,7 +27,7 @@ class Controller_Odontograma {
                 $view_base->set('contenido', $view);
                 echo $view_base->render();
             } else {
-                $this->visualizar_odontograma_estados("inicial");
+                $this->visualizar_odontograma_estados(1);
             }
         } catch (Exception $exc) {
             $this->makeError($exc->getTraceAsString(), "tratamiento/tratamiento/");

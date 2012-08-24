@@ -137,8 +137,7 @@ function agregarImagen(id_item){
             width: 60,
             height: 60,
             name : "item",
-            id : id_item,
-            draggable:true
+            id : id_item
         });
         group.add(image);
         image.transitionTo({
@@ -146,12 +145,6 @@ function agregarImagen(id_item){
             y: posicion,
             duration: 1,
             easing: "strong-ease-out"
-        });
-        image.on("mouseover", function() {
-            document.body.style.cursor = "pointer";
-        });
-        image.on("mouseout", function() {
-            document.body.style.cursor = "default";
         });
         posicion -=50;
     };
@@ -226,7 +219,6 @@ function armarJSON(){
             pos:pieza.pos,
             caras:[]
         }   
-            
         if(pieza.id != 0){
             for(var j = 1;j<=5;j++){          
                 var factores;
