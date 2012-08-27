@@ -15,11 +15,11 @@
             <?php if (isset($datos)): ?>
                 <?php foreach ($datos['piezas'] as $pieza) : ?>
                     <?php foreach ($pieza['caras'] as $cara): ?>
-                        <?php foreach ($cara['estados'] as $estado): ?>
+                        <?php foreach ($cara['factores'] as $estado): ?>
                             <tr>
                                 <th><?php echo $pieza['id'] ?></th>
                                 <th><?php echo $cara['id'] ?></th>
-                                <th><?php echo $estado['desc_estado'] ?></th>
+                                <th><?php echo $estado['descripcion'] ?></th>
                             </tr>
                         <?php endforeach; ?>
                     <?php endforeach; ?>

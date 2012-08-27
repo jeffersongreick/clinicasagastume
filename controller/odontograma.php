@@ -63,15 +63,7 @@ class Controller_Odontograma {
         try {
             if ($this->verifPlan($tipo) == false) {
                 $odontograma = Model_ServicioOdontograma::getInstance()->getEstructuraBucal($_SESSION['id_tratamiento']);
-                switch ($tipo) {
-                    case 3:
-                        $odontograma = $this->getScriptOdontograma(3, $odontograma['piezas']);
-
-                        break;
-                    case 4:
-                        $odontograma = $this->getScriptOdontograma(4, $odontograma['piezas']);
-                        break;
-                }
+                $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
                 $view_base = View::factory('base');
                 $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma.js', 'public/js/functions_odontograma_tratamiento.js');
                 $view_base->script('script', $s);
@@ -360,7 +352,7 @@ class Controller_Odontograma {
 
     public function verEstandar() {
         $model_odotograma = Model_ServicioOdontograma::getInstance();
-        $datos = $model_odotograma->getOdontograma(1, 1);
+        $datos = $model_odotograma->getOdontogramaEstados($_SESSION['id_tratamiento'], 1);
         $view = View::factory('base');
         $scripts = array(
             'public/js/kinetic.js',
@@ -369,7 +361,7 @@ class Controller_Odontograma {
             'public/js/pieza.js',
             'public/js/load_odontograma.js'
         );
-        $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getOdontograma(1, 1);
+        $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 1);
         $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
         $view->set('JsonOdontograma', $JsonOdontograma);
         $view->script('script', $scripts);

@@ -62,7 +62,7 @@
         <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_tratamiento.png" alt="odontograma"  class="iconos_escritorio" />
         <div class="nombreFuncion">Odontogramas</div>
     </div>
-    <div class="iconoContainer" onclick="validarOdontogramaInicial()" id="btnOdontograma_inicial">
+    <div class="iconoContainer" onclick="odontogramaInicial()" id="btnOdontograma_inicial">
         <input type="image"  src="<?php echo URL ?>public/img/ico_escritorio/ico_odontograma_inicial.png" alt="odontograma"  class="iconos_escritorio" />
         <div class="nombreFuncion">Odontograma Inicial</div>
     </div>

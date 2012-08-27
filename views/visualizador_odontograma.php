@@ -30,7 +30,7 @@
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
                 <input type="button" value="Detalles" id="btnDetalles" class="button" />
-                <input type="button" value="Estandar" id="btnEstandar" class="button" />
+                <input type="button" value="Estandar" onclick="location.href='<?php echo URL ?>odontograma/verEstandar/'" id="btnEstandar" class="button" />
                 <input type="button" value="Volver" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'" id="btnVolver" class="button" />
             </div>
             <div class="clear"></div>

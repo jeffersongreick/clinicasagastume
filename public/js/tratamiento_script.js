@@ -71,7 +71,7 @@ function finalizarTratamiento(){
         });
     }   
 }
-function validarOdontogramaInicial(){
+function odontogramaInicial(){
     location.href=URL+'odontograma/inicial/';
 }
 function nuevoPlanTratamientoPropuesto(){

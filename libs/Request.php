@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: diegoplada
- * Date: 13/06/12
- * Time: 21:56
- * To change this template use File | Settings | File Templates.
- */
 class Request
 {
     private $controlador;
