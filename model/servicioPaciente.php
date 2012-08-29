@@ -2,7 +2,7 @@
 
 class Model_ServicioPaciente extends Model {
 
-     private static $instance;
+    private static $instance;
 
     public static function getInstance() {
         if (!isset(self::$instance)) {
@@ -23,10 +23,9 @@ class Model_ServicioPaciente extends Model {
             $statement->execute();
             return $statement->fetch(PDO::FETCH_NAMED);
         } catch (Exception $exc) {
-            throw $exc->getMessage();
+            throw new Exception("¡Error en la busqueda del paciente!" );
         }
     }
-
 
     public function getPaciente($ci) {
         try {
@@ -49,6 +48,7 @@ class Model_ServicioPaciente extends Model {
             throw $exc->getMessage();
         }
     }
+
 }
 
 ?>

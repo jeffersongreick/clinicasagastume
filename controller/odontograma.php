@@ -61,19 +61,24 @@ class Controller_Odontograma {
 
     public function planTratamiento($tipo) {
         try {
-            if ($this->verifPlan($tipo) == false) {
-                $odontograma = Model_ServicioOdontograma::getInstance()->getEstructuraBucal($_SESSION['id_tratamiento']);
-                $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
-                $view_base = View::factory('base');
-                $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma.js', 'public/js/functions_odontograma_tratamiento.js');
-                $view_base->script('script', $s);
-                $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
-                $view_base->css('css', $c);
-                $view = View::factory('editor_odontograma_prestaciones');
-                $view->set('prestaciones', $this->listarPrestacionesHtml());
-                $view_base->set('JsonOdontograma', $odontograma);
-                $view_base->set('contenido', $view);
-                echo $view_base->render();
+            if (Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], 1) == true) {
+                if ($a->verifOdontograma($_SESSION['id_tratamiento'], $tipo) == false) {
+                    $odontograma = Model_ServicioOdontograma::getInstance()->getEstructuraBucal($_SESSION['id_tratamiento']);
+                    $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
+                    $view_base = View::factory('base');
+                    $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma.js', 'public/js/functions_odontograma_tratamiento.js');
+                    $view_base->script('script', $s);
+                    $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
+                    $view_base->css('css', $c);
+                    $view = View::factory('editor_odontograma_prestaciones');
+                    $view->set('prestaciones', $this->listarPrestacionesHtml());
+                    $view_base->set('JsonOdontograma', $odontograma);
+                    $view_base->set('contenido', $view);
+                    echo $view_base->render();
+                } else {
+                    $error = "Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento. Favor crearlo antes de continuar.";
+                    $this->makeError($error, "tratamiento/tratamiento/");
+                }
             } else {
                 $error = "¡El plan ya se encuentra registrado en el tratamiento!";
                 $this->makeError($error, "tratamiento/tratamiento/");
@@ -105,7 +110,7 @@ class Controller_Odontograma {
                 $view_base->set('contenido', $view);
                 echo $view_base->render();
             } else {
-                $error = "¡Todavía no se ha registrado un plan de tratamiento! ¡Favor registre uno para seguir!";
+                $error = "¡Todavía no se ha registrado un plan de tratamiento! ¡Favor registrar uno para continuar!";
                 $this->makeError($error, "tratamiento/tratamiento/");
             }
         } catch (Exception $exc) {
@@ -129,7 +134,7 @@ class Controller_Odontograma {
                 $view_base->set('contenido', $view);
                 echo $view_base->render();
             } else {
-                $error = "¡Todavía no se ha registrado un plan de tratamiento! ¡Favor registre uno para seguir!";
+                $error = "¡Todavía no se ha registrado un plan de tratamiento! ¡Favor registrar uno para continuar!";
                 $this->makeError($error, "tratamiento/tratamiento/");
             }
         } catch (Exception $exc) {
@@ -184,7 +189,7 @@ class Controller_Odontograma {
 
     public function visualizar_plan($tipo) {
         try {
-            if ($this->verifPlan($tipo) == TRUE) {
+            if (Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], $tipo) == true) {
                 $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaPrestaciones($_SESSION['id_tratamiento'], $tipo);
                 $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
                 $view_base = View::factory('base');
@@ -227,7 +232,7 @@ class Controller_Odontograma {
                 $view_base->set('contenido', $view);
                 echo $view_base->render();
             } else {
-                $error = "¡No se ha encontrado registros de odontogramas!";
+                $error = "¡No se ha encontrado registros de odontogramas de tratamientos de este tipo!";
                 $this->makeError($error, "tratamiento/tratamiento/");
             }
         } catch (Exception $exc) {
@@ -239,16 +244,6 @@ class Controller_Odontograma {
         try {
             $b = Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], $tipo);
             return $b;
-        } catch (Exception $exc) {
-            throw $exc->getMessage();
-        }
-        return true;
-    }
-
-    public function verifPlan($tipo) {
-        try {
-            $a = Model_ServicioOdontograma::getInstance();
-            return ($a->verifOdontograma($_SESSION['id_tratamiento'], 1) && $a->verifOdontograma($_SESSION['id_tratamiento'], $tipo)) ? true : false;
         } catch (Exception $exc) {
             throw $exc->getMessage();
         }

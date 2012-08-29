@@ -21,10 +21,6 @@ class Controller_Usuario{
             $view = View::factory('principal');
             $view_base->set('contenido', $view);
             echo $view_base->render();
-            
-            
-            $view = View::factory('principal');
-            echo $view->render();
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }

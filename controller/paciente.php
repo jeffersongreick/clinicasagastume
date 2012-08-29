@@ -13,10 +13,9 @@ class Controller_Paciente {
                 echo json_encode($paciente);
             }
         } catch (Exception $exc) {
-            echo "¡Error en la busqueda del paciente. Favor intente nuevamente en unos minutos!";
+            echo $exc->getMessage();
         }
     }
-
 }
 
 ?>

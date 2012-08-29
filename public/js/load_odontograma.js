@@ -133,6 +133,7 @@ function mostrarDetalles(){
         factoresCara(piezaEditada.Cara5);
         
     },"Detalles de pieza nº"+piezaEditada.id);
+//    $('.title3').html("Detalles de pieza nº"+piezaEditada.id);
     abrirVentana('#windowDetail');
 }
 function factoresCara(cara){

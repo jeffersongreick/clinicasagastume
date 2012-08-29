@@ -178,7 +178,7 @@ function agregar(cb){
                 descripcion:cb.name
             });
         }else{
-            alert("Solamente puede ingresar hasta 4 patologias por cara de una pieza.");   
+            alert("Solamente puede ingresar hasta 4 ítems por cara de una pieza.");   
             $(cb).removeAttr('checked');
         }   
     }else{
