@@ -2,6 +2,11 @@
     border-radius: 5px; 
     font-size: large;
 }
+a{
+    text-decoration: none;
+    color: white
+}
+
 #editorPieza{
     display:inline;
     float: left;

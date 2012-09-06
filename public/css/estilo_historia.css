@@ -1,0 +1,102 @@
+
+.tabs{
+    list-style: none;
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+    height: 60px;
+    width: 980px;
+    margin: 10px 10px;
+    padding: 0;
+    overflow: hidden;
+}
+.tab{
+    display: block;
+    float: left;
+    cursor: pointer;
+}
+.tab:hover{
+        background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
+
+}
+.tab p{
+    display: block;
+    margin: 3px;
+    padding: 5px 15px;
+    text-align: center;
+    height: 40px;
+    width: 100px;
+}
+.tabSelected{
+        background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
+
+}
+#listAntMedico{
+    border: solid 1px white;
+    display: inline-block;
+    height: 400px;
+    width: 970px;
+    margin: 10px 5px 10px 10px;
+}
+.rowHistoria{
+    border-bottom: solid 1px white;
+    border-radius: 0;
+    display: block;
+    margin: 2px 5px;
+}
+.dataHistoria{
+    width: 100%;
+    height: 50px;
+}
+.dataHistoria input[type="button"]{
+    float: right;
+}
+.tableHistoria{
+    width: 100%;
+}
+.observacionHistoria{
+    height: auto;
+    display: none;
+    margin-bottom: 5px;
+}
+.option_list_antecedentes{
+    display: block;
+    width: 680px;
+    margin: 10px;
+    overflow: hidden;
+    font-size: x-large;
+}
+#ventanaNuevoAntecedente .observacionesAntecedente{
+    width: 675px;
+    margin: 10px;
+    height: 200px;
+    font-size: x-large;
+    resize: none;
+}
+td .observacionesAntecedente{
+    width: 910px;
+    margin: 0 10px;
+    font-size: x-large;
+    resize: none;
+    display: block;
+    
+}
+.button_down{
+    background-color: #566678;
+    color: white;
+}
+#ventanaNuevoAntecedente{
+    width: 700px;
+    height: 420px;
+    max-height: 450px;
+    z-index: 2;
+    position: absolute;
+    top: 60px;
+    margin-left: 150px;
+    background: black url(../img/fondo1.png) 50% 50% repeat;
+    display: none;
+    box-shadow: 0px 0px 20px 5px #7E7E7D;
+    border: solid white 2px;
+}
+#habHigienicos,#antOdontologicos{
+    float: left;
+    display: none;
+}

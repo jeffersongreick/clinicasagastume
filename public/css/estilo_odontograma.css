@@ -116,9 +116,6 @@ input:checked + label img,input:checked + .item_prestacion {
 .botonesCentrados{
     margin-left: 10px;
 }
-#windowDetail{
-    
-}
 .table_container table{
     border-collapse: collapse;
     width: 450px;
@@ -143,9 +140,6 @@ input:checked + label img,input:checked + .item_prestacion {
     display:block;
     height: 300px;
     overflow: auto;
-}
-.table_container{
-
 }
 .table_container .colCara{
     width: 80px;

@@ -70,7 +70,7 @@
         <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_otros.png" alt="odontograma"  class="iconos_escritorio" />
         <div class="nombreFuncion">Plan de tratamiento</div>
     </div>
-    <div class="iconoContainer" id="btnHistoria" >
+    <div class="iconoContainer" id="btnHistoria" onclick="historiaClinica()">
         <input type="image" src="<?php echo URL ?>public/img/ico_escritorio/ico_historia.png" alt="odontograma" class="iconos_escritorio" />
         <div class="nombreFuncion">Historia Clinica</div>
     </div>

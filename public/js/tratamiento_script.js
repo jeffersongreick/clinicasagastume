@@ -19,10 +19,6 @@ $(document).ready(function(){
         sliderMenuFuncion(event,$(this).parents().find('.function'));
         cerrarVentana($(this).parents().find('.function'));
     });
-    //funcion no habilitada
-    $("#btnHistoria").click(function(){
-        alert("En construccion..");
-    });
     //despliega el submenu del contenedor
     $(".button_menu").click(function(event){
         sliderMenuFuncion(event,$(this).parents().find('.function'));
@@ -103,6 +99,9 @@ function visualizarTratamientoCurso(){
 }
 function visualizarTratamientoRealizado(){
     location.href=URL+'odontograma/visualizar_tratamiento/6';
+}
+function historiaClinica(){
+    location.href=URL+'historia/index/';
 }
 
 
