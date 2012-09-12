@@ -212,7 +212,7 @@ class Model_ServicioOdontograma extends Model {
             $sql_odontograma = "INSERT INTO tbl_odontogramas (id_tratamiento,id_tipo,fecha) values(" . $idTratamiento . "," . $tipo . ",'" . $fecha . "')";
             $this->db->exec($sql_odontograma);
             $id_odontograma = $this->db->lastInsertId("tbl_odontogramas");
-            $sql_estados = "INSERT INTO tbl_odontograma_prestaciones (id_odontograma,id_pieza,id_cara,id_prestacion,activo) values(?,?,?,?,?)";
+            $sql_estados = "INSERT INTO tbl_odontograma_prestaciones (id_odontograma,id_pieza,id_cara,id_prestacion,usr_ins,activo) values(?,?,?,?,9,?)";
             $statement = $this->db->prepare($sql_estados);
             foreach ($piezas as $pieza) {
                 if (isset($pieza['caras'])) {
