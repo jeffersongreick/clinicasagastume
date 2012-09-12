@@ -46,7 +46,7 @@ class Model_ServicioTratamiento extends Model {
 
     public function nuevoTratamiento($ci) {
         try {
-            $sql = "INSERT INTO tbl_tratamientos (ci_paciente,activo,fecha_ins,usr_ins) values(" . $ci . ",true,'" . date("Y/m/d H:i:s") . "',3)";
+            $sql = "INSERT INTO tbl_tratamientos (ci_paciente,activo,fecha_ins,usr_ins) values(" . $ci . ",true,'" . date("Y/m/d H:i:s") . "',9)";
             $statement = $this->db->prepare($sql);
             $statement->execute();
             $tratamiento = new Model_Tratamiento();

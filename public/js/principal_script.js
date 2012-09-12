@@ -6,9 +6,6 @@ $(document).ready(function(){
     $('#btnPrestaciones').click(function(){
         alert("En construccion...");
     });
-    $('#btnUsuarios').click(function(){
-        alert("En construccion...");
-    });
     $('#btnControlUsuarios').click(function(){
         alert("En construccion...");
     });
@@ -105,6 +102,9 @@ function nuevo_tratamiento(){
 }
 function ingresar_tratamiento(){
     location.href=URL+'tratamiento/tratamiento/'+$('#treatment_id').attr("value");
+}
+function mantenimiento_usuarios(){
+    location.href=URL+'usuario/mantenimientoUsuarios/';
 }
 
 

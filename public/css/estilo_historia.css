@@ -1,4 +1,3 @@
-
 .tabs{
     list-style: none;
     background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
@@ -27,30 +26,6 @@
 }
 .tabSelected{
         background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
-
-}
-#listAntMedico{
-    border: solid 1px white;
-    display: inline-block;
-    height: 400px;
-    width: 970px;
-    margin: 10px 5px 10px 10px;
-}
-.rowHistoria{
-    border-bottom: solid 1px white;
-    border-radius: 0;
-    display: block;
-    margin: 2px 5px;
-}
-.dataHistoria{
-    width: 100%;
-    height: 50px;
-}
-.dataHistoria input[type="button"]{
-    float: right;
-}
-.tableHistoria{
-    width: 100%;
 }
 .observacionHistoria{
     height: auto;

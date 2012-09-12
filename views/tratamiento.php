@@ -11,7 +11,7 @@
         <li>
             <input type="button" id="btnOdontograma_estado_actual" class="button_menu" value="Estados"/>
             <ul>
-                <li><input type="button" id="btnNuevo_tratamiento_actual" onclick="nuevoOdontogramaEstadoActual()" class="button_menu" value="Nuevo odontograma"/></li>
+                <li><input type="button" id="btnNuevo_tratamiento_actual" onclick="nuevoOdontogramaEstados()" class="button_menu" value="Nuevo odontograma"/></li>
                 <li><input type="button" id="btnVisualizar_tratamiento_actual" onclick="visualizarEstadoActual()" class="button_menu" value="Visualizar"/></li>
             </ul>
         </li>

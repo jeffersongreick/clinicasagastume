@@ -49,7 +49,7 @@
             </div>
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
-                <input type="button" value="Editar pieza" id="btnEditarPieza" class="button" />
+                <input type="button" value="Editar" id="btnEditarPieza" class="button" />
                 <input type="button" value="Detalles" id="btnDetalles" class="button" />
                 <input type="button" value="Cambiar pieza" id="btnCambiarPieza" class="button" />
                 <input type="button" value="Agregar/Extraer" id="btnExtraer" class="button" />
@@ -79,7 +79,7 @@
                     <?php if (isset($listaEstados)): ?>
                         <?php foreach ($listaEstados as $estado): ?> 
                             <input type='checkbox' name='<?php echo $estado->descripcion ?>' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregar(this)'/><label for='estado_<?php echo $estado->id ?>'>
-                                <img src='<?php echo URL . $estado->url_img ?>' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->descripcion ?>'/></label>
+                                <img src='<?php echo URL?>/public/img/ico_estados/img<?php echo $estado->id ?>.png' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->descripcion ?>'/></label>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>

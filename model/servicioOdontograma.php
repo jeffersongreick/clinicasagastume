@@ -58,7 +58,6 @@ class Model_ServicioOdontograma extends Model {
                         $item = Array();
                         $item['id'] = $row['id_' . $tipo];
                         $item['descripcion'] = utf8_encode($row['desc_' . $tipo]);
-//                        $item['url_img'] = $row['url_estado'];
                         $item['activo'] = $row['activo'];
                         array_push($cara['factores'], $item);
                         $row = $elementos->fetch();
@@ -80,7 +79,7 @@ class Model_ServicioOdontograma extends Model {
     public function getOdontogramaEstados($idTratamiento, $tipo) {
         try {
             $sql = "SELECT COUNT(o.id_odontograma) as cantidad ,o.id_odontograma,o.activo, o.id_pieza,o.id_cara,o.id_estado,
-        c.descripcion as desc_cara,e.descripcion as desc_estado,e.url_img as url_estado FROM 
+        c.descripcion as desc_cara,e.descripcion as desc_estado FROM 
         tbl_odontograma_estados as o inner join tbl_piezas as p inner join
         tbl_caras as c inner join tbl_estados as e on o.id_pieza = p.id and o.id_cara = c.id and o.id_estado = e.id
         where id_odontograma = (select id from tbl_odontogramas where id_tratamiento = ? and id_tipo = ?)
@@ -173,9 +172,9 @@ class Model_ServicioOdontograma extends Model {
             $sql_odontograma2 = "INSERT INTO tbl_odontogramas (id_tratamiento,id_tipo,fecha) values(" . $idTratamiento . ",2,'" . $fecha . "')";
             $this->db->exec($sql_odontograma2);
             $id_odontograma2 = $this->db->lastInsertId("tbl_odontogramas");
-            $sql_estados1 = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,activo) values";
-            $sql_estados2 = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,activo) values";
-            $sql_pieza = "INSERT INTO tbl_paciente_pieza values";
+            $sql_estados1 = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins,activo) values";
+            $sql_estados2 = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins,activo) values";
+            $sql_pieza = "INSERT INTO tbl_paciente_piezas values";
 
             foreach ($piezas as $pieza) {
                 $sql_pieza .= "(" . $idTratamiento . "," . $pieza['pos'] . "," . $pieza['id'] . ",'" . $fecha . "','" . $fecha . "'),";
@@ -184,8 +183,8 @@ class Model_ServicioOdontograma extends Model {
                         if (isset($cara['factores'])) {
                             foreach ($cara['factores'][0] as $estado) {
                                 if ($estado['activo'] == 1) {
-                                    $sql_estados1 .="(" . $id_odontograma1 . "," . $pieza['id'] . "," . $cara['id'] . "," . $estado['id'] . "," . $estado['activo'] . "),";
-                                    $sql_estados2 .="(" . $id_odontograma2 . "," . $pieza['id'] . "," . $cara['id'] . "," . $estado['id'] . "," . $estado['activo'] . "),";
+                                    $sql_estados1 .="(" . $id_odontograma1 . "," . $pieza['id'] . "," . $cara['id'] . "," . $estado['id'] . ",9," . $estado['activo'] . "),";
+                                    $sql_estados2 .="(" . $id_odontograma2 . "," . $pieza['id'] . "," . $cara['id'] . "," . $estado['id'] . ",9," . $estado['activo'] . "),";
                                 }
                             }
                         }
@@ -228,7 +227,7 @@ class Model_ServicioOdontograma extends Model {
                     }
                 }
             }
-            $upd_piezas = "UPDATE tbl_paciente_pieza set fecha_upd = '" . $fecha . "'  where id_tratamiento = " . $idTratamiento;
+            $upd_piezas = "UPDATE tbl_paciente_piezas set fecha_upd = '" . $fecha . "'  where id_tratamiento = " . $idTratamiento;
             $stat = $this->db->prepare($upd_piezas);
             $stat->execute();
             $this->db->commit();
@@ -247,7 +246,7 @@ class Model_ServicioOdontograma extends Model {
             $this->db->beginTransaction();
             $fecha = date("Y/m/d H:i:s");
             foreach ($piezas as $pieza) {
-                $sel = "SELECT * FROM  tbl_paciente_pieza where id_tratamiento = " . $idTratamiento . " and posicion = " . $pieza['pos'];
+                $sel = "SELECT * FROM  tbl_paciente_piezas where id_tratamiento = " . $idTratamiento . " and posicion = " . $pieza['pos'];
                 $statement = $this->db->prepare($sel);
                 $statement->execute();
                 $p = $statement->fetch();
@@ -255,7 +254,7 @@ class Model_ServicioOdontograma extends Model {
                     $sql_his = "INSERT INTO tbl_historico_piezas " . $sel;
                     $stat = $this->db->prepare($sql_his);
                     $stat->execute();
-                    $sql_piezas = "UPDATE tbl_paciente_pieza SET id_pieza = " . $pieza['id'] . ",fecha_ins = '" . $fecha . "' ,
+                    $sql_piezas = "UPDATE tbl_paciente_piezas SET id_pieza = " . $pieza['id'] . ",fecha_ins = '" . $fecha . "' ,
                         fecha_upd = '" . $fecha . "' where id_tratamiento = " . $idTratamiento . " and posicion = " . $pieza['pos'];
                     $stat = $this->db->prepare($sql_piezas);
                     $stat->execute();
@@ -268,11 +267,11 @@ class Model_ServicioOdontograma extends Model {
                                 $statement = $this->db->prepare($sel);
                                 $statement->execute(array($pieza['id'], $cara['id'], $estado['id']));
                                 if ($estado['activo'] == 0 && ($statement->rowCount() % 2) != 0) {
-                                    $ins = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,1, ?)";
+                                    $ins = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,9, ?)";
                                     $stat = $this->db->prepare($ins);
                                     $stat->execute(array($pieza['id'], $cara['id'], $estado['id'], $estado['activo']));
                                 } else if ($estado['activo'] == 1 && ($statement->rowCount() % 2) == 0) {
-                                    $ins = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,1, ?)";
+                                    $ins = "INSERT INTO tbl_odontograma_estados (id_odontograma,id_pieza,id_cara,id_estado,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,9, ?)";
                                     $stat = $this->db->prepare($ins);
                                     $stat->execute(array($pieza['id'], $cara['id'], $estado['id'], $estado['activo']));
                                 }
@@ -285,7 +284,7 @@ class Model_ServicioOdontograma extends Model {
             $upd_odont = "UPDATE tbl_odontogramas set fecha = '" . $fecha . "'  where id = " . $idOdontograma;
             $stat = $this->db->prepare($upd_odont);
             $stat->execute();
-            $upd_piezas = "UPDATE tbl_paciente_pieza set fecha_upd = '" . $fecha . "'  where id_tratamiento = " . $idTratamiento;
+            $upd_piezas = "UPDATE tbl_paciente_piezas set fecha_upd = '" . $fecha . "'  where id_tratamiento = " . $idTratamiento;
             $stat = $this->db->prepare($upd_piezas);
             $stat->execute();
             $this->db->commit();
@@ -311,11 +310,11 @@ class Model_ServicioOdontograma extends Model {
                                 $statement = $this->db->prepare($sel);
                                 $statement->execute(array($pieza['id'], $cara['id'], $prestacion['id']));
                                 if ($prestacion['activo'] == 0 && ($statement->rowCount() % 2) != 0) {
-                                    $ins = "INSERT INTO tbl_odontograma_prestaciones (id_odontograma,id_pieza,id_cara,id_prestacion,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,1, ?)";
+                                    $ins = "INSERT INTO tbl_odontograma_prestaciones (id_odontograma,id_pieza,id_cara,id_prestacion,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,9, ?)";
                                     $stat = $this->db->prepare($ins);
                                     $stat->execute(array($pieza['id'], $cara['id'], $prestacion['id'], $prestacion['activo']));
                                 } else if ($prestacion['activo'] == 1 && ($statement->rowCount() % 2) == 0) {
-                                    $ins = "INSERT INTO tbl_odontograma_prestaciones (id_odontograma,id_pieza,id_cara,id_prestacion,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,1, ?)";
+                                    $ins = "INSERT INTO tbl_odontograma_prestaciones (id_odontograma,id_pieza,id_cara,id_prestacion,usr_ins, activo) values (" . $idOdontograma . " , ? , ? , ? ,9, ?)";
                                     $stat = $this->db->prepare($ins);
                                     $stat->execute(array($pieza['id'], $cara['id'], $prestacion['id'], $prestacion['activo']));
                                 }
@@ -324,7 +323,7 @@ class Model_ServicioOdontograma extends Model {
                     }
                 }
             }
-            $upd_piezas = "UPDATE tbl_paciente_pieza set fecha_upd = '" . date("Y/m/d H:i:s") . "'  where id_tratamiento = " . $idTratamiento;
+            $upd_piezas = "UPDATE tbl_paciente_piezas set fecha_upd = '" . date("Y/m/d H:i:s") . "'  where id_tratamiento = " . $idTratamiento;
             $stat = $this->db->prepare($upd_piezas);
             $stat->execute();
             $this->db->commit();

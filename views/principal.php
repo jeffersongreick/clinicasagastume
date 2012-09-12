@@ -32,12 +32,16 @@
         <div class="nombreFuncion">Prestaciones</div>
     </div>
     <div class="iconoContainer" id="btnUsuarios">
-        <input type="image" src="<?php echo URL ?>public/img/ico_principal/ico_usuario.png" alt="tratamiento"  class="iconos_escritorio" />
+        <input type="image" onclick="mantenimiento_usuarios()" src="<?php echo URL ?>public/img/ico_principal/ico_usuario.png" alt="tratamiento"  class="iconos_escritorio" />
         <div class="nombreFuncion">Usuarios</div>
     </div>
     <div class="iconoContainer" id="btnControlUsuarios">
         <input type="image" src="<?php echo URL ?>public/img/ico_principal/ico_control.png" alt="tratamiento"  class="iconos_escritorio" />
         <div class="nombreFuncion">Control de usuarios</div>
+    </div>
+    <div class="iconoContainer" id="btnFormularios">
+        <input type="image" src="<?php echo URL ?>public/img/ico_principal/ico_formularios_web.png" alt="tratamiento"  class="iconos_escritorio" />
+        <div class="nombreFuncion">Formularios web</div>
     </div>
 </div>
 <div class="block"></div>

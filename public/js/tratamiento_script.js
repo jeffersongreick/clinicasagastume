@@ -76,8 +76,8 @@ function nuevoPlanTratamientoPropuesto(){
 function nuevoPlanTratamientoCompromiso(){
     location.href=URL+'odontograma/planTratamiento/4';
 }
-function nuevoOdontogramaEstadoActual(){
-    location.href=URL+'odontograma/actual/';
+function nuevoOdontogramaEstados(){
+    location.href=URL+'odontograma/estados/';
 }
 function tratamientoCurso(){
     location.href=URL+'odontograma/tratamientoCurso/';

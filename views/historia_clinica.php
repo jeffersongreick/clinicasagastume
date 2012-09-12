@@ -13,21 +13,21 @@
     <li class="tab" name="#6"><p>Consultas</p></li> 
 </ul>
 <div id="antMedico" class="form">
-    <div id="listAntMedico" style="overflow-y: scroll;">
-        <table class="tableHistoria" >
+    <div id="listAntMedico" class="table_list" style="overflow-y: scroll;">
+        <table>
             <tbody>
                 <tr class="rowHistoria">
-                    <td class="dataHistoria">
+                    <td>
                         <img src="<?php echo URL ?>public/img/tic.png"/> Está en tratamiento médico
                     </td>
 
-                    <td class="dataHistoria">
+                    <td>
                         <input type="button" class="visualizarObservaciones" value="observaciones"/>
                     </td>
-                    <td class="dataHistoria">
+                    <td>
                         <input type="button" value="Editar"/>
                     </td>
-                    <td class="dataHistoria">
+                    <td>
                         <input type="button" value="Eliminar"/>
                     </td>
                     <td class="observacionHistoria">
@@ -109,7 +109,7 @@
     </div>
 </div>
 <div id="antOdontologicos" class="form">
-    <div id="listAntMedico" style="overflow-y: scroll;">
+    <div id="listAntMedico" class="table_list" style="overflow-y: scroll;">
         <table class="tableHistoria" >
             <tbody>
                 <tr class="rowHistoria">
@@ -170,7 +170,7 @@
     </div>
 </div>
 <div id="habHigienicos" class="form">
-    <div id="listAntMedico" style="overflow-y: scroll;">
+    <div id="listAntMedico" class="table_list" style="overflow-y: scroll;">
         <table class="tableHistoria" >
             <tbody>
                 <tr class="rowHistoria">

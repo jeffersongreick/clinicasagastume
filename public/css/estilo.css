@@ -142,3 +142,27 @@ canvas{
     background-color: rgba(192,192,192,0.4);
     border-radius: 5px;
 }
+
+.table_list{
+    border: solid 1px white;
+    display: inline-block;
+    height: 400px;
+    width: 970px;
+    margin: 10px 5px 10px 10px;
+}
+.table_list table tr{
+    border-bottom: solid 1px white;
+    border-radius: 0;
+    display: block;
+    margin: 2px 5px;
+}
+.table_list table tr td{
+    width: 100%;
+    height: 50px;
+}
+.table_list table tr td input[type="button"]{
+    float: right;
+}
+.table_list table{
+    width: 100%;
+}

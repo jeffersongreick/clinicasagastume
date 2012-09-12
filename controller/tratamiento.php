@@ -16,7 +16,7 @@ class Controller_Tratamiento {
             $view_base->script('script', $s);
             $c = array('public/css/estilo.css', 'public/css/estilo_escritorio.css');
             $view_base->css('css', $c);
-            $view = View::factory('escritorio');
+            $view = View::factory('tratamiento');
             $view_base->set('contenido', $view);
             echo $view_base->render();
         } catch (Exception $exc) {
@@ -35,7 +35,7 @@ class Controller_Tratamiento {
             $view_base->script('script', $s);
             $c = array('public/css/estilo.css', 'public/css/estilo_escritorio.css');
             $view_base->css('css', $c);
-            $view = View::factory('escritorio');
+            $view = View::factory('tratamiento');
             $view_base->set('contenido', $view);
             echo $view_base->render();
         } catch (Exception $exc) {

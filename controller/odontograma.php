@@ -6,54 +6,43 @@ class Controller_Odontograma {
 
     public function inicial() {
         try {
-            if ($this->verifOdontograma(1) == false) {
-                $today = new DateTime("now");
-                $intervalo = $today;
-                if ($intervalo->format('d') > 2922) {
-                    $odontograma = Model_ServicioPieza::getInstance()->getPiezasAdultos();
-                    $odontograma = $this->getScriptOdontograma(1, $odontograma);
-                } else {
-                    $odontograma = Model_ServicioPieza::getInstance()->getPiezasInfantiles();
-                    $odontograma = $this->getScriptOdontograma(1, $odontograma);
-                }
-                $view_base = View::factory('base');
-                $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma.js', 'public/js/functions_odontograma_estado.js');
-                $view_base->script('script', $s);
-                $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
-                $view_base->css('css', $c);
-                $view = View::factory('editor_odontograma_estados');
-                $view->set('listaEstados', Model_ServicioEstado::getInstance()->obtenerEstados());
-                $view_base->set('JsonOdontograma', $odontograma);
-                $view_base->set('contenido', $view);
-                echo $view_base->render();
-            } else {
+            if ($this->verifOdontograma(1) == true) {
                 $this->visualizar_odontograma_estados(1);
+            } else {
+                $error = "¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!";
+                $this->makeError($error, "tratamiento/tratamiento/");
             }
         } catch (Exception $exc) {
             $this->makeError($exc->getTraceAsString(), "tratamiento/tratamiento/");
         }
     }
 
-    public function actual() {
+    public function estados() {
         try {
             if ($this->verifOdontograma(1) == TRUE) {
                 $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 2);
                 $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma(2, $odontograma['piezas']);
-                $view_base = View::factory('base');
-                $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/functions_odontograma.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma_estado.js');
-                $view_base->script('script', $s);
-                $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
-                $view_base->css('css', $c);
-                $view = View::factory('editor_odontograma_estados');
-                $view->set('listaEstados', Model_ServicioEstado::getInstance()->obtenerEstados());
-                $view_base->set('JsonOdontograma', $odontograma);
-                $view_base->set('contenido', $view);
-                echo $view_base->render();
             } else {
-                $error = "¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!";
-                $this->makeError($error, "tratamiento/tratamiento/");
+                $today = new DateTime("now");
+                $intervalo = $today;
+                if ($intervalo->format('d') > 2922) {
+                    $odontograma = Model_ServicioPieza::getInstance()->getPiezasAdultos();
+                } else {
+                    $odontograma = Model_ServicioPieza::getInstance()->getPiezasInfantiles();
+                }
+                $odontograma = $this->getScriptOdontograma(1, $odontograma);
             }
+            $view_base = View::factory('base');
+            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/functions_odontograma.js', 'public/js/load_odontograma.js', 'public/js/functions_odontograma_estado.js');
+            $view_base->script('script', $s);
+            $c = array('public/css/estilo.css', 'public/css/estilo_odontograma.css');
+            $view_base->css('css', $c);
+            $view = View::factory('editor_odontograma_estados');
+            $view->set('listaEstados', Model_ServicioEstado::getInstance()->obtenerEstados());
+            $view_base->set('JsonOdontograma', $odontograma);
+            $view_base->set('contenido', $view);
+            echo $view_base->render();
         } catch (Exception $exc) {
             $this->makeError($exc->getTraceAsString(), "tratamiento/tratamiento/");
         }
@@ -336,7 +325,7 @@ class Controller_Odontograma {
         try {
             if (isset($_POST['piezas'])) {
                 $piezas = $_POST['piezas'];
-                $p = Model_ServicioOdontograma::getInstance()->actualizarOdontogramaPrestaciones($piezas, $_SESSION['id_odontograma'],$_SESSION['id_tratamiento']);
+                $p = Model_ServicioOdontograma::getInstance()->actualizarOdontogramaPrestaciones($piezas, $_SESSION['id_odontograma'], $_SESSION['id_tratamiento']);
                 echo $p;
             }
         } catch (Exception $exc) {
