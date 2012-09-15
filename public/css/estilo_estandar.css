@@ -1,0 +1,48 @@
+p{
+    padding: 0;
+    margin: 2px 5px;;
+    color: black;
+}
+#aplication{
+    position: relative;
+    background: white;
+    border: solid 1px seashell;
+    box-shadow: 0px 0px 20px 5px #7E7E7D;
+    border-radius: 10px;
+    width: 1000px;
+    height: 630px;
+}
+.contenedor_factores table {
+    border-collapse: collapse;
+    width: 480px;
+    margin: 5px 10px;
+    max-height: 300px;
+    height: auto;
+    text-align: center;
+    color: black;
+}
+.contenedor_factores{
+    background-color: #ECECEC;
+    height: 290px;
+    border: dashed 1px #7E7E7D;
+
+}
+.contenedor_factores .col1{
+    width: 60px;
+    border-bottom: dashed 1px #7E7E7D;
+
+}
+.contenedor_factores .col2{
+    width: 370px;
+    overflow-x:  hidden;
+    border-bottom: solid 1px #7E7E7D;
+}
+.contenedor_factores tr {
+    border: dashed 1px #7E7E7D;
+}
+.contenedor_factores thead tr th{
+    background: #7E7E7D;
+    border-radius: 0;
+
+}
+

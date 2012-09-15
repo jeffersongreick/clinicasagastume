@@ -66,6 +66,7 @@ class Model_ServicioOdontograma extends Model {
                             $cara = null;
                         }
                     }
+                    
                 }
                 array_push($colPiezas, $pieza);
             }
@@ -298,7 +299,7 @@ class Model_ServicioOdontograma extends Model {
         }
     }
 
-    public function actualizarOdontogramaPrestaciones($piezas, $idOdontograma,$idTratamiento) {
+    public function actualizarOdontogramaPrestaciones($piezas, $idOdontograma, $idTratamiento) {
         try {
             $this->db->beginTransaction();
             foreach ($piezas as $pieza) {
@@ -335,10 +336,15 @@ class Model_ServicioOdontograma extends Model {
     }
 
     public function cargarEstandar($id) {
-        $sql = "Select id_pieza,id_cara,id_estado,estado 
-            From tbl_odontograma_estados inner join tbl_estados on id_estado = id where id =" . $id . " order by id_pieza,id_cara";
+        $sql = "Select  COUNT(id_odontograma) as cantidad,id_pieza,id_cara,id_estado,descripcion 
+                From tbl_odontograma_estados 
+                inner join tbl_estados on tbl_odontograma_estados.id_estado = tbl_estados.id 
+                where id_odontograma =".$id."  
+                GROUP BY id_odontograma, id_pieza,id_cara,id_estado having cantidad % 2 != 0 
+                order by id_odontograma, id_pieza,id_cara,id_estado";
         $result = $this->db->query($sql);
-        return $result->fetchAll();
+        $odontograma['piezas'] = $result->fetchAll(PDO::FETCH_NAMED);
+        return $odontograma;
     }
 
 }

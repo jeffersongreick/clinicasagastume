@@ -1,30 +1,32 @@
-<div id="contenedor_odontograma">
-       <?php if (isset($odontograma)) echo $odontograma?>
+<div style="    background-color: #ECECEC;border-bottom: dashed 1px #7E7E7D;">
+    <p>Paciente: <span><?php echo $_SESSION['nombre_paciente'] ?></span></p> 
+    <p style="display: inline">Tratamiento id: <?php echo $_SESSION['id_tratamiento'] ?></p>
+    <p style="display: inline; float: right">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
 </div>
-<div>
-    <h3>Detalles del Odontograma</h3>
-    <table style="border: solid 1px">
+
+<div id="canvasOdontograma" ></div>
+<div class="contenedor_factores" >
+    <table style="float: left;" >
         <thead>
             <tr>
-                <th>Pieza</th>
-                <th>Cara</th>
-                <th>Estado</th>
-            </tr>
+                <th class="col1">Pieza</th>
+                <th class="col1">Cara</th>
+                <th class="col2">Descripcion</th>
+            </tr>       
         </thead>
-        <tbody>
-            <?php if (isset($datos)): ?>
-                <?php foreach ($datos['piezas'] as $pieza) : ?>
-                    <?php foreach ($pieza['caras'] as $cara): ?>
-                        <?php foreach ($cara['factores'] as $estado): ?>
-                            <tr>
-                                <th><?php echo $pieza['id'] ?></th>
-                                <th><?php echo $cara['id'] ?></th>
-                                <th><?php echo $estado['descripcion'] ?></th>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
+        <tbody style="height: 180px" id="tb1">
+        </tbody>
+    </table>
+
+    <table >
+        <thead>
+            <tr>
+                <th class="col1">Pieza</th>
+                <th class="col1">Cara</th>
+                <th class="col2">Descripcion</th>
+            </tr>       
+        </thead>
+        <tbody style="height: 180px" id="tb2">
         </tbody>
     </table>
 </div>

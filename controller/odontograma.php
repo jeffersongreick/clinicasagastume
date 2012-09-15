@@ -9,7 +9,7 @@ class Controller_Odontograma {
             if ($this->verifOdontograma(1) == true) {
                 $this->visualizar_odontograma_estados(1);
             } else {
-                $error = "¡Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento!";
+                $error = "Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento";
                 $this->makeError($error, "tratamiento/tratamiento/");
             }
         } catch (Exception $exc) {
@@ -150,6 +150,7 @@ class Controller_Odontograma {
         $js.="var tipo =" . $tipo . ";";
         $js.="var piezas = " . json_encode($piezas) . ";";
         $js.="</script>";
+        echo $js;
         return $js;
     }
 
@@ -157,6 +158,7 @@ class Controller_Odontograma {
         try {
             if ($this->verifOdontograma(1) == TRUE) {
                 $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], $tipo);
+                $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
                 $view_base = View::factory('base');
                 $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js');
@@ -180,6 +182,7 @@ class Controller_Odontograma {
         try {
             if (Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], $tipo) == true) {
                 $odontograma = Model_ServicioOdontograma::getInstance()->visualizarOdontogramaPrestaciones($_SESSION['id_tratamiento'], $tipo);
+                $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
                 $view_base = View::factory('base');
                 $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js');
@@ -210,6 +213,7 @@ class Controller_Odontograma {
                         $odontograma = Model_ServicioOdontograma::getInstance()->getTratamientoRealizado($_SESSION['id_tratamiento']);
                         break;
                 }
+                $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
                 $view_base = View::factory('base');
                 $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/pieza.js', 'public/js/load_odontograma.js');
@@ -334,26 +338,21 @@ class Controller_Odontograma {
     }
 
     public function verEstandar() {
-        $model_odotograma = Model_ServicioOdontograma::getInstance();
-        $datos = $model_odotograma->getOdontogramaEstados($_SESSION['id_tratamiento'], 1);
-        $view = View::factory('base');
-        $scripts = array(
-            'public/js/kinetic.js',
-            'public/js/jquery.js',
-            'public/js/cara.js',
-            'public/js/pieza.js',
-            'public/js/load_odontograma.js'
-        );
-        $JsonOdontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 1);
-        $JsonOdontograma = "var piezas = " . json_encode($JsonOdontograma['piezas']);
-        $view->set('JsonOdontograma', $JsonOdontograma);
-        $view->script('script', $scripts);
-        $view_odontograma = View::factory('visualizador_odontograma');
-        $view_estandar = View::factory('estandar');
-        $view_estandar->set('odontograma', $view_odontograma);
-        $view->set('contenido', $view_estandar);
-        $view_estandar->set('datos', $datos);
-        echo $view->render();
+        try {
+            $odontograma = Model_ServicioOdontograma::getInstance()->cargarEstandar($_SESSION['id_odontograma']);
+            $odontograma = $this->getScriptOdontograma(1, $odontograma['piezas']);
+            $view_base = View::factory('base');
+            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/load_odontograma_estandar.js', 'public/js/pieza_estandar.js', 'public/js/standar_script.js');
+            $view_base->script('script', $s);
+            $c = array('public/css/estilo.css', 'public/css/estilo_estandar.css');
+            $view_base->css('css', $c);
+            $view = View::factory('estandar');
+            $view_base->set('JsonOdontograma', $odontograma);
+            $view_base->set('contenido', $view);
+            echo $view_base->render();
+        } catch (Exception $exc) {
+            $this->makeError($exc->getTraceAsString(), "tratamiento/tratamiento/");
+        }
     }
 
     public function prueba() {
