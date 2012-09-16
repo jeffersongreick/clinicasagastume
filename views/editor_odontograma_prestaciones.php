@@ -4,6 +4,7 @@
     <p  id="idTreatment">Tratamiento id: <?php echo $_SESSION['id_tratamiento'] ?></p>
     <p style="margin: 0;">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
 </div>
+<p class="nombre_odontograma"><?php if(isset ($nombre))echo $nombre?></p>
 <div id="slideContainer">
     <!--contenedor de las cajas de edicion (odontograma y editor de pieza)-->
     <div id="slide">

@@ -18,15 +18,28 @@ class Model_ServicioPaciente extends Model {
 
     public function getDatosPaciente($ci) {
         try {
-            $sql = "SELECT ci,nombre,apellido FROM tbl_personas inner join tbl_pacientes on tbl_pacientes.ci_persona= tbl_personas.ci where tbl_pacientes.ci_persona =" . $ci;
+            $sql = "SELECT ci,CONCAT(nombre, ' ', apellido) as nombre FROM tbl_personas where ci =" . $ci;
             $statement = $this->db->prepare($sql);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_NAMED);
         } catch (Exception $exc) {
-            throw new Exception("¡Error en la busqueda del paciente!" );
+            throw new Exception("¡Error en la busqueda del paciente!");
         }
     }
 
+    public function getPacientes($str) {
+        try {
+            $sql = "SELECT ci,CONCAT(nombre, ' ', apellido) as nombre
+                    FROM tbl_personas inner join tbl_pacientes
+                    on ci_persona = ci
+                    where nombre like '" . $str . "%'";
+            $statement = $this->db->prepare($sql);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_NAMED);
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
+    }
     public function getPaciente($ci) {
         try {
             $sql = "SELECT * FROM tbl_personas inner join tbl_pacientes on tbl_pacientes.ci_persona= tbl_personas.ci where tbl_pacientes.ci_persona =" . $ci;
@@ -48,6 +61,7 @@ class Model_ServicioPaciente extends Model {
             throw $exc->getMessage();
         }
     }
+    
 
 }
 

@@ -13,10 +13,8 @@ class Controller_Historia {
             $view_base->set('contenido', $view);
             echo $view_base->render();
         } catch (Exception $exc) {
-            $this->makeError($exc->getTraceAsString(), "tratamiento/tratamiento/");
+            Model_Error::getInstance()->makeError($exc->getTraceAsString(), "tratamiento/tratamiento/");
         }
     }
-
 }
-
 ?>

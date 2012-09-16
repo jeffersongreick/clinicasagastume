@@ -7,7 +7,7 @@ class Controller_Usuario {
             $view = View::factory('login');
             echo $view->render();
         } catch (Exception $exc) {
-            echo $exc->getMessage();
+             Model_Error::getInstance()->makeError($exc->getTraceAsString(), "usuario/index/");
         }
     }
 
@@ -22,7 +22,7 @@ class Controller_Usuario {
             $view_base->set('contenido', $view);
             echo $view_base->render();
         } catch (Exception $exc) {
-            echo $exc->getMessage();
+             Model_Error::getInstance()->makeError($exc->getTraceAsString(), "usuario/index/");
         }
     }
     public function mantenimientoUsuarios(){
@@ -36,7 +36,7 @@ class Controller_Usuario {
             $view_base->set('contenido', $view);
             echo $view_base->render();
         } catch (Exception $exc) {
-            echo $exc->getMessage();
+            Model_Error::getInstance()->makeError($exc->getTraceAsString(), "usuario/principal/");
         }
     }
 

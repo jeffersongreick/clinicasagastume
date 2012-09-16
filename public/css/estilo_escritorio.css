@@ -25,9 +25,10 @@
     position: absolute;
     left: 35%;
     background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 100%);
-    display: none;
+      display: none;
+    box-shadow: 0px 0px 20px 5px #7E7E7D;
+    border: solid white 2px;
     margin: 0;
-    border-top: 0;
 }
 .function ul{
     display: block;
@@ -61,9 +62,11 @@ ul li ul .button_menu{
 }
 
 
-#buscarPaciente {
+#nuevoTratamiento,#buscarTratamiento {
     left: 25%;
     width: 500px;
+    background: black url(../img/fondo1.png) 50% 50% repeat;
+    top: 10px;
 
 }
 #patient_data{
@@ -82,4 +85,3 @@ ul li ul .button_menu{
 #patient_treatment *{
     margin: 5px 5px;
 }
-

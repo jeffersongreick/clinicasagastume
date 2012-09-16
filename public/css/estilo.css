@@ -49,7 +49,11 @@ body{
     background-color: #ECECEC;
     color: white;
     font-weight: bolder;
-
+}
+.nombre_odontograma{
+    text-align: center;
+    margin:  12px 0 2px 0; 
+        font-size: 25px;
 }
 .clear{
     clear: both;
@@ -165,4 +169,7 @@ canvas{
 }
 .table_list table{
     width: 100%;
+}
+.selected{
+    background: -webkit-linear-gradient(top, rgba(165,0,24,0.65) 1%,rgba(8,0,1,0.65) 95%,rgba(0,0,0,0) 100%);
 }

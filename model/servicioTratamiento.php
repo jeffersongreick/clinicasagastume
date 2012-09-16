@@ -44,18 +44,12 @@ class Model_ServicioTratamiento extends Model {
         }
     }
 
-    public function nuevoTratamiento($ci) {
+    public function nuevoTratamiento($ci, $observacion, $usuario) {
         try {
-            $sql = "INSERT INTO tbl_tratamientos (ci_paciente,activo,fecha_ins,usr_ins) values(" . $ci . ",true,'" . date("Y/m/d H:i:s") . "',9)";
+            $sql = "INSERT INTO tbl_tratamientos (ci_paciente,activo,usr_ins,observacion) values(" . $ci . ",true," . $usuario . ",'" . $observacion . "')";
             $statement = $this->db->prepare($sql);
             $statement->execute();
-            $tratamiento = new Model_Tratamiento();
-            $id = $this->db->lastInsertId("tbl_tratamientos");
-            $tratamiento->setId($id);
-            $tratamiento->setPaciente(Model_ServicioPaciente::getInstance()->getPaciente($ci));
-            $tratamiento->setFecha_ins(date("Y/m/d H:i:s"));
-            $tratamiento->setUsr_ins(3);
-            return $tratamiento;
+            return true;
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }
@@ -71,6 +65,21 @@ class Model_ServicioTratamiento extends Model {
             echo $exc->getMessage();
         }
     }
+
+    public function getTratamientos() {
+        try {
+            $sql = "SELECT tbl_tratamientos.id as id_tratamiento,ci,CONCAT(nombre, ' ', apellido) as nombre 
+                    from tbl_personas inner join 
+                    tbl_tratamientos on tbl_tratamientos.ci_paciente = ci 
+                    where tbl_tratamientos.activo = 1 order by nombre";
+            $statement = $this->db->prepare($sql);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_NAMED);
+        } catch (Exception $exc) {
+            throw $exc->getMessage();
+        }
+    }
+
 }
 
 ?>
