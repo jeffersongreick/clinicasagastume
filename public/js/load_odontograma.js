@@ -125,21 +125,17 @@ function cerrarVentana(window){
     $(window).slideUp("fast");
 }
 function mostrarDetalles(){
-    $('.title3').html(function(){
-        factoresCara(piezaEditada.Cara1);
-        factoresCara(piezaEditada.Cara2);
-        factoresCara(piezaEditada.Cara3);
-        factoresCara(piezaEditada.Cara4);
-        factoresCara(piezaEditada.Cara5);
-        
-    },"Detalles de pieza nº"+piezaEditada.id);
+    factoresCara(piezaEditada.Cara1);
+    factoresCara(piezaEditada.Cara2);
+    factoresCara(piezaEditada.Cara3);
+    factoresCara(piezaEditada.Cara4);
+    factoresCara(piezaEditada.Cara5);
+    $('.title3').html("Detalles de pieza nº"+piezaEditada.id);
     abrirVentana('#windowDetail');
 }
 function factoresCara(cara){
-    alert(JSON.stringify(cara.factores));
     for(f in cara.factores){
         if(cara.factores[f].activo == 1){
-            
             $('.table_container table tbody').append("<tr><td class='colCara'> "+cara.numero+" </td>"
                 +"<td class='colFactor'>"+cara.factores[f].descripcion+"</td></tr>");
         }
