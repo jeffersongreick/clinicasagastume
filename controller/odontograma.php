@@ -20,7 +20,7 @@ class Controller_Odontograma {
     public function estados() {
         try {
             if ($this->verifOdontograma(1) == TRUE) {
-                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], 2);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstadosActual($_SESSION['id_tratamiento']);
                 $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma(2, $odontograma['piezas']);
                 $nombre = "Estado actual";
@@ -85,7 +85,7 @@ class Controller_Odontograma {
     public function tratamientoCurso() {
         try {
             if ((Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], 5)) == TRUE) {
-                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaPrestaciones($_SESSION['id_tratamiento'], 5);
+                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaTratamientosCurso($_SESSION['id_tratamiento']);
                 $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma(7, $odontograma['piezas']);
             } else {
@@ -165,7 +165,14 @@ class Controller_Odontograma {
     public function visualizar_odontograma_estados($tipo) {
         try {
             if ($this->verifOdontograma(1) == TRUE) {
-                $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstados($_SESSION['id_tratamiento'], $tipo);
+                switch ($tipo) {
+                    case 1:
+                        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstadosInicial($_SESSION['id_tratamiento']);
+                        break;
+                    case 2:
+                        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaEstadosActual($_SESSION['id_tratamiento']);
+                        break;
+                }
                 $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
                 $nombre = ($tipo == 1) ? "Estado inicial" : "Estado actual";
@@ -191,7 +198,14 @@ class Controller_Odontograma {
     public function visualizar_plan($tipo) {
         try {
             if (Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], $tipo) == true) {
-                $odontograma = Model_ServicioOdontograma::getInstance()->visualizarOdontogramaPrestaciones($_SESSION['id_tratamiento'], $tipo);
+                  switch ($tipo) {
+                    case 3:
+                        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaPlanTratamientoPropuesto($_SESSION['id_tratamiento']);
+                        break;
+                    case 4:
+                        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaPlanTratamientoCompromiso($_SESSION['id_tratamiento']);
+                        break;
+                }
                 $_SESSION['id_odontograma'] = $odontograma['id'];
                 $odontograma = $this->getScriptOdontograma($tipo, $odontograma['piezas']);
                 $nombre = ($tipo == 3) ? "Plan propuesto" : "Plan de compromiso";
@@ -219,11 +233,11 @@ class Controller_Odontograma {
             if ($this->verifOdontograma($tipo) == TRUE) {
                 switch ($tipo) {
                     case 5:
-                        $odontograma = Model_ServicioOdontograma::getInstance()->visualizarOdontogramaPrestaciones($_SESSION['id_tratamiento'], $tipo);
+                        $odontograma = Model_ServicioOdontograma::getInstance()->visualizarOdontogramaTratamientosCurso($_SESSION['id_tratamiento']);
                         $nombre = "Tratamientos en curso";
                         break;
                     case 6:
-                        $odontograma = Model_ServicioOdontograma::getInstance()->getTratamientoRealizado($_SESSION['id_tratamiento']);
+                        $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaTratamientosRealizado($_SESSION['id_tratamiento']);
                         $nombre = "Tratamientos realizados";
                         break;
                 }
@@ -248,7 +262,7 @@ class Controller_Odontograma {
         }
     }
 
-    public function verifOdontograma($tipo) {
+    private function verifOdontograma($tipo) {
         try {
             $b = Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], $tipo);
             return $b;
@@ -352,12 +366,12 @@ class Controller_Odontograma {
         }
     }
 
-    public function verEstandar() {
+    public function verEstandar($tipo) {
         try {
-            $odontograma = Model_ServicioOdontograma::getInstance()->cargarEstandar($_SESSION['id_odontograma']);
-            $odontograma = $this->getScriptOdontograma(1, $odontograma['piezas']);
+            $odontograma = Model_ServicioOdontograma::getInstance()->cargarEstandar($_SESSION['id_tratamiento'],$tipo);
+            $odontograma = $this->getScriptOdontograma($tipo, $odontograma);
             $view_base = View::factory('base');
-            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/load_odontograma_estandar.js', 'public/js/pieza_estandar.js', 'public/js/standar_script.js');
+            $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/load_odontograma_estandar.js', 'public/js/pieza_estandar.js');
             $view_base->script('script', $s);
             $c = array('public/css/estilo.css', 'public/css/estilo_estandar.css');
             $view_base->css('css', $c);

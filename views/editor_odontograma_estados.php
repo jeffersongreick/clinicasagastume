@@ -4,7 +4,7 @@
     <p  id="idTreatment">Tratamiento id: <?php echo $_SESSION['id_tratamiento'] ?></p>
     <p style="margin: 0;">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
 </div>
-<p class="nombre_odontograma"><?php if(isset ($nombre))echo $nombre?></p>
+
 <div id="slideContainer">
     <!--contenedor de las cajas de edicion (odontograma y editor de pieza)-->
     <div id="slide">
@@ -48,6 +48,7 @@
                     </div>
                 </div>
             </div>
+            <p class="nombre_odontograma"><?php if (isset($nombre)) echo $nombre ?></p>
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
                 <input type="button" value="Editar" id="btnEditarPieza" class="button" />
@@ -80,7 +81,7 @@
                     <?php if (isset($listaEstados)): ?>
                         <?php foreach ($listaEstados as $estado): ?> 
                             <input type='checkbox' name='<?php echo $estado->descripcion ?>' id='estado_<?php echo $estado->id ?>'class='item' value='<?php echo $estado->id ?>' onchange='agregar(this)'/><label for='estado_<?php echo $estado->id ?>'>
-                                <img src='<?php echo URL?>/public/img/ico_estados/img<?php echo $estado->id ?>.png' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->descripcion ?>'/></label>
+                                <img src='<?php echo URL ?>/public/img/ico_estados/img<?php echo $estado->id ?>.png' class='iconos' id='<?php echo $estado->id ?>' name='<?php echo $estado->descripcion ?>'/></label>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>

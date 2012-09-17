@@ -4,7 +4,7 @@
     <p  id="idTreatment">Tratamiento id: <?php if(isset($_SESSION['id_tratamiento']))echo $_SESSION['id_tratamiento'] ?></p>
     <p style="margin: 0;">Fecha:<time><?php echo date("d-m-Y"); ?></time></p>
 </div>
-<p class="nombre_odontograma"><?php if(isset ($nombre))echo $nombre?></p>
+
 <div id="slideContainer">
     <!--contenedor de las cajas de edicion (odontograma y editor de pieza)-->
     <div id="slide">
@@ -28,10 +28,11 @@
                     <input type="button" value="Volver" id="btnVolverDetalles" class="button" />
                 </div>
             </div>
+            <p class="nombre_odontograma"><?php if(isset ($nombre))echo $nombre?></p>
             <div id="canvasOdontograma"></div>
             <div id="contenedor_botones" >
                 <input type="button" value="Detalles" id="btnDetalles" class="button" />
-                <input type="button" value="Estandar" onclick="window.open('<?php echo URL ?>odontograma/verEstandar/');" id="btnEstandar" class="button" />
+                <input type="button" value="Estandar" onclick="window.open('<?php echo URL ?>odontograma/verEstandar/'+tipo);" id="btnEstandar" class="button" />
                 <input type="button" value="Volver" onclick="location.href='<?php echo URL ?>tratamiento/tratamiento/'" id="btnVolver" class="button" />
             </div>
             <div class="clear"></div>
