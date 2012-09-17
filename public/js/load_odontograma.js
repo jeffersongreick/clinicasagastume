@@ -133,12 +133,13 @@ function mostrarDetalles(){
         factoresCara(piezaEditada.Cara5);
         
     },"Detalles de pieza nº"+piezaEditada.id);
-//    $('.title3').html("Detalles de pieza nº"+piezaEditada.id);
     abrirVentana('#windowDetail');
 }
 function factoresCara(cara){
+    alert(JSON.stringify(cara.factores));
     for(f in cara.factores){
         if(cara.factores[f].activo == 1){
+            
             $('.table_container table tbody').append("<tr><td class='colCara'> "+cara.numero+" </td>"
                 +"<td class='colFactor'>"+cara.factores[f].descripcion+"</td></tr>");
         }
