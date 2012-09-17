@@ -11,7 +11,7 @@ class Model_Error extends Model {
         return self::$instance;
     }
 
-    public function __construct() {
+    protected function __construct() {
         parent::__construct();
     }
 

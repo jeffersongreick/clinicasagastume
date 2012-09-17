@@ -12,7 +12,7 @@ class Model_ServicioEstado extends Model {
         return self::$instance;
     }
 
-    public function __construct() {
+    protected function __construct() {
         parent::__construct();
     }
 

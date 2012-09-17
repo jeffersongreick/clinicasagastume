@@ -2,17 +2,17 @@
 
 class Model_ServicioOdontograma extends Model {
 
-    private static $instance;
+    private static $instance = null;
 
     public static function getInstance() {
         if (!isset(self::$instance)) {
-            $a = __CLASS__;
-            self::$instance = new $a;
+            $c = __CLASS__;
+            self::$instance = new $c;
         }
         return self::$instance;
     }
 
-    public function __construct() {
+    protected function __construct() {
         parent::__construct();
     }
 
@@ -173,7 +173,7 @@ class Model_ServicioOdontograma extends Model {
     public function getEstructuraBucal($idTratamiento) {
         try {
             $piezas = Model_ServicioPieza::getInstance()->getPiezasPaciente($idTratamiento);
-            $odontograma = $this->crearOdontograma($a = array(), $piezas, "");
+            $odontograma = $this->crearOdontograma($a = array(), $piezas, "", 0);
             return $odontograma;
         } catch (Exception $exc) {
             echo $exc->getMessage();
@@ -371,7 +371,7 @@ class Model_ServicioOdontograma extends Model {
         }
     }
 
-    public function cargarEstandar($idTratamiento,$tipo) {
+    public function cargarEstandar($idTratamiento, $tipo) {
         $idOdontograma = $this->getOdontogramaId($idTratamiento, $tipo);
         switch ($tipo) {
             case 1:

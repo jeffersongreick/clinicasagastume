@@ -70,11 +70,11 @@ class Controller_Odontograma {
                     $view_base->set('contenido', $view);
                     echo $view_base->render();
                 } else {
-                    $error = "Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento. Favor crearlo antes de continuar.";
+                    $error = "¡El plan ya se encuentra registrado en el tratamiento!";
                     Model_Error::getInstance()->makeError($error, "tratamiento/tratamiento/");
                 }
             } else {
-                $error = "¡El plan ya se encuentra registrado en el tratamiento!";
+                $error = "Aun no se ha registrado un odontograma de estado inicial para el paciente en este tratamiento. Favor crearlo antes de continuar.";
                 Model_Error::getInstance()->makeError($error, "tratamiento/tratamiento/");
             }
         } catch (Exception $exc) {
@@ -198,7 +198,7 @@ class Controller_Odontograma {
     public function visualizar_plan($tipo) {
         try {
             if (Model_ServicioOdontograma::getInstance()->verifOdontograma($_SESSION['id_tratamiento'], $tipo) == true) {
-                  switch ($tipo) {
+                switch ($tipo) {
                     case 3:
                         $odontograma = Model_ServicioOdontograma::getInstance()->getOdontogramaPlanTratamientoPropuesto($_SESSION['id_tratamiento']);
                         break;
@@ -368,7 +368,7 @@ class Controller_Odontograma {
 
     public function verEstandar($tipo) {
         try {
-            $odontograma = Model_ServicioOdontograma::getInstance()->cargarEstandar($_SESSION['id_tratamiento'],$tipo);
+            $odontograma = Model_ServicioOdontograma::getInstance()->cargarEstandar($_SESSION['id_tratamiento'], $tipo);
             $odontograma = $this->getScriptOdontograma($tipo, $odontograma);
             $view_base = View::factory('base');
             $s = array('public/js/kinetic.js', 'public/js/jquery.js', 'public/js/cara.js', 'public/js/load_odontograma_estandar.js', 'public/js/pieza_estandar.js');
